@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2차시. 지식을 파일로 — 왜 매번 결과가 다른가 · harness-edu</title>
+<meta name="description" content="용어·규칙을 프롬프트에서 파일로 꺼내면 결과가 어떻게 안정되는지 직접 비교합니다. 6개 분임조 생산보고서 표준화 실습.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="ch2">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="topnav"><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#141413"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    <span class="brand-full">harness-edu</span>
+  </a>
+  <nav aria-label="주요 메뉴">
+    <a href="../index.html">과정 홈</a>
+    <a href="../index.html#curriculum" aria-current="page">커리큘럼</a>
+    <a href="../install/index.html">설치가이드</a>
+  </nav>
+</div></header>
+
+<div class="wrap page-head">
+  <div class="eyebrow">2차시 · 교재 + 사례</div>
+  <h1>지식을 파일로 — 왜 매번 결과가 다른가</h1>
+  <p class="sub">1차시에서 본 &quot;같은 요청, 다른 결과&quot;의 원인을 찾고 없앱니다. 판단 기준을 <strong>프롬프트 밖 파일로</strong> 꺼내면 무엇이 달라지는지 직접 비교합니다.</p>
+  <div class="meta">
+    <span class="badge">2 / 7</span>
+    <span>⏱ 55분</span>
+    <span>🧑‍💼 실무 사례</span>
+    <span>🏭 제조 · 엑셀</span>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <main id="main" class="main-col">
+    <article class="prose">
+
+<h2 id="준비할-것">이 차시에서 준비할 것</h2>
+
+<div class="prep">
+  <div class="prep-item"><b>선행</b><span><a href="ch1.html">1차시 · 나의 업무 지도</a> 완료</span></div>
+  <div class="prep-item"><b>확인</b><span><code>/plugin</code> 목록에 <strong>document-skills</strong> 표시</span></div>
+  <div class="prep-item"><b>실습 파일</b><span>실습 폴더의 <code>xlsx/</code> (엑셀 7개 + 지시서)</span></div>
+  <div class="prep-item"><b>가져올 것</b><span>1차시 사례의 <strong>업무 카드</strong> (내 업무를 대입했다면 그것)</span></div>
+</div>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p>엑셀 파일을 읽으려면 <code>document-skills</code> 플러그인이 필요합니다. 설치가 안 되어 있으면 <a href="../install/setup-windows.html#3-8-harness-설치">설치가이드 3-8절</a>을 먼저 하세요.</p></div></section>
+
+<hr>
+
+<h2 id="처음-나오는-말">이 차시에서 처음 나오는 말</h2>
+
+<div class="terms"><dl>
+  <dt>스킬 (Skill)</dt><dd><strong>AI가 읽는 설명서</strong>. 판단 기준·용어·작성 규칙을 담은 문서로, 프롬프트와 달리 <strong>파일로 남아 재사용</strong>됩니다.</dd>
+  <dt>지식의 외부화</dt><dd>규칙을 프롬프트 안에 적지 않고 <strong>바깥 파일로 빼두는 것</strong>. 규칙이 바뀌어도 지시문은 그대로 씁니다.</dd>
+  <dt>재현성</dt><dd>같은 입력에 <strong>같은 구조의 결과</strong>가 나오는 성질. 업무에서 AI가 쓸 만해지는 기준선입니다.</dd>
+  <dt>에스컬레이션</dt><dd>AI가 모르는 것을 <strong>추측하지 않고 사람에게 넘기는 것</strong>. 이 차시에서는 <code>[미확인 용어]</code> 로 처리합니다.</dd>
+</dl></div>
+
+<hr>
+
+<h2 id="배우는-것">이 차시에서 배우는 것</h2>
+
+<ul class="goals">
+  <li>결과가 매번 달라지는 <strong>원인</strong>을 지목할 수 있다 — 기준이 AI 머릿속에만 있기 때문</li>
+  <li>같은 일을 <strong>지식 없이 / 지식 파일과 함께</strong> 두 번 시켜 차이를 직접 확인한다</li>
+  <li>내 업무의 판단 규칙을 <strong>용어집 파일 한 장</strong>으로 뽑아낸다</li>
+</ul>
+
+<hr>
+
+<h2 id="문제-상황">1. 문제 상황 — 같은 양식, 다른 언어</h2>
+
+<p>냉장고 공장(가상)의 6개 분임조가 매일 생산보고서를 씁니다. <strong>양식은 똑같습니다.</strong> 6개 공정 × (계획/생산/양품/불량/불량률/가동/비가동/비고). 그런데 <strong>쓰는 말이 전부 다릅니다.</strong></p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>분임조</th><th>라인</th><th>언어 특성</th><th>실제 표현</th></tr></thead>
+<tbody>
+<tr><td>한마음조</td><td>A</td><td>표준에 가까운 정석체</td><td>캐비닛 프레스, 불량, 비가동</td></tr>
+<tr><td>불꽃조</td><td>B</td><td>현장 은어 + 일본어 잔재</td><td><strong>빵꾸, 데나오시, 가타, 시마이 검사, 빠킹</strong></td></tr>
+<tr><td>새벽조</td><td>C</td><td>영어 혼용</td><td>NG, Comp&#39; Ass&#39;y, L/S, Down Time</td></tr>
+<tr><td>장인조</td><td>D</td><td>축약 한자어 행정체</td><td>냉시조립, 검포, 적요, 특기사항 무</td></tr>
+<tr><td>으뜸조</td><td>E</td><td>구어체</td><td>&quot;폼 쏘는 데&quot;, &quot;라인 선 시간&quot;, &quot;불량난거&quot;</td></tr>
+<tr><td>미래조</td><td>F</td><td>KPI 약어</td><td>ACT, Loss율, U/T, D/T, Die C/O</td></tr>
+</tbody></table></div>
+
+<p>날짜도 <code>2026-07-02</code> / <code>26.7.2</code> / <code>20260702</code> 세 가지, 합계도 <code>합계 / 토탈 / 계 / TTL</code> 네 가지로 씁니다.</p>
+
+<blockquote>
+  <p><strong>왜 이 문제가 AI에게 딱 맞나</strong>: 사람이 취합하면 매일 반복되는 단순 노동이고, 엑셀 함수나 프로그램으로 짜기엔 <strong>표현의 변형이 너무 다양</strong>합니다. &quot;빵꾸&quot;와 &quot;NG&quot;와 &quot;불량난거&quot;가 같은 뜻임을 아는 것 — 이런 <strong>의미 기반 정리</strong>가 AI가 가장 잘하는 일입니다.</p>
+  <p>여러분 업무에도 같은 문제가 있을 겁니다. 팀마다 다른 항목명, 사람마다 다른 표기, 문서마다 다른 형식.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="실습-a">2. 실습 A — 지식 없이 그냥 시켜 보기</h2>
+
+<p>먼저 <strong>규칙을 주지 않고</strong> 시켜 봅니다. 실습 폴더의 <code>xlsx</code> 안에서 Claude Code를 실행합니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd "$env:USERPROFILE\Desktop\harness-edu\xlsx"; claude</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/Desktop/harness-edu/xlsx &amp;&amp; claude</pre></div></div></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>이 폴더의 생산보고서 6개를 하나로 통합해줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 통합 표가 나옵니다. 꽤 그럴듯합니다. 그런데 자세히 보면 — <strong>AI가 용어를 자기 마음대로 통일</strong>했습니다. &quot;빵꾸&quot;를 &quot;불량&quot;으로 바꾼 근거도, 공정명을 무엇으로 정할지도 <strong>그 순간 AI가 정한 것</strong>입니다.</p></div></section>
+
+<p>이제 대화를 비우고 <strong>똑같은 요청</strong>을 다시 합니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창 — 대화 비우기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/clear</pre></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창 — 2회차</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>이 폴더의 생산보고서 6개를 하나로 통합해줘.</pre></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
+<p><strong>관찰 포인트 — 무엇이 달라졌는지 세 곳만 확인하세요</strong></p>
+<ol>
+<li><strong>공정 이름</strong>: 1회차와 같은 이름으로 통일되었나요?</li>
+<li><strong>열 구성과 순서</strong>: 같은 열이 같은 자리에 있나요?</li>
+<li><strong>은어 처리</strong>: &quot;데나오시&quot;, &quot;L/S&quot; 같은 말을 두 번 다 같은 방식으로 처리했나요?</li>
+</ol>
+</div></section>
+
+<p>대개 <strong>셋 다 다릅니다.</strong> AI가 잘못한 것이 아닙니다 — <strong>우리가 기준을 주지 않았습니다.</strong></p>
+
+<hr>
+
+<h2 id="개념">3. 개념 익히기 — 기준을 어디에 둘 것인가</h2>
+
+<h3 id="3-1-프롬프트에-뭉치면">3-1. 프롬프트에 다 적으면 되지 않나요?</h3>
+
+<p>물론 됩니다. &quot;빵꾸는 불량으로, 데나오시는 재작업으로…&quot; 를 요청문에 다 적으면 결과는 좋아집니다. 문제는 그 다음입니다.</p>
+
+<div class="vs">
+  <div class="bad">
+    <h4>규칙을 요청문에 적으면</h4>
+    <ul>
+      <li>요청문이 A4 두 장이 됩니다. 매번 붙여넣어야 합니다</li>
+      <li>새 은어가 생기면 그 긴 요청문을 찾아 고쳐야 합니다</li>
+      <li>어제 쓴 것과 오늘 쓴 것이 <strong>같은지 확인할 방법이 없습니다</strong></li>
+      <li>현장 반장님은 그 요청문을 고칠 수 없습니다</li>
+    </ul>
+  </div>
+  <div class="good">
+    <h4>규칙을 파일로 빼면</h4>
+    <ul>
+      <li>요청문은 짧아집니다 — <strong>&quot;절차&quot;만 남습니다</strong></li>
+      <li>새 은어는 <strong>파일에 한 줄 추가</strong>로 끝납니다</li>
+      <li>파일이 곧 기준입니다. 누가 봐도 같습니다</li>
+      <li>현장 반장님이 엑셀에서 직접 고칠 수 있습니다</li>
+    </ul>
+  </div>
+</div>
+
+<blockquote class="rule">
+  <p><strong>하네스 4원리 중 두 가지</strong><br>
+  <strong>① 역할 분리</strong> — &quot;무엇을(스펙) · 누가(에이전트) · 어떻게(스킬)&quot; 를 한 덩어리로 뭉치지 않습니다.<br>
+  <strong>② 지식의 외부화</strong> — 매핑 규칙·도메인 지식·표준 양식은 프롬프트가 아니라 <strong>파일</strong>에 둡니다. 지식이 바뀌어도 절차는 그대로입니다.</p>
+</blockquote>
+
+<h3 id="3-2-스킬이란">3-2. 스킬(Skill) — AI가 읽는 설명서</h3>
+
+<p>이렇게 밖으로 뺀 지식 파일을 이 과정에서는 <strong>스킬</strong>이라고 부릅니다. 이번 실습의 스킬은 엑셀 파일 하나입니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th><code>공정_표준용어집.xlsx</code> 시트</th><th>담긴 지식</th></tr></thead>
+<tbody>
+<tr><td><strong>공정용어</strong></td><td>표준 공정명 6개 + 공정코드(P10~P60) + 은어 매핑</td></tr>
+<tr><td><strong>관리항목용어</strong></td><td>계획수량·불량률·재작업 등 18개 항목의 동의어와 표기 규칙</td></tr>
+<tr><td><strong>표준양식정의</strong></td><td>열 순서, 날짜 형식, 문체 규칙, 은어 처리 원칙 등 12개 작성 규칙</td></tr>
+</tbody></table></div>
+
+<p><strong>좋은 설명서의 3요소</strong> — 내 업무 용어집을 만들 때도 이 세 가지가 들어가야 합니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>요소</th><th>뜻</th><th>이번 용어집에서</th></tr></thead>
+<tbody>
+<tr><td><strong>언제 쓰는가</strong></td><td>이 규칙이 적용되는 상황</td><td>&quot;생산보고서를 통합할 때&quot;</td></tr>
+<tr><td><strong>무엇을 지키는가</strong></td><td>바꿔도 되는 것과 안 되는 것</td><td>&quot;표현은 바꾸되 <strong>숫자는 절대 불변</strong>&quot;</td></tr>
+<tr><td><strong>예시</strong></td><td>애매할 때 판단 기준이 되는 실제 사례</td><td>&quot;빵꾸 → 불량&quot; 같은 매핑 행</td></tr>
+</tbody></table></div>
+
+<h3 id="3-3-모르면-멈춰라">3-3. &quot;모르면 멈춰라&quot; — 가장 중요한 규칙 하나</h3>
+
+<p>용어집에 없는 말이 나오면 어떻게 할까요? AI는 기본적으로 <strong>그럴듯하게 추측</strong>합니다. 그리고 그 추측이 데이터에 섞여 들어가면 나중에 찾아내기 어렵습니다.</p>
+
+<p>그래서 이 실습의 지시서에는 이런 규칙이 들어 있습니다.</p>
+
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">지시서에 들어 있는 안전장치</span></div><pre>용어집에 없는 표현은 임의로 해석하지 말고
+[미확인 용어] 목록으로 별도 보고</pre></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>기억할 문장</strong>: 자율성이 높은 AI일수록 <strong>&quot;모를 때 빠져나갈 출구&quot;</strong> 를 만들어 주어야 합니다. 이 출구가 없으면 AI는 반드시 무언가를 지어냅니다. 여러분이 만들 모든 지시서에 이 규칙 한 줄을 넣으세요.</p></div></section>
+
+<hr>
+
+<h2 id="실습-b">4. 실습 B — 지식을 주고 다시 시키기</h2>
+
+<p>이번에는 용어집과 지시서를 함께 씁니다. 지시서는 이미 <code>xlsx/prompt.md</code> 에 들어 있으니, <strong>AI에게 그 파일을 읽고 수행하라</strong>고 하면 됩니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창 — 대화 비우고 시작</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/clear</pre></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>이 폴더의 prompt.md 를 읽고, 거기 적힌 절차대로 수행해줘.</pre></div>
+
+<p>지시서에는 다음 5단계가 <strong>순서대로</strong> 적혀 있습니다. 실행되는 동안 화면에서 이 순서가 지켜지는지 보세요.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>단계</th><th>하는 일</th></tr></thead>
+<tbody>
+<tr><td>① 용어집 로드</td><td>3개 시트를 <strong>먼저</strong> 읽어 치환 규칙과 표준 양식을 파악</td></tr>
+<tr><td>② 보고서 파싱</td><td>헤더 이름이 달라도 동의어 매핑으로 표준 항목에 대응</td></tr>
+<tr><td>③ 용어 정규화</td><td>공정명은 표준명 + 코드로, 은어는 표준용어로. 손실 우려 시 <code>(원문: ○○)</code> 병기</td></tr>
+<tr><td>④ 문체 통일</td><td>개조식 평서체(&quot;~함&quot;, &quot;~발생&quot;)로. 조치 필요 항목엔 <code>[조치요청]</code></td></tr>
+<tr><td>⑤ 검증</td><td>양품+불량=생산수량 확인, 불일치 시 원본 유지 + <code>[데이터 이상]</code> 표시</td></tr>
+</tbody></table></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: <code>통합_생산보고서.xlsx</code> 파일이 생성되고, 시트 3개가 들어 있습니다.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">예상 산출물 구조</span></div><pre>통합_생산보고서.xlsx
+├ 라인별 표준보고   6개 라인 × 6개 공정, 합계·불량률은 엑셀 수식
+├ 전사 집계        공정코드별 크로스탭 (공정 × 라인)
+└ 이슈 요약        [조치요청] / [데이터 이상] / [미확인 용어] 분류
+</pre></div>
+<p>답변 끝에 <strong>치환 이력</strong>(어느 조의 어떤 표현을 무엇으로 바꿨는지)도 함께 보고됩니다.</p>
+</div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>이렇게 나오면 오류</strong>: 엑셀을 못 읽는다고 하면 <code>document-skills</code> 플러그인 문제입니다 (<a href="../install/setup-windows.html#3-8-harness-설치">설치가이드 3-8절</a>). 파일이 없다고 하면 <code>xlsx</code> 폴더가 아닌 곳에서 실행한 것입니다 — <code>/exit</code> 후 2절의 <code>cd</code> 명령으로 다시 들어가세요.</p></div></section>
+
+<h3 id="4-2-검수">4-2. 결과 검수 — 눈으로 확인할 6가지</h3>
+
+<p>AI가 만들었다고 그대로 쓰지 않습니다. <strong>검수도 실습의 일부</strong>입니다.</p>
+
+<ul class="checklist">
+<li>6개 공정명이 모두 표준용어 + 공정코드(P10~P60)로 통일되었는가</li>
+<li>은어(빵꾸·데나오시·콤프 등)가 표준용어로 치환되었는가 — 손실 우려 시 <code>(원문: ○○)</code> 병기</li>
+<li><strong>숫자가 원본과 100% 같은가</strong> (표현만 바뀌고 수치는 불변)</li>
+<li>양품 + 불량 = 생산수량 크로스체크를 했는가</li>
+<li>합계·불량률이 <strong>엑셀 수식</strong>으로 들어갔는가 (값만 박혀 있지 않은가)</li>
+<li>치환 이력이 보고되었는가 — 나중에 추적할 수 있어야 합니다</li>
+</ul>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>가장 중요한 항목은 세 번째입니다.</strong> AI가 표를 예쁘게 만들면서 숫자를 &quot;정리&quot;해 버리면 그 보고서는 못 씁니다. 그래서 지시서에 <strong>&quot;수치는 절대 변경하지 마세요&quot;</strong> 가 명시되어 있습니다. 여러분의 지시서에도 <strong>바꾸면 안 되는 것</strong>을 반드시 적으세요.</p></div></section>
+
+<h3 id="4-3-재현성-확인">4-3. 재현성 확인 — 한 번 더 돌려 봅니다</h3>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창 — 비우고 재실행</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/clear</pre></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>이 폴더의 prompt.md 를 읽고, 거기 적힌 절차대로 수행해줘.
+결과 파일 이름은 통합_생산보고서_2회차.xlsx 로 해줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 두 파일의 <strong>열 구성·공정명·코드가 일치</strong>합니다. 문장 표현은 조금 다를 수 있지만 <strong>구조와 기준은 같습니다.</strong> 실습 A와 비교하면 차이가 분명합니다.</p></div></section>
+
+<hr>
+
+<h2 id="비교-정리">5. 비교 정리 — 무엇이 달라졌나</h2>
+
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>실습 A · 지식 없이</th><th>실습 B · 지식 파일과 함께</th></tr></thead>
+<tbody>
+<tr><td>용어 일관성</td><td>실행할 때마다 다름</td><td>용어집 기준으로 고정</td></tr>
+<tr><td>재현성</td><td>구조가 매번 바뀜</td><td>같은 구조로 반복</td></tr>
+<tr><td>모르는 표현 처리</td><td>조용히 추측</td><td><code>[미확인 용어]</code> 로 보고</td></tr>
+<tr><td>규칙 수정</td><td>요청문을 찾아 고침</td><td>엑셀에 <strong>한 줄 추가</strong></td></tr>
+<tr><td>검증 가능성</td><td>맞는지 알 수 없음</td><td>치환 이력으로 추적</td></tr>
+<tr><td>다른 사람이 쓰기</td><td>불가 (내 채팅에만 있음)</td><td>가능 (파일을 주면 됨)</td></tr>
+</tbody></table></div>
+
+<blockquote>
+  <p><strong>이 차시의 한 문장</strong> — 프롬프트는 <strong>절차</strong>만, 파일은 <strong>지식</strong>만 담당합니다. 이 분리가 하네스의 출발점입니다.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="실습지">6. 사례 — 광고 AE의 용어집</h2>
+
+<p>1차시의 정하늘 대리가 자기 업무에서 <strong>머릿속 규칙을 파일로 꺼낸</strong> 결과입니다.</p>
+
+<div class="case">
+  <div class="case-head">
+    <span class="tag-case">사례</span>
+    <strong>정하늘 대리의 업무 용어집</strong>
+    <span>2차시 결과물 · 루미에르 주간 리포트</span>
+  </div>
+
+  <p>1차시에서 그가 &quot;가장 귀찮다&quot;고 적은 것이 <strong>&quot;매체마다 컬럼 이름과 지표 정의가 달라서 매번 손으로 맞추는 일&quot;</strong> 이었습니다. 공장 분임조 문제와 <strong>똑같은 문제</strong>입니다.</p>
+
+  <p class="case-step"><em>①</em> 매번 하는 판단 다섯 가지 <span class="muted">— 남에게 설명한 적 없는 것</span></p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:34px">#</th><th>내가 매번 하는 판단</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>네이버 &quot;노출수&quot;, 메타 &quot;노출&quot;, 구글 &quot;Impr.&quot;, 틱톡 &quot;Impressions&quot; 는 전부 <strong>노출</strong> 로 통일한다</td></tr>
+      <tr><td>2</td><td>메타의 &quot;결과&quot; 컬럼은 캠페인 목적에 따라 의미가 다르다 — <strong>구매 목적일 때만</strong> 전환으로 인정한다</td></tr>
+      <tr><td>3</td><td>광고비는 매체마다 VAT 포함/별도가 다르다 — <strong>전부 VAT 별도</strong>로 환산해 비교한다</td></tr>
+      <tr><td>4</td><td>ROAS는 매체 리포트 값을 그대로 쓰지 않고 <strong>(전환매출 ÷ VAT별도 광고비)</strong> 로 다시 계산한다</td></tr>
+      <tr><td>5</td><td>노출 1,000 미만인 소재는 통계로 의미가 없어 <strong>&quot;데이터 부족&quot;</strong> 으로 표시하고 CTR을 계산하지 않는다</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="why">
+    <b>이게 왜 &quot;지식&quot;인가</b>
+    <p>다섯 개 모두 <strong>정하늘 대리 머릿속에만 있던 규칙</strong>입니다. 신입이 이 업무를 받으면 2번과 3번에서 반드시 틀립니다. 실제로 지난 분기에 후배가 VAT 처리를 놓쳐 ROAS가 10% 부풀려 보고된 적이 있었습니다.</p>
+    <p><strong>AI도 똑같이 틀립니다.</strong> 알려주지 않았으니까요.</p>
+  </div>
+
+  <p class="case-step"><em>②</em> 세 종류로 분류하기</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:120px">종류</th><th>정하늘 대리의 규칙</th></tr></thead>
+    <tbody>
+      <tr><td><strong>용어 매핑</strong></td><td>노출수 · 노출 · Impr. · Impressions → <strong>노출</strong><br>클릭수 · 클릭 · Clicks → <strong>클릭</strong><br>소진액 · 광고비 · Cost · Spend → <strong>집행액(VAT 별도)</strong><br>전환 · 구매 · Purchases · 결과(구매 목적일 때) → <strong>전환</strong></td></tr>
+      <tr><td><strong>형식 규칙</strong></td><td>날짜는 <code>YYYY-MM-DD</code> · 금액은 원 단위 정수, 천 단위 콤마<br>비율은 소수점 둘째 자리(예: 1.24%) · 매체명은 <code>네이버GFA / 카카오모먼트 / 메타 / 구글애즈 / 틱톡</code> 다섯 가지만<br>지난주 대비 증감은 <code>+12.3%p</code> 또는 <code>-8.1%</code> 형식</td></tr>
+      <tr><td><strong>금지 사항</strong></td><td>원본 수치 변경 금지 (반올림도 원본 보존 후 별도 표기)<br>매체 리포트의 ROAS·CPA를 <strong>그대로 옮겨 쓰지 말 것</strong> — 반드시 재계산<br>용어집에 없는 컬럼은 추측하지 말고 <code>[미확인]</code> 으로 표시<br>노출 1,000 미만 소재는 CTR·CVR 계산하지 않음</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="case-step"><em>③</em> 파일로 만들기 — 실제로 넣은 프롬프트</p>
+
+  <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">정하늘 대리가 Claude Code에 넣은 것</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>내 업무 용어집을 만들려고 해.
+
+업무: 매주 월요일, 5개 매체(네이버GFA·카카오모먼트·메타·구글애즈·틱톡)
+     성과 데이터를 합쳐 광고주 주간 리포트를 만드는 일
+
+용어 매핑:
+- 노출수 / 노출 / Impr. / Impressions 는 "노출" 과 같은 뜻
+- 소진액 / 광고비 / Cost / Spend 는 "집행액(VAT 별도)" 과 같은 뜻
+- 전환 / 구매 / Purchases 는 "전환" 과 같은 뜻
+- 단, 메타의 "결과" 컬럼은 캠페인 목적이 구매일 때만 전환으로 인정
+
+형식 규칙:
+- 날짜는 YYYY-MM-DD, 금액은 원 단위 정수에 천 단위 콤마
+- 비율은 소수점 둘째 자리
+- 매체명은 네이버GFA / 카카오모먼트 / 메타 / 구글애즈 / 틱톡 다섯 가지만 사용
+
+금지 사항:
+- 원본 수치 변경 금지
+- 매체 리포트의 ROAS·CPA를 그대로 쓰지 말고 (전환매출 ÷ VAT별도 집행액)로 재계산
+- 노출 1,000 미만 소재는 CTR을 계산하지 말고 "데이터 부족"으로 표시
+- 용어집에 없는 컬럼은 추측하지 말고 [미확인] 으로 표시할 것
+
+이 내용을 나의_업무_용어집.md 로 정리해줘.
+"언제 쓰는지 / 무엇을 지키는지 / 예시" 세 부분이 들어가게 해줘.</pre></div>
+
+  <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>결과</strong>: <code>나의_업무_용어집.md</code> 한 장이 만들어졌습니다. A4 한 장이 안 됩니다. <strong>그런데 이 한 장이 매주 30분을 줄입니다.</strong></p></div></section>
+
+  <p class="case-step"><em>④</em> 재현성 확인 — 용어집 전후 비교</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>확인 항목</th><th>용어집 없이 2회 실행</th><th>용어집과 함께 2회 실행</th></tr></thead>
+    <tbody>
+      <tr><td>항목 이름·순서</td><td>1회차 &quot;노출/클릭/CTR&quot;, 2회차 &quot;노출수/클릭수/클릭률&quot;</td><td><strong>동일</strong></td></tr>
+      <tr><td>메타 &quot;결과&quot; 처리</td><td>1회차 전환으로 인정, 2회차 별도 컬럼</td><td><strong>구매 목적만 전환 — 동일</strong></td></tr>
+      <tr><td>VAT 처리</td><td>둘 다 언급 없음 (그냥 합산)</td><td><strong>VAT 별도로 환산 후 계산</strong></td></tr>
+      <tr><td>노출 적은 소재</td><td>CTR 0.00% 로 표시 (오해 소지)</td><td><strong>&quot;데이터 부족&quot; 표시</strong></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="why">
+    <b>가장 중요한 발견</b>
+    <p>용어집 없이 돌렸을 때 <strong>VAT를 아무도 지적하지 않았습니다.</strong> AI도, 결과를 본 사람도. 틀린 줄 모르고 넘어가는 것 — 이것이 AI를 업무에 쓸 때 가장 무서운 지점입니다.</p>
+    <p>용어집은 &quot;AI를 똑똑하게&quot; 만드는 물건이 아니라 <strong>&quot;내가 아는 것을 잊지 않게&quot;</strong> 만드는 물건입니다.</p>
+  </div>
+
+  <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body"><p>이 <code>나의_업무_용어집.md</code> 는 <strong>4차시에서 스킬로</strong> 하네스에 들어갑니다. 그리고 6차시에서 &quot;ROAS 재계산&quot; 규칙은 <strong>도구(Tool)로 승격</strong>됩니다 — 계산은 설명서가 아니라 코드가 해야 하니까요.</p></div></section>
+</div>
+
+<h3 id="6-1-내-업무에-대입">6-1. 내 업무에 대입해 보기</h3>
+
+<p>세 가지만 떠올려 보세요. 적지 않아도 됩니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th style="width:230px">질문</th><th>정하늘 대리의 답</th></tr></thead>
+<tbody>
+<tr><td>부서마다 <strong>다르게 부르는 말</strong>이 있나?</td><td>노출 / 임프레션 / Impr.</td></tr>
+<tr><td>신입이 <strong>반드시 틀리는 지점</strong>은?</td><td>VAT 별도·포함, 메타 &quot;결과&quot; 컬럼의 의미</td></tr>
+<tr><td>&quot;이건 절대 하면 안 된다&quot; 는?</td><td>매체 리포트의 ROAS를 그대로 옮겨 쓰기</td></tr>
+</tbody></table></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p>두 번째 질문이 가장 잘 통합니다. <strong>&quot;신입이 틀렸던 적&quot;</strong> 을 떠올리면 내 머릿속 규칙이 튀어나옵니다.</p></div></section>
+
+<hr>
+
+<h2 id="스스로-점검">7. 스스로 점검</h2>
+
+<ul class="checklist">
+<li>지식 없이 시켰을 때와 있을 때의 차이를 한 문장으로 설명할 수 있다</li>
+<li><code>통합_생산보고서.xlsx</code> 가 생성되었고 검수 6항목을 확인했다</li>
+<li>같은 지시를 두 번 돌려 <strong>구조가 같은지</strong> 비교했다</li>
+<li>내 업무 규칙 5개를 뽑아 <code>나의_업무_용어집.md</code> 로 만들었다</li>
+<li>&quot;모르면 멈춰라&quot; 규칙을 내 용어집에도 넣었다</li>
+</ul>
+
+<h3 id="흔한-실패">흔한 실패와 대처</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th>증상</th><th>왜 생기나</th><th>대처</th></tr></thead>
+<tbody>
+<tr><td>엑셀을 못 읽음</td><td><code>document-skills</code> 미설치</td><td><a href="../install/setup-windows.html#3-8-harness-설치">설치가이드 3-8절</a> 재실행 후 Claude Code 재시작</td></tr>
+<tr><td>&quot;결과가 원래 같던데요?&quot;</td><td>실습 A를 한 번만 돌림</td><td>반드시 <code>/clear</code> 후 <strong>두 번</strong> 돌려 비교</td></tr>
+<tr><td>숫자가 원본과 다름</td><td>AI가 반올림·정리해 버림</td><td>지시서의 &quot;수치 불변&quot; 규칙을 강조해 재실행. <strong>이 경우 결과를 폐기</strong></td></tr>
+<tr><td>규칙을 긴 문장으로 씀</td><td>설명하려는 습관</td><td>&quot;A → B&quot; 표 형태로. 문장이 길수록 AI 해석이 흔들립니다</td></tr>
+<tr><td>내 업무 규칙이 안 떠오름</td><td>너무 익숙해서 의식하지 못함</td><td>&quot;신입이 이걸 틀리게 했던 적&quot; 을 떠올리면 규칙이 보입니다</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2 id="더-해보기">8. 더 해보기 (선택)</h2>
+
+<ul>
+<li><strong>용어집을 고쳐 보기</strong> — <code>공정_표준용어집.xlsx</code> 에 새 은어를 한 줄 추가하고 다시 실행하세요. <strong>지시서는 건드리지 않아도</strong> 결과가 달라지는 것이 이 구조의 핵심입니다.</li>
+<li><strong>일부러 모르는 말 넣기</strong> — 보고서에 없는 이상한 표현을 넣고 <code>[미확인 용어]</code> 로 잡히는지 확인하세요.</li>
+<li><strong>원본 교안 읽기</strong> — <a href="https://github.com/namojo/harness-edu/blob/main/xlsx/README.md" target="_blank" rel="noopener">xlsx/README.md</a> 에 설계 의도와 심화 과제가 더 있습니다.</li>
+</ul>
+
+<hr>
+
+<h2 id="다음-차시">9. 다음 차시</h2>
+
+<p>지식을 파일로 꺼내니 결과가 안정됐습니다. 그런데 <strong>모든 일에 이만큼 준비가 필요할까요?</strong> 3차시에서는 &quot;이 일은 몇 단계짜리 일인가&quot; 를 판단하는 눈을 기릅니다 — 혼자 시킬 일, 팀을 붙일 일, 시스템으로 만들 일을 구분합니다.</p>
+
+<div class="lesson-nav">
+  <a class="next-card" href="ch3.html"><span class="k">3차시</span><strong>일의 단계 판단</strong><span>혼자 / 팀 / 시스템 — 어디까지 필요한지 정합니다.</span></a>
+  <a class="next-card" href="ch1.html"><span class="k">복습</span><strong>1차시 · 나의 업무 지도</strong><span>고른 업무를 다시 확인하고 싶다면.</span></a>
+</div>
+
+    </article>
+
+<nav class="pager" aria-label="페이지 이동">
+  <a class="pager-prev" href="ch1.html"><span class="dir">← 이전</span><strong>1차시 · 나의 업무 지도</strong></a>
+  <a class="pager-next" href="ch3.html"><span class="dir">다음 →</span><strong>3차시 · 일의 단계 판단</strong></a>
+</nav>
+  </main>
+
+  <aside class="side" aria-label="과정 내비게이션">
+    <details class="side-box" open>
+      <summary>🗺️ 과정 지도 — 다른 차시로 이동</summary>
+      <h4>차시</h4>
+      <div class="map-group">
+        <a class="map-link" href="../install/index.html"><b>0</b>실습 환경 준비</a>
+        <a class="map-link" href="ch1.html"><b>1</b>나의 업무 지도</a>
+        <a class="map-link on" href="ch2.html"><b>2</b>지식을 파일로</a>
+        <a class="map-link" href="ch3.html"><b>3</b>일의 단계 판단</a>
+        <a class="map-link" href="ch4.html"><b>4</b>전문가 팀 만들기</a>
+        <a class="map-link" href="ch5.html"><b>5</b>반복을 시스템으로</a>
+        <a class="map-link" href="ch6.html"><b>6</b>계산은 도구에게</a>
+        <a class="map-link" href="ch7.html"><b>7</b>내 업무에 이식하기</a>
+      </div>
+      <h4 class="mt">참고</h4>
+      <div class="map-group">
+        <a class="map-link opt" href="../install/index.html"><b>?</b>설치가이드</a>
+        <a class="map-link opt" href="https://github.com/namojo/harness-edu/blob/main/xlsx/README.md"><b>↗</b>xlsx 원본 교안</a>
+      </div>
+      <a class="map-home" href="../index.html">↩ 과정 홈</a>
+    </details>
+    <details class="side-box side-toc" open>
+      <summary>🔖 이 페이지 목차</summary>
+      <h4>이 페이지 목차</h4>
+      <ul class="toc-list">
+        <li><a href="#준비할-것">준비할 것</a></li>
+        <li><a href="#처음-나오는-말">처음 나오는 말</a></li>
+        <li><a href="#배우는-것">배우는 것</a></li>
+        <li><a href="#문제-상황">1. 문제 상황</a></li>
+        <li><a href="#실습-a">2. 실습 A · 지식 없이</a></li>
+        <li><a href="#개념">3. 개념 익히기</a></li>
+        <li class="toc-l3"><a href="#3-2-스킬이란">3-2. 스킬이란</a></li>
+        <li class="toc-l3"><a href="#3-3-모르면-멈춰라">3-3. 모르면 멈춰라</a></li>
+        <li><a href="#실습-b">4. 실습 B · 지식과 함께</a></li>
+        <li class="toc-l3"><a href="#4-2-검수">4-2. 결과 검수</a></li>
+        <li class="toc-l3"><a href="#4-3-재현성-확인">4-3. 재현성 확인</a></li>
+        <li><a href="#비교-정리">5. 비교 정리</a></li>
+        <li><a href="#실습지">6. 사례 · 용어집</a></li>
+        <li><a href="#스스로-점검">7. 스스로 점검</a></li>
+        <li><a href="#더-해보기">8. 더 해보기</a></li>
+        <li><a href="#다음-차시">9. 다음 차시</a></li>
+      </ul>
+    </details>
+  </aside>
+</div>
+
+<footer><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#faf9f5"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    harness-edu
+  </a>
+  <p>인쇄해서 보셔도 됩니다. (Ctrl+P / Command+P)</p>
+  <p><a href="../index.html">과정 홈</a> · <a href="../install/index.html">설치가이드</a> · <a href="https://github.com/namojo/harness-edu" target="_blank" rel="noopener">GitHub 저장소</a></p>
+</div></footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

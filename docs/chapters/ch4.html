@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4차시. 전문가 팀 만들기 — 하네스가 바꾸는 것 · harness-edu</title>
+<meta name="description" content="배경지식이 없는 상태에서 전문가 에이전트 팀은 무엇을 바꾸는가. 단일 프롬프트와 하네스를 A/B로 비교하고 내 업무 팀을 직접 만듭니다.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="ch4">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="topnav"><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#141413"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    <span class="brand-full">harness-edu</span>
+  </a>
+  <nav aria-label="주요 메뉴">
+    <a href="../index.html">과정 홈</a>
+    <a href="../index.html#curriculum" aria-current="page">커리큘럼</a>
+    <a href="../install/index.html">설치가이드</a>
+  </nav>
+</div></header>
+
+<div class="wrap page-head">
+  <div class="eyebrow">4차시 · 교재 + 사례</div>
+  <h1>전문가 팀 만들기 — 하네스가 바꾸는 것</h1>
+  <p class="sub">모르는 분야의 전문 문서를 써야 한다면? 같은 입력으로 <strong>혼자 쓴 것</strong>과 <strong>전문가 팀이 쓴 것</strong>을 나란히 놓고, 차이가 어디서 왔는지 찾습니다. 그리고 내 업무의 팀을 직접 만듭니다.</p>
+  <div class="meta">
+    <span class="badge">4 / 7</span>
+    <span>⏱ 60분</span>
+    <span>🧑‍💼 실무 사례</span>
+    <span>🏛️ 공공·제안서</span>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <main id="main" class="main-col">
+    <article class="prose">
+
+<h2 id="준비할-것">이 차시에서 준비할 것</h2>
+
+<div class="prep">
+  <div class="prep-item"><b>선행</b><span><a href="ch1.html">1차시</a> · <a href="ch2.html">2차시</a> 완료</span></div>
+  <div class="prep-item"><b>필수 확인</b><span>에이전트 팀 기능이 켜져 있을 것</span></div>
+  <div class="prep-item"><b>실습 파일</b><span>실습 폴더의 <code>harness/</code></span></div>
+  <div class="prep-item"><b>가져올 것</b><span>1차시 <strong>업무 카드</strong> + 2차시 <strong>용어집</strong></span></div>
+</div>
+
+<p>에이전트 팀 기능이 켜져 있는지 <strong>새 터미널</strong>에서 확인하세요. <code>1</code> 이 나와야 합니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>echo $env:CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>echo $CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</pre></div></div></div>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>비어 있으면</strong> 이 차시의 후반 실습이 동작하지 않습니다. <a href="../install/setup-windows.html#3-5-에이전트-팀-켜기">설치가이드 3-5절</a>을 다시 하고 <strong>터미널을 새로 열어</strong> 진행하세요.</p></div></section>
+
+<hr>
+
+<h2 id="처음-나오는-말">이 차시에서 처음 나오는 말</h2>
+
+<div class="terms"><dl>
+  <dt>에이전트 정의</dt><dd>담당자 한 명의 <strong>역할·경계·금지사항</strong>을 적어 둔 파일. <code>.claude/agents/</code> 안에 한 명당 한 장씩 들어갑니다.</dd>
+  <dt>중간 산출물</dt><dd>최종 결과물이 아니라 <strong>그 앞 단계에서 만들어지는 자료</strong>. 이 차시의 핵심 — 품질 차이는 여기서 갈립니다.</dd>
+  <dt>검증자 분리</dt><dd>만든 사람이 자기 결과를 승인하지 않고, <strong>별도 담당이 대조 검사</strong>하는 구조.</dd>
+  <dt>팀 아키텍처 패턴</dt><dd>팀을 짜는 <strong>정해진 모양 6가지</strong>. 순서대로 넘기기, 나눠서 동시에 하기 등.</dd>
+</dl></div>
+
+<hr>
+
+<h2 id="배우는-것">이 차시에서 배우는 것</h2>
+
+<ul class="goals">
+  <li>단일 프롬프트와 전문가 팀의 차이를 <strong>결과물 네 지점</strong>에서 직접 확인한다</li>
+  <li>그 차이가 <strong>중간 산출물</strong>에서 왔다는 것을 파일로 확인한다</li>
+  <li>내 업무의 전문가 팀을 <strong>직접 만들어</strong> 파일로 남긴다</li>
+</ul>
+
+<hr>
+
+<h2 id="실험-조건">1. 실험 조건 — 모르는 분야의 문서를 써야 한다면</h2>
+
+<p>입력은 나라장터에 실제로 올라온 <strong>과업지시서 1건</strong>입니다. 국가통합바이오빅데이터 사업의 병원 진료기록 연계 구축 건이고, 문서에는 이런 단어들이 <strong>이름만</strong> 나옵니다.</p>
+
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">과업지시서에 등장하는 용어</span></div><pre>FHIR · KCD-8 · 심평원 EDI · 가명화 · ETL</pre></div>
+
+<p>보건의료 데이터를 모르는 사람이 이 문서로 제안서를 써야 합니다. <strong>이것이 실험 조건입니다.</strong> 여러분도 업무에서 비슷한 상황을 겪습니다 — 낯선 부서의 요청, 처음 보는 규격, 이름만 아는 제도.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>트랙 A</th><th>트랙 B</th></tr></thead>
+<tbody>
+<tr><td>방식</td><td>단일 프롬프트 한 번</td><td>전문가 에이전트 팀</td></tr>
+<tr><td>지시</td><td>&quot;과업지시서로 제안서를 작성해줘&quot;</td><td>5명이 순서·병렬로 분업 + 검증</td></tr>
+<tr><td>결과</td><td><code>제안서A_단일패스.docx</code> (3쪽)</td><td><code>제안서B_하네스.docx</code> (8쪽)</td></tr>
+</tbody></table></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>공정한 비교입니다.</strong> A는 일부러 못 쓴 것이 아닙니다. 구조가 잡혀 있고 문장도 매끄러운 <strong>단일 패스의 &quot;괜찮은 평균&quot;</strong> 입니다. 기준선이 정직해야 비교가 의미를 가집니다. 그리고 <strong>쪽수가 많아서 좋은 것도 아닙니다</strong> — 무엇이 늘었는지가 중요합니다.</p></div></section>
+
+<hr>
+
+<h2 id="결과-비교">2. 결과 비교 — 차이가 남는 네 지점</h2>
+
+<p>두 결과물은 이미 저장소에 들어 있습니다. 직접 열어 비교합니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd "$env:USERPROFILE\Desktop\harness-edu\harness"; claude</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/Desktop/harness-edu/harness &amp;&amp; claude</pre></div></div></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>제안서A_단일패스.docx 와 제안서B_하네스.docx 를 둘 다 읽고,
+아래 네 항목에서 무엇이 다른지 표로 비교해줘. 쪽수 말고 내용으로 비교해줘.
+
+1. 배경지식 (모르는 분야를 어떻게 다뤘나)
+2. 요구사항 대응 (빠뜨린 것이 있나)
+3. 계약 조건 조항 대응
+4. 검증 가능성 (숫자로 확인 가능한 약속이 있나)</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 아래와 비슷한 비교표가 나옵니다. AI가 만든 표를 <strong>직접 문서를 열어 확인</strong>해 보세요 — 이것도 검수 연습입니다.</p></div></section>
+
+<div class="table-wrap"><table>
+<thead><tr><th>비교 지점</th><th>A · 단일 패스</th><th>B · 하네스</th></tr></thead>
+<tbody>
+<tr><td><strong>배경지식</strong></td><td>&quot;표준코드에 맞추어 매핑합니다&quot; — 과업지시서 단어를 되풀이</td><td>6종 코드체계별 매핑 전략 표 (KR Core ValueSet, KCD 전환표, 원내-EDI 매핑 등)</td></tr>
+<tr><td><strong>전수 대응</strong></td><td>눈에 띄는 요구 위주. 보안 연계망·가명화 취급이 얕음</td><td>REQ-01~11 <strong>추적 매트릭스</strong>, 검수 기준표</td></tr>
+<tr><td><strong>조건 조항</strong></td><td>사실상 언급 없음</td><td>CON-01~07 <strong>전건 수용 확약표</strong> (SLA, 라이선스, 상주 인원 등)</td></tr>
+<tr><td><strong>검증 가능성</strong></td><td>&quot;약 3주&quot;, &quot;품질을 확보&quot;</td><td>W1~W9 일정 + 임계경로, <strong>미매핑률 ≤1%</strong>, 가명화 누출 0건</td></tr>
+</tbody></table></div>
+
+<blockquote>
+  <p><strong>한 줄 요약</strong> — A는 과업지시서를 <strong>요약한</strong> 제안서, B는 과업지시서에 <strong>응답한</strong> 제안서.</p>
+</blockquote>
+
+<h3 id="2-2-차이의-근원">2-2. 차이의 근원은 문장이 아니라 파일 하나</h3>
+
+<p>B의 모든 우위는 어디서 왔을까요? 더 좋은 문장을 써서가 아닙니다. <strong>중간에 만든 파일 하나</strong>에서 나왔습니다. 직접 열어 봅니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>artifacts/요구사항_인벤토리.md 를 읽고,
+이 파일이 무엇을 정리한 것인지, 항목이 몇 개인지 알려줘.
+그리고 이 파일이 없었다면 제안서에서 무엇이 빠졌을지 설명해줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 과업지시서에서 뽑아낸 요구사항이 <strong>ID를 달고 전수 정리</strong>되어 있습니다.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">인벤토리의 구조</span></div><pre>REQ-01 ~ REQ-11   기능 요구사항 11건
+DOM-01 ~ DOM-13   도메인 지식 항목 13건
+CON-01 ~ CON-07   계약 조건 7건
+DEL-01 ~ DEL-04   산출물 4건</pre></div>
+</div></section>
+
+<p>이 지루한 작업 — <strong>전부 뽑아서 번호를 붙이는 일</strong> — 하나가 뒤의 모든 것을 만들어 냅니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>인벤토리가 낳은 것</th><th>어떻게</th></tr></thead>
+<tbody>
+<tr><td>추적 매트릭스</td><td>REQ 번호별로 &quot;제안서 어디에서 답했는지&quot; 표시</td></tr>
+<tr><td>조건 확약표</td><td>CON 번호를 하나씩 훑으며 수용 여부 명시</td></tr>
+<tr><td>검수 기준표</td><td>DEL 번호별 인수 조건 정의</td></tr>
+<tr><td>누락 없음의 근거</td><td>검증자가 <strong>ID를 하나씩 대조</strong>할 수 있음</td></tr>
+</tbody></table></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>이 차시의 핵심 문장</strong>: 하네스란 <strong>&quot;중간 산출물을 만드는 일을 역할로 강제하는 장치&quot;</strong> 입니다. 사람도 똑같습니다 — 급하면 요구사항 정리를 건너뛰고 바로 본문을 씁니다. 팀에 &quot;그것만 하는 담당&quot; 이 있으면 건너뛸 수 없습니다.</p></div></section>
+
+<h3 id="2-3-검증자">2-3. 검증자 분리 — 잘 쓰는 것과 빠뜨리지 않는 것은 다른 능력</h3>
+
+<p>조건 조항 7건이 A에서 빠진 이유는 <strong>더 노력하지 않아서가 아닙니다.</strong> 글을 쓰는 사람의 시선으로는 계약 조건이 눈에 잘 안 들어옵니다.</p>
+
+<div class="vs">
+  <div class="bad">
+    <h4>혼자 쓰고 혼자 검토</h4>
+    <p>&quot;다 썼나?&quot; 를 자기 기억으로 확인합니다. 자기가 못 본 것은 검토할 때도 안 보입니다.</p>
+  </div>
+  <div class="good">
+    <h4>검증 담당을 따로 둠</h4>
+    <p>&quot;인벤토리 ID를 하나씩 원고에서 찾아라&quot; 라는 <strong>기계적 대조</strong>가 임무입니다. 없으면 담당자를 지목해 수정시킵니다.</p>
+  </div>
+</div>
+
+<blockquote class="rule">
+  <p><strong>하네스 4원리 중 네 번째 — 검증자는 분리한다</strong><br>
+  만든 주체가 자기 결과를 최종 승인하지 않습니다. 여러분이 만들 모든 팀에 <strong>검증 담당 한 명</strong>을 반드시 넣으세요.</p>
+</blockquote>
+
+<h3 id="2-4-a가-이기는-경우">2-4. A가 이기는 경우도 압니다</h3>
+
+<p>내부 검토용 초안, 참고용 요약이라면 <strong>A의 속도가 정답</strong>입니다. 하네스는 &quot;조항 하나를 빠뜨리면 탈락하는&quot; 고부담 문서에서 정당화됩니다. 3차시에서 배운 <strong>&quot;이 일은 몇 단계짜리인가&quot;</strong> 판단이 여기서 다시 쓰입니다.</p>
+
+<hr>
+
+<h2 id="구성물">3. 하네스의 구성물 열어 보기</h2>
+
+<p>트랙 B를 가능하게 한 파일들이 <code>harness/</code> 폴더에 그대로 들어 있습니다. 무엇이 들어 있는지 봅니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>이 폴더의 CLAUDE.md 와 .claude/agents/, .claude/skills/ 를 훑어보고,
+각 파일이 무슨 역할인지 한 줄씩 정리해줘.</pre></div>
+
+<div class="table-wrap"><table>
+<thead><tr><th>구성물</th><th>무엇인가</th><th>이 과정의 개념</th></tr></thead>
+<tbody>
+<tr><td><code>CLAUDE.md</code></td><td>이 프로젝트에서 <strong>항상 지켜야 할 규칙</strong></td><td>팀 공통 규범</td></tr>
+<tr><td><code>.claude/agents/</code> 5개</td><td>담당자별 역할·경계 정의</td><td><strong>Agent</strong> (누가)</td></tr>
+<tr><td><code>.claude/skills/</code> 3개</td><td>방법론·도메인 지식·문서 표준</td><td><strong>Skill</strong> (무엇을·어떻게)</td></tr>
+</tbody></table></div>
+
+<h3 id="3-1-담당자-다섯">3-1. 담당자 다섯 명은 각각 무엇을 하나</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th>순서</th><th>담당</th><th>맡은 일</th><th>단일 프롬프트에는 없던 것</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>요구분석가</strong><br><span class="muted">rfp-analyst</span></td><td>요구사항 전수 추출 · ID 부여</td><td>목적 문단에 <strong>숨어 있던</strong> 요구, 표 각주의 강행 규정까지 승격</td></tr>
+<tr><td>2</td><td><strong>도메인 전문가</strong><br><span class="muted">domain-expert</span></td><td>분야 지식 주입</td><td>문서 <strong>밖</strong> 지식 — 코드 전환표, 관련 법 조항</td></tr>
+<tr><td>3</td><td><strong>기술 설계</strong><br><span class="muted">solution-architect</span></td><td>해결 방안 설계</td><td rowspan="2">둘이 <strong>동시에</strong> 진행 (서로 기다리지 않음)</td></tr>
+<tr><td>3</td><td><strong>관리 담당</strong><br><span class="muted">pm-expert</span></td><td>일정 · 리스크 · 조건 대응</td></tr>
+<tr><td>4</td><td><strong>검증자</strong><br><span class="muted">compliance-reviewer</span></td><td>전건 대조 검사</td><td>인벤토리 ID 전건을 원고에서 확인, <strong>통과할 때까지 수정 루프</strong></td></tr>
+</tbody></table></div>
+
+<h3 id="3-2-스킬-연결">3-2. 2차시에서 만든 용어집이 여기서 &quot;스킬&quot;이 됩니다</h3>
+
+<p>도메인 전문가가 똑똑해서 코드 전환표를 아는 게 아닙니다. <code>medical-data-standards</code> <strong>스킬 파일에 사전이 들어 있어서</strong> 가능합니다. 그리고 그 사전은 <strong>다음 의료 사업에서 그대로 재사용</strong>됩니다.</p>
+
+<blockquote>
+  <p>2차시: 용어집을 파일로 → 결과가 안정됨<br>
+  4차시: 그 파일을 <strong>특정 담당자에게 쥐여 줌</strong> → 그 담당자가 전문가가 됨<br>
+  이것이 <strong>Skill과 Agent의 결합</strong>입니다.</p>
+</blockquote>
+
+<h3 id="3-3-팀-패턴">3-3. 팀을 짜는 여섯 가지 모양 (이름만 알아 두기)</h3>
+
+<p>팀 구조에는 정해진 패턴이 있습니다. <strong>외울 필요는 없습니다</strong> — 하네스 플러그인이 일에 맞는 모양을 골라 줍니다. 다만 결과물을 볼 때 &quot;아, 이 모양이구나&quot; 알아보면 좋습니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>패턴</th><th>모양</th><th>어울리는 일</th></tr></thead>
+<tbody>
+<tr><td><strong>파이프라인</strong></td><td>순서대로 넘긴다</td><td>앞 단계 결과가 있어야 다음이 되는 일 (이번 실습)</td></tr>
+<tr><td><strong>팬아웃 · 팬인</strong></td><td>나눠서 동시에 → 합친다</td><td>서로 독립된 조사·분석</td></tr>
+<tr><td><strong>전문가 풀</strong></td><td>상황 따라 골라 부른다</td><td>매번 필요한 전문가가 다른 일</td></tr>
+<tr><td><strong>생성 · 검증</strong></td><td>만들고 → 검사한다</td><td>품질이 중요한 산출물</td></tr>
+<tr><td><strong>관리자형</strong></td><td>한 명이 배분·조율</td><td>일이 유동적으로 늘어나는 경우</td></tr>
+<tr><td><strong>위임형</strong></td><td>위에서 아래로 쪼개 내린다</td><td>큰 과제를 계층으로 분해</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2 id="직접-만들기">4. 사례 — 광고 AE의 전문가 팀</h2>
+
+<p>1차시부터 따라온 정하늘 대리가 <strong>자기 업무의 하네스</strong>를 만든 과정입니다. 프롬프트와 결과, 그리고 <strong>무엇을 고쳤는지</strong>까지 그대로 봅니다.</p>
+
+<div class="case">
+  <div class="case-head">
+    <span class="tag-case">사례</span>
+    <strong>정하늘 대리의 하네스</strong>
+    <span>4차시 결과물 · 루미에르 주간 리포트 팀</span>
+  </div>
+
+  <p class="case-step"><em>①</em> 내 업무를 한 문단으로 — 1차시 업무 카드를 그대로 옮김</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:130px">넣을 것</th><th>정하늘 대리의 답</th></tr></thead>
+    <tbody>
+      <tr><td><strong>도메인</strong></td><td>광고대행사 AE의 <strong>디지털 캠페인 주간 성과 보고</strong> (화장품 브랜드, 5개 매체 운영)</td></tr>
+      <tr><td><strong>입력</strong></td><td>5개 매체 성과 파일(엑셀·CSV) + 지난주 리포트 + 캠페인 목표(월 ROAS 350%)</td></tr>
+      <tr><td><strong>산출물</strong></td><td>광고주 제출용 주간 요약 1장 + 이슈·다음 행동 목록</td></tr>
+      <tr><td><strong>품질 기준</strong></td><td>숫자는 원본과 100% 일치 · 매체별 용어 통일 · <strong>이슈가 하나도 빠지지 않을 것</strong> · 지난주 대비 증감 필수</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="case-step"><em>②</em> 실제로 넣은 프롬프트</p>
+
+  <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">정하늘 대리가 Claude Code에 넣은 것</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>하네스 구성해줘.
+
+도메인: 광고대행사 AE의 디지털 캠페인 주간 성과 보고.
+      화장품 브랜드 1개, 5개 매체(네이버GFA·카카오모먼트·메타·구글애즈·틱톡) 운영.
+입력: 매체별 성과 파일(엑셀/CSV) 5개, 지난주 리포트, 캠페인 목표(월 ROAS 350%)
+산출물: 광고주 제출용 주간 요약 1장 + 이슈·다음 행동 목록
+품질 기준: 숫자는 원본과 100% 일치, 매체별 용어는 사내 표준으로 통일,
+         이슈는 하나도 빠지면 안 됨, 지난주 대비 증감이 반드시 포함될 것
+
+에이전트는 3~5명으로 하고, 결과를 대조 검증하는 담당을 반드시 포함해줘.</pre></div>
+
+  <p class="case-step"><em>③</em> 만들어진 팀 <span class="muted">— 4명 + 검증자</span></p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:34px">#</th><th>담당자</th><th>맡은 일</th><th style="width:80px">검증 담당</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>데이터 정규화 담당</strong><br><span class="muted">data-normalizer</span></td><td>5개 매체 파일을 읽어 용어집 기준으로 통일. VAT 별도 환산, 매체별 컬럼 매핑</td><td>—</td></tr>
+      <tr><td>2</td><td><strong>성과 분석 담당</strong><br><span class="muted">performance-analyst</span></td><td>CPA·ROAS·달성률 계산, 지난주 대비 증감 산출, 이상 지표 탐지</td><td>—</td></tr>
+      <tr><td>3</td><td><strong>이슈·액션 담당</strong><br><span class="muted">issue-planner</span></td><td>지표 이상의 원인 후보를 정리하고 다음 주 실행안 제안 (예산 재배분·소재 교체)</td><td>—</td></tr>
+      <tr><td>4</td><td><strong>리포트 작성 담당</strong><br><span class="muted">report-writer</span></td><td>광고주 톤에 맞춰 1장으로 집필</td><td>—</td></tr>
+      <tr><td>5</td><td><strong>수치 검증 담당</strong><br><span class="muted">qa-checker</span></td><td>원본 파일과 리포트 숫자를 <strong>항목별 대조</strong>, 이슈 목록 누락 확인</td><td><strong>✔</strong></td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="case-step"><em>④</em> 점검에서 걸러낸 두 가지</p>
+
+  <div class="why">
+    <b>처음 생성 결과에서 고친 것</b>
+    <ul>
+      <li><strong>담당자가 7명이었습니다.</strong> &quot;매체별 담당&quot;이 5명으로 쪼개져 있었습니다 → <strong>&quot;데이터 정규화 담당 1명&quot;으로 합쳐 달라</strong>고 요청. 매체가 달라도 하는 일이 같으니 나눌 이유가 없습니다.</li>
+      <li><strong>검증 담당이 &quot;리포트 작성 담당&quot;에 흡수돼 있었습니다.</strong> 작성자가 자기 숫자를 검토하는 구조였습니다 → <strong>별도 담당으로 분리</strong>. 4차시의 핵심 원리입니다.</li>
+    </ul>
+  </div>
+
+  <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">고칠 때 넣은 프롬프트</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>매체별로 나뉜 담당 5명을 "데이터 정규화 담당" 1명으로 합쳐줘.
+매체가 달라도 하는 일(용어 통일·VAT 환산·컬럼 매핑)이 같아.
+
+그리고 수치 검증을 리포트 작성 담당이 겸하지 않게 분리해줘.
+검증 담당은 원본 파일과 리포트를 항목별로 대조하고,
+불일치나 누락을 찾으면 해당 담당자를 지목해 수정 요청하도록 정의해줘.</pre></div>
+
+  <p class="case-step"><em>⑤</em> 자산으로 남은 파일</p>
+
+  <div class="code-card is-out"><div class="code-bar"><span class="code-label">my-harness/ 폴더에 생성된 것</span></div><pre>my-harness/
+├ CLAUDE.md                        프로젝트 불변 규칙 (수치 불변·추측 금지)
+└ .claude/
+   ├ agents/
+   │  ├ data-normalizer.md         5개 매체 데이터 정규화
+   │  ├ performance-analyst.md     지표 계산·증감 분석
+   │  ├ issue-planner.md           이슈 정리·다음 행동 제안
+   │  ├ report-writer.md           광고주용 1장 집필
+   │  └ qa-checker.md              수치 대조·누락 검증
+   └ skills/
+      └ media-glossary/            (2차시 용어집이 들어갈 자리)</pre></div>
+
+  <div class="why">
+    <b>정하늘 대리가 체감한 것</b>
+    <p>&quot;예전엔 매주 새 대화창을 열고 &lsquo;이번 주 리포트 만들어줘, 아 그리고 VAT는 별도로…&rsquo; 를 반복했는데, 이제 <strong>이 폴더를 열고 시작하면 됩니다.</strong> 규칙을 다시 설명하지 않아도 됩니다.&quot;</p>
+  </div>
+
+  <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body"><p><code>skills/media-glossary/</code> 가 비어 있습니다. <strong>7차시에서 2차시 용어집을 여기 넣습니다.</strong> 그리고 5차시 계약, 6차시 도구가 차례로 붙습니다.</p></div></section>
+</div>
+
+<h3 id="4-1-내-업무에-대입">4-1. 내 업무에 대입해 보기</h3>
+
+<p>직접 만들어 보려면 아래 네 칸만 채워 같은 프롬프트를 쓰면 됩니다. <strong>실습 폴더를 따로 만드는 것</strong>만 잊지 마세요.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>mkdir "$env:USERPROFILE\Desktop\harness-edu\my-harness" -Force; cd "$env:USERPROFILE\Desktop\harness-edu\my-harness"; claude</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>mkdir -p ~/Desktop/harness-edu/my-harness &amp;&amp; cd ~/Desktop/harness-edu/my-harness &amp;&amp; claude</pre></div></div></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">네 칸만 바꿔서 쓰는 프롬프트</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>하네스 구성해줘.
+
+도메인: [내 업무가 무슨 분야 일인가]
+입력: [무엇을 받아서]
+산출물: [무엇을 내놓나]
+품질 기준: [무엇이 맞아야 하나 · 무엇을 빠뜨리면 안 되나]
+
+에이전트는 3~5명으로 하고, 결과를 대조 검증하는 담당을 반드시 포함해줘.</pre></div>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p>만들어진 팀에서 <strong>두 가지만 확인</strong>하세요 — ① 같은 일을 하는 담당이 둘로 나뉘어 있지 않은가 ② <strong>검증 담당이 따로 있는가.</strong> 사례의 ④번처럼 대개 이 두 곳에서 손봐야 합니다.</p></div></section>
+
+<hr>
+
+<h2 id="스스로-점검">5. 스스로 점검</h2>
+
+<ul class="checklist">
+<li>A와 B의 차이를 <strong>중간 산출물</strong>이라는 말로 설명할 수 있다</li>
+<li>&quot;잘 쓰는 것과 빠뜨리지 않는 것은 다른 능력&quot; 의 뜻을 안다</li>
+<li>하네스가 <strong>정당화되지 않는</strong> 경우도 말할 수 있다</li>
+<li>내 도메인 에이전트가 생성되었고 역할을 한 줄씩 말할 수 있다</li>
+<li>팀에 검증 담당이 포함되어 있다</li>
+<li>생성된 파일이 어디 있는지 안다</li>
+</ul>
+
+<h3 id="흔한-실패">흔한 실패와 대처</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th>증상</th><th>왜 생기나</th><th>대처</th></tr></thead>
+<tbody>
+<tr><td>팀이 안 만들어지고 혼자 답함</td><td>에이전트 팀 기능이 꺼져 있음</td><td>환경변수 확인 → <strong>터미널 새로 열기</strong> → 재실행</td></tr>
+<tr><td>담당자가 10명 넘게 생성됨</td><td>도메인 설명이 너무 넓음</td><td>&quot;3~5명으로 줄여줘&quot; 재요청. 사람이 많을수록 조율 비용이 커집니다</td></tr>
+<tr><td>팀이 엉성하고 일반적임</td><td>1단계 설명이 한 줄</td><td>도메인·입력·산출물·품질 기준 <strong>네 가지를 다시 채워</strong> 재실행</td></tr>
+<tr><td>검증 담당이 없음</td><td>요청에 안 넣음</td><td>4단계 프롬프트로 추가. <strong>이건 타협하지 마세요</strong></td></tr>
+<tr><td>docx를 못 읽음</td><td><code>document-skills</code> 미설치</td><td><a href="../install/setup-windows.html#3-8-harness-설치">설치가이드 3-8절</a></td></tr>
+<tr><td>&quot;쪽수가 많아서 B가 좋은 거 아닌가&quot;</td><td>양으로 비교</td><td>조건 조항 7건처럼 <strong>A에 아예 없는 것</strong>을 짚어 보게 하기</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2 id="더-해보기">6. 더 해보기 (선택)</h2>
+
+<ul>
+<li><strong>평가위원 롤플레이</strong> — 새 대화에서 AI에게 조달 평가위원 역할을 주고 A·B를 4개 항목으로 채점시켜 보세요. 점수 차가 <strong>어느 항목에서</strong> 벌어지는지 보면 하네스의 효과 지점이 분명해집니다.</li>
+<li><strong>인벤토리 파괴 실험</strong> — 요구사항 인벤토리에서 조건(CON) 부분을 지우고 다시 돌려 보세요. 검증자가 원문 대조로 이를 잡아내는지가 <strong>하네스 견고성의 시험대</strong>입니다.</li>
+<li><strong>원본 교안</strong> — <a href="https://github.com/namojo/harness-edu/blob/main/harness/README.md" target="_blank" rel="noopener">harness/README.md</a> 에 실험 설계와 심화 과제가 더 있습니다.</li>
+</ul>
+
+<hr>
+
+<h2 id="다음-차시">7. 다음 차시</h2>
+
+<p>팀은 만들었습니다. 그런데 <strong>이 팀을 매주 돌리면 결과 형식이 조금씩 흔들립니다.</strong> 5차시에서는 나올 항목을 미리 못 박는 <strong>출력 계약</strong>으로 그 흔들림을 없앱니다.</p>
+
+<div class="lesson-nav">
+  <a class="next-card" href="ch5.html"><span class="k">5차시</span><strong>반복을 시스템으로</strong><span>출력 계약으로 매번 같은 구조를 보장합니다.</span></a>
+  <a class="next-card" href="ch3.html"><span class="k">건너뛰었다면</span><strong>3차시 · 일의 단계 판단</strong><span>혼자 / 팀 / 시스템 중 무엇이 적정한지.</span></a>
+</div>
+
+    </article>
+
+<nav class="pager" aria-label="페이지 이동">
+  <a class="pager-prev" href="ch3.html"><span class="dir">← 이전</span><strong>3차시 · 일의 단계 판단</strong></a>
+  <a class="pager-next" href="ch5.html"><span class="dir">다음 →</span><strong>5차시 · 반복을 시스템으로</strong></a>
+</nav>
+  </main>
+
+  <aside class="side" aria-label="과정 내비게이션">
+    <details class="side-box" open>
+      <summary>🗺️ 과정 지도 — 다른 차시로 이동</summary>
+      <h4>차시</h4>
+      <div class="map-group">
+        <a class="map-link" href="../install/index.html"><b>0</b>실습 환경 준비</a>
+        <a class="map-link" href="ch1.html"><b>1</b>나의 업무 지도</a>
+        <a class="map-link" href="ch2.html"><b>2</b>지식을 파일로</a>
+        <a class="map-link" href="ch3.html"><b>3</b>일의 단계 판단</a>
+        <a class="map-link on" href="ch4.html"><b>4</b>전문가 팀 만들기</a>
+        <a class="map-link" href="ch5.html"><b>5</b>반복을 시스템으로</a>
+        <a class="map-link" href="ch6.html"><b>6</b>계산은 도구에게</a>
+        <a class="map-link" href="ch7.html"><b>7</b>내 업무에 이식하기</a>
+      </div>
+      <h4 class="mt">참고</h4>
+      <div class="map-group">
+        <a class="map-link opt" href="../install/index.html"><b>?</b>설치가이드</a>
+        <a class="map-link opt" href="https://github.com/namojo/harness-edu/blob/main/harness/README.md"><b>↗</b>harness 원본 교안</a>
+        <a class="map-link opt" href="https://github.com/revfactory/harness"><b>↗</b>Harness 플러그인</a>
+      </div>
+      <a class="map-home" href="../index.html">↩ 과정 홈</a>
+    </details>
+    <details class="side-box side-toc" open>
+      <summary>🔖 이 페이지 목차</summary>
+      <h4>이 페이지 목차</h4>
+      <ul class="toc-list">
+        <li><a href="#준비할-것">준비할 것</a></li>
+        <li><a href="#처음-나오는-말">처음 나오는 말</a></li>
+        <li><a href="#배우는-것">배우는 것</a></li>
+        <li><a href="#실험-조건">1. 실험 조건</a></li>
+        <li><a href="#결과-비교">2. 결과 비교</a></li>
+        <li class="toc-l3"><a href="#2-2-차이의-근원">2-2. 차이의 근원</a></li>
+        <li class="toc-l3"><a href="#2-3-검증자">2-3. 검증자 분리</a></li>
+        <li><a href="#구성물">3. 하네스 구성물</a></li>
+        <li class="toc-l3"><a href="#3-1-담당자-다섯">3-1. 담당자 다섯</a></li>
+        <li class="toc-l3"><a href="#3-3-팀-패턴">3-3. 팀 패턴 6가지</a></li>
+        <li><a href="#직접-만들기">4. 사례 · 전문가 팀</a></li>
+        <li><a href="#스스로-점검">5. 스스로 점검</a></li>
+        <li><a href="#더-해보기">6. 더 해보기</a></li>
+        <li><a href="#다음-차시">7. 다음 차시</a></li>
+      </ul>
+    </details>
+  </aside>
+</div>
+
+<footer><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#faf9f5"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    harness-edu
+  </a>
+  <p>인쇄해서 보셔도 됩니다. (Ctrl+P / Command+P)</p>
+  <p><a href="../index.html">과정 홈</a> · <a href="../install/index.html">설치가이드</a> · <a href="https://github.com/namojo/harness-edu" target="_blank" rel="noopener">GitHub 저장소</a></p>
+</div></footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

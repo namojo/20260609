@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5차시. 반복을 시스템으로 — 출력 계약 · harness-edu</title>
+<meta name="description" content="매주 돌릴 때마다 형식이 흔들리는 문제를 출력 계약으로 없앱니다. 코드 없이 반복 업무를 시스템화하는 방법.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="ch5">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="topnav"><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#141413"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    <span class="brand-full">harness-edu</span>
+  </a>
+  <nav aria-label="주요 메뉴">
+    <a href="../index.html">과정 홈</a>
+    <a href="../index.html#curriculum" aria-current="page">커리큘럼</a>
+    <a href="../install/index.html">설치가이드</a>
+  </nav>
+</div></header>
+
+<div class="wrap page-head">
+  <div class="eyebrow">5차시 · 교재 + 사례</div>
+  <h1>반복을 시스템으로 — 출력 계약</h1>
+  <p class="sub">매주 돌릴 때마다 표 형식이 조금씩 흔들립니다. 사람이 매번 맞춰 주면 자동화의 의미가 없습니다. <strong>나올 항목을 미리 못 박아</strong> 그 흔들림을 없앱니다.</p>
+  <div class="meta">
+    <span class="badge">5 / 7</span>
+    <span>⏱ 50분</span>
+    <span>🧑‍💼 실무 사례</span>
+    <span>🏦 금융 · 규제 모니터링</span>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <main id="main" class="main-col">
+    <article class="prose">
+
+<h2 id="준비할-것">이 차시에서 준비할 것</h2>
+
+<div class="prep">
+  <div class="prep-item"><b>선행</b><span><a href="ch4.html">4차시 · 전문가 팀 만들기</a> 완료</span></div>
+  <div class="prep-item"><b>실습 파일</b><span><code>codex-engineering/track-b-ops/</code></span></div>
+  <div class="prep-item"><b>선택</b><span><a href="../install/codex.html">Codex CLI</a> — 없으면 Claude Code로 진행</span></div>
+  <div class="prep-item"><b>가져올 것</b><span>4차시에서 만든 <code>my-harness</code> 폴더</span></div>
+</div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>코드를 쓰지 않습니다.</strong> 이 차시에서 만드는 &quot;계약&quot;은 <strong>항목 목록</strong>일 뿐입니다. 엑셀 표의 열 이름을 정하는 것과 같은 일이라고 생각하세요.</p></div></section>
+
+<hr>
+
+<h2 id="처음-나오는-말">이 차시에서 처음 나오는 말</h2>
+
+<div class="terms"><dl>
+  <dt>출력 계약</dt><dd>결과물에 <strong>어떤 항목이, 어떤 값으로 나와야 하는지</strong> 미리 정해 둔 약속. 지키지 못하면 AI가 다시 시도합니다.</dd>
+  <dt>스키마</dt><dd>그 계약을 적어 둔 <strong>파일</strong>. 항목 이름·허용 값·필수 여부가 들어갑니다.</dd>
+  <dt>대화형 / 자동 실행</dt><dd>사람이 보면서 승인하며 진행하는 방식 vs 사람 없이 한 번에 끝까지 도는 방식.</dd>
+  <dt>샌드박스</dt><dd>AI가 <strong>어디까지 건드릴 수 있는지</strong> 정한 울타리. 읽기만 / 이 폴더만 쓰기 / 전체.</dd>
+</dl></div>
+
+<hr>
+
+<h2 id="배우는-것">이 차시에서 배우는 것</h2>
+
+<ul class="goals">
+  <li>반복 실행에서 <strong>형식이 흔들리는 문제</strong>를 직접 겪는다</li>
+  <li>항목·허용 값을 미리 정하는 <strong>출력 계약</strong>으로 그 흔들림을 없앤다</li>
+  <li>자동 실행 전에 <strong>권한을 어디까지 줄지</strong> 정하는 기준을 갖는다</li>
+</ul>
+
+<hr>
+
+<h2 id="문제">1. 문제 — 매주 조금씩 달라집니다</h2>
+
+<p>금융회사 준법·리스크팀의 월요일 루틴입니다.</p>
+
+<ol>
+<li>금융위·금감원·주요 매체에서 지난 주 규제·공시 뉴스를 훑는다</li>
+<li>우리 조직에 영향 있는 것만 골라 분류한다</li>
+<li>정해진 표 양식으로 리포트를 만들어 팀에 공유한다</li>
+</ol>
+
+<p>여기서 매주 생기는 문제 세 가지입니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>문제</th><th>구체적으로</th></tr></thead>
+<tbody>
+<tr><td>범위가 다르다</td><td>담당자마다 훑는 곳이 다름</td></tr>
+<tr><td>형식이 흔들린다</td><td>분류가 &quot;자본규제&quot;였다 &quot;자본 규제&quot;였다, 영향도가 &quot;높음&quot;이었다 &quot;상&quot;이었다</td></tr>
+<tr><td>바쁘면 건너뛴다</td><td>주간 리포트가 격주가 되고, 어느새 안 함</td></tr>
+</tbody></table></div>
+
+<blockquote>
+  <p><strong>범위 · 형식 · 실행</strong> 을 파일로 고정하면 이 셋이 모두 사라집니다. 이 차시는 그중 <strong>형식</strong>을 다룹니다.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="체험">2. 체험 — 흔들림을 직접 만들어 봅니다</h2>
+
+<p>실습 폴더에서 시작합니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd "$env:USERPROFILE\Desktop\harness-edu\codex-engineering\track-b-ops"; claude</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/Desktop/harness-edu/codex-engineering/track-b-ops &amp;&amp; claude</pre></div></div></div>
+
+<p><strong>1회차</strong> — 조사시키고 표로 정리하게 합니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>너는 은행 준법·리스크팀 애널리스트야.
+최근 1주간 한국 금융 규제·공시 동향을 조사해줘.
+자본규제 · 소비자보호 · AML/제재 · 공시 4개 영역을 훑고,
+각 항목에 출처 기관명과 발표일을 붙여줘.
+확인 안 된 내용은 지어내지 말고 [확인 필요] 로 표시해줘.
+
+그다음 표로 정리해줘. 컬럼은 제목 / 출처 / 발표일 / 분류 / 영향도 / 다음 행동.</pre></div>
+
+<p><strong>2회차</strong> — 대화를 비우고 <strong>똑같이</strong> 다시 실행합니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창 — 비우기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/clear</pre></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
+<p><strong>관찰 포인트 — 두 결과에서 이 세 가지를 비교하세요</strong></p>
+<ol>
+<li><strong>분류 이름</strong> — &quot;자본규제&quot; vs &quot;자본 규제&quot; vs &quot;건전성 규제&quot;</li>
+<li><strong>영향도 값</strong> — &quot;높음/중간/낮음&quot; vs &quot;상/중/하&quot; vs &quot;High/Medium&quot;</li>
+<li><strong>다음 행동 칸</strong> — 구체적 행동인가, &quot;검토 필요&quot; 같은 빈 문장인가</li>
+</ol>
+</div></section>
+
+<p>대개 흔들립니다. <strong>AI가 잘못한 게 아니라, 우리가 형식을 약속하지 않았습니다.</strong> 표 두 개를 나란히 놓고 쓰려면 사람이 손으로 맞춰야 하고, 그러면 자동화가 아닙니다.</p>
+
+<hr>
+
+<h2 id="개념">3. 개념 — 계약이 반복을 가능하게 합니다</h2>
+
+<h3 id="3-1-계약이란">3-1. 출력 계약이란</h3>
+
+<p>&quot;결과에 이런 항목이 이런 값으로 나와야 한다&quot; 를 <strong>미리 못 박은 것</strong>입니다. 자유 서술과의 차이는 이렇습니다.</p>
+
+<div class="vs">
+  <div class="bad">
+    <h4>자유 서술로 부탁</h4>
+    <p>&quot;표로 정리해줘. 컬럼은 제목/출처/분류/영향도…&quot;</p>
+    <ul>
+      <li>매번 다르게 해석됩니다</li>
+      <li>값의 종류가 제한되지 않습니다</li>
+      <li>빈칸이 생겨도 그냥 넘어갑니다</li>
+    </ul>
+  </div>
+  <div class="good">
+    <h4>계약으로 고정</h4>
+    <p>항목·허용 값·필수 여부를 파일로 정의</p>
+    <ul>
+      <li>분류는 <strong>정해진 다섯 값 중에서만</strong></li>
+      <li>영향도는 높음/중간/낮음 <strong>세 가지만</strong></li>
+      <li>다음 행동은 <strong>필수</strong> — 비면 다시 시도</li>
+      <li>없는 항목을 <strong>지어내지 못함</strong></li>
+    </ul>
+  </div>
+</div>
+
+<p>이 실습 폴더에는 그 계약 파일이 이미 들어 있습니다. 열어서 확인합니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>schema/regwatch.schema.json 을 읽고, 이 계약이 무엇을 강제하는지
+전문 용어 없이 쉬운 말로 설명해줘. 표로 정리해줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 다음과 같은 강제 규칙이 정리됩니다.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">계약이 강제하는 것</span></div><pre>분류(category)  자본규제 / 소비자보호 / AML제재 / 공시 / 기타 — 다섯 값만
+영향도(impact)  높음 / 중간 / 낮음
+다음 행동       필수. "검토 필요" 같은 빈 동사 대신 실행 가능한 행동
+그 외 항목      스키마에 없는 필드는 만들 수 없음</pre></div>
+</div></section>
+
+<h3 id="3-2-왜-중요">3-2. 계약이 생기면 따라오는 것</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th>얻는 것</th><th>왜</th></tr></thead>
+<tbody>
+<tr><td><strong>비교 가능</strong></td><td>지난주와 이번주를 나란히 놓을 수 있습니다</td></tr>
+<tr><td><strong>누적 가능</strong></td><td>같은 구조라 계속 쌓아 통계를 낼 수 있습니다</td></tr>
+<tr><td><strong>자동 검증</strong></td><td>필수 항목이 비면 <strong>기계가</strong> 잡아냅니다</td></tr>
+<tr><td><strong>다른 곳에 흘려보내기</strong></td><td>스프레드시트·메일·대시보드에 그대로 넣을 수 있습니다</td></tr>
+</tbody></table></div>
+
+<blockquote class="rule">
+  <p><strong>하네스 4원리 중 세 번째 — 계약이 병렬성을 만든다</strong><br>
+  형식을 먼저 정하면 ① 여러 담당이 동시에 일해도 합칠 수 있고 ② 매주 같은 형식으로 반복할 수 있습니다. 3차시 Level 2에서 &quot;담당자들이 서로 대화하지 않는데도 통합이 되는&quot; 이유가 이것입니다.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="권한">4. 권한과 안전 — 자동으로 돌리기 전에</h2>
+
+<h3 id="4-1-대화형-vs-자동">4-1. 대화형과 자동 실행은 다릅니다</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>대화형 (지금까지 한 것)</th><th>자동 실행</th></tr></thead>
+<tbody>
+<tr><td>사람</td><td>보면서 승인</td><td><strong>없음</strong></td></tr>
+<tr><td>위험 통제</td><td>승인 단계에서 막음</td><td><strong>샌드박스로만</strong> 막음</td></tr>
+<tr><td>언제</td><td>처음 해보는 일, 판단이 필요한 일</td><td>세 번 이상 반복된, 검증된 일</td></tr>
+</tbody></table></div>
+
+<h3 id="4-2-샌드박스">4-2. 울타리는 셋 중에서 고릅니다</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th>단계</th><th>허용 범위</th><th>언제 쓰나</th></tr></thead>
+<tbody>
+<tr><td><strong>읽기 전용</strong></td><td>파일을 읽기만. 아무것도 못 바꿈</td><td><strong>조사·분석·리뷰는 전부 여기</strong></td></tr>
+<tr><td>작업 폴더 쓰기</td><td>지정한 폴더 안에서만 생성·수정</td><td>결과 파일을 만들어야 할 때</td></tr>
+<tr><td>전체 허용</td><td>제한 없음</td><td><strong>이 과정에서는 쓰지 않습니다</strong></td></tr>
+</tbody></table></div>
+
+<blockquote class="rule">
+  <p><strong>자동화의 조건</strong><br>
+  ① <strong>세 번 이상 반복된 일</strong>만 자동화합니다. 자동화는 대화형의 대체가 아니라 <strong>충분히 반복된 일에 대한 졸업</strong>입니다.<br>
+  ② 처음에는 <strong>읽기 전용</strong>으로 시작합니다.<br>
+  ③ 결과를 <strong>사람이 받아 보는 자리</strong>를 반드시 남깁니다 (메일·채널·시트).</p>
+</blockquote>
+
+<h3 id="4-3-codex-자동실행">4-3. (선택) 실제 자동 실행 형태</h3>
+
+<p><a href="../install/codex.html">Codex CLI</a> 를 설치했다면, 계약을 걸어 자동 실행하는 실제 명령은 이런 모양입니다. <strong>지금 실행할 필요는 없고, 형태만 보세요.</strong></p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널 — 계약을 건 자동 실행 (참고)</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex exec --search --sandbox read-only \
+  --output-schema schema/regwatch.schema.json \
+  --output-last-message regwatch.json \
+  "최근 1주 한국 금융 규제·공시를 조사해 schema에 맞춰 JSON으로 반환하라.
+   분류와 영향도는 스키마에 정의된 값 중에서만 고르라."</pre></div></div></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>핵심은 한 줄</strong>: <code>--output-schema</code> 가 계약을 겁니다. 결과가 계약을 벗어나면 <strong>자동으로 다시 시도</strong>합니다. 사람이 형식을 맞출 필요가 없어지는 지점이 여기입니다.</p></div></section>
+
+<p>이 명령을 회사 스케줄러나 자동화 도구에 걸면 <strong>&quot;매주 월요일 오전 8시 자동 발행&quot;</strong> 이 됩니다. 여기까지 오면 만든 것은 &quot;이번 주 리포트&quot;가 아니라 <strong>리포트를 만드는 시스템</strong>입니다.</p>
+
+<hr>
+
+<h2 id="실습지">5. 사례 — 광고 AE의 출력 계약</h2>
+
+<div class="case">
+  <div class="case-head">
+    <span class="tag-case">사례</span>
+    <strong>정하늘 대리의 출력 계약</strong>
+    <span>5차시 결과물 · 주간 리포트 형식 고정</span>
+  </div>
+
+  <p>4차시에서 팀은 만들었습니다. 그런데 3주 연속 돌려 보니 <strong>매주 표가 조금씩 달랐습니다.</strong></p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:120px">주차</th><th>흔들린 부분</th></tr></thead>
+    <tbody>
+      <tr><td>1주차</td><td>매체명이 &quot;메타&quot;</td></tr>
+      <tr><td>2주차</td><td>매체명이 &quot;Meta(페이스북/인스타)&quot; — 광고주가 &quot;지난주랑 매체가 바뀌었나요?&quot; 라고 물음</td></tr>
+      <tr><td>3주차</td><td>&quot;다음 행동&quot; 칸이 통째로 사라짐. 이슈 등급이 &quot;상/중/하&quot; 로 바뀜</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="case-step"><em>①</em> 산출물 항목 정의 <span class="muted">— 엑셀 열 이름을 정하듯이</span></p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:34px">#</th><th>항목</th><th>설명</th><th style="width:60px">필수</th><th>허용 값</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>기간</td><td>집계 주차</td><td>✔</td><td><code>YYYY-MM-DD ~ YYYY-MM-DD</code></td></tr>
+      <tr><td>2</td><td>매체</td><td>집행 매체</td><td>✔</td><td><strong>네이버GFA / 카카오모먼트 / 메타 / 구글애즈 / 틱톡</strong> <span class="muted">— 다섯 가지만</span></td></tr>
+      <tr><td>3</td><td>노출 · 클릭 · CTR</td><td>기본 지표</td><td>✔</td><td>정수 / 정수 / 소수점 둘째 자리 %</td></tr>
+      <tr><td>4</td><td>집행액</td><td><strong>VAT 별도</strong> 기준</td><td>✔</td><td>원 단위 정수</td></tr>
+      <tr><td>5</td><td>전환 · 전환매출</td><td>구매 기준</td><td>✔</td><td>정수</td></tr>
+      <tr><td>6</td><td>CPA · ROAS</td><td>재계산 값</td><td>✔</td><td>원 / % <span class="muted">(매체 리포트 값 복사 금지)</span></td></tr>
+      <tr><td>7</td><td>목표 달성률</td><td>월 ROAS 350% 대비</td><td>✔</td><td>%</td></tr>
+      <tr><td>8</td><td>전주 대비</td><td>주요 지표 증감</td><td>✔</td><td><code>+12.3%</code> / <code>-8.1%p</code></td></tr>
+      <tr><td>9</td><td>이슈 등급</td><td>대응 시급도</td><td>✔</td><td><strong>높음 / 중간 / 낮음</strong></td></tr>
+      <tr><td>10</td><td>다음 행동</td><td>이번 주 실행안</td><td><strong>✔</strong></td><td>실행 가능한 문장 <span class="muted">— &quot;모니터링 필요&quot; 같은 빈 문장 금지</span></td></tr>
+      <tr><td>11</td><td>확인 필요</td><td>데이터가 불확실한 항목</td><td>—</td><td><code>[확인 필요]</code> 표시</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="why">
+    <b>허용 값을 정할 수 있는 항목이 계약의 힘</b>
+    <p>11개 중 <strong>2번(매체)과 9번(이슈 등급)</strong> 이 핵심입니다. 이 둘만 고정해도 지난주와 이번주를 나란히 놓고 볼 수 있습니다.</p>
+    <p>그리고 <strong>10번을 필수로 만든 것</strong>이 실무적으로 가장 큰 변화였습니다. 예전 리포트에는 &quot;지속 모니터링 예정&quot; 같은 문장이 절반이었는데, 필수로 걸어 두니 <strong>구체적 행동</strong>이 나오기 시작했습니다.</p>
+  </div>
+
+  <p class="case-step"><em>②</em> 계약 파일 만들기 — 실제로 넣은 프롬프트</p>
+
+  <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">my-harness 폴더에서 넣은 것</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>내 업무 산출물의 출력 계약을 만들어줘.
+
+업무: 루미에르 주간 캠페인 성과 리포트 (5개 매체)
+
+항목:
+- 기간 : 집계 주차 / 필수 / YYYY-MM-DD ~ YYYY-MM-DD
+- 매체 : 집행 매체 / 필수 / 허용 값: 네이버GFA, 카카오모먼트, 메타, 구글애즈, 틱톡
+- 노출, 클릭, CTR : 기본 지표 / 필수
+- 집행액 : VAT 별도 기준 / 필수 / 원 단위 정수
+- 전환, 전환매출 : 구매 기준 / 필수
+- CPA, ROAS : 재계산 값 / 필수 (매체 리포트 값 복사 금지)
+- 목표 달성률 : 월 ROAS 350% 대비 / 필수
+- 전주 대비 : 주요 지표 증감 / 필수
+- 이슈 등급 : 필수 / 허용 값: 높음, 중간, 낮음
+- 다음 행동 : 필수 / 실행 가능한 문장 ("모니터링 필요" 같은 빈 문장 금지)
+- 확인 필요 : 선택 / 데이터가 불확실한 항목 표시
+
+규칙:
+- 목록에 없는 항목은 만들지 말 것
+- 값을 모르면 지어내지 말고 "[확인 필요]" 로 표시할 것
+
+사람이 읽는 output-contract.md 와
+기계가 검사하는 output-contract.schema.json 을 각각 만들어줘.</pre></div>
+
+  <p class="case-step"><em>③</em> 계약 전후 비교 <span class="muted">— 같은 데이터로 2회 실행</span></p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>확인 항목</th><th>계약 전</th><th>계약 후</th></tr></thead>
+    <tbody>
+      <tr><td>항목 이름·순서</td><td>회차마다 다름 (열 개수도 9~12개로 변동)</td><td><strong>11개 고정</strong></td></tr>
+      <tr><td>매체 표기</td><td>메타 / Meta / 페이스북</td><td><strong>메타</strong> 로 고정</td></tr>
+      <tr><td>이슈 등급</td><td>높음·중간·낮음 / 상·중·하 혼용</td><td><strong>높음·중간·낮음</strong></td></tr>
+      <tr><td>다음 행동</td><td>1회차 있음, 2회차 누락</td><td><strong>항상 있음</strong> (없으면 재시도)</td></tr>
+      <tr><td>불확실 데이터</td><td>슬쩍 추정값으로 채움</td><td><code>[확인 필요]</code> 표시</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="case-step"><em>④</em> 정례화 계획</p>
+
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><th style="width:190px">주기</th><td>매주 월요일 오전 <strong>9시</strong> (광고주 발송은 10시 30분)</td></tr>
+      <tr><th>실행하는 사람</th><td>정하늘 대리. 부재 시 같은 팀 후배 <span class="muted">(하네스 폴더만 열면 되므로 인수인계 불필요)</span></td></tr>
+      <tr><th>결과를 쌓는 곳</th><td>팀 공유 드라이브 <code>/루미에르/주간리포트/2026/</code></td></tr>
+      <tr><th><strong>사람이 확인하는 시점</strong></th><td><strong>월요일 9시 30분 — 발송 전 30분.</strong> 이슈 등급 &lsquo;높음&rsquo; 항목과 <code>[확인 필요]</code> 표시를 눈으로 확인</td></tr>
+      <tr><th>실패하면 누구에게</th><td>정하늘 대리 → 30분 내 미해결 시 팀장. <strong>매체 데이터 미도착</strong>이 가장 흔한 실패 원인</td></tr>
+      <tr><th>권한 범위</th><td>매체 데이터 폴더는 <strong>읽기 전용</strong>, 리포트 폴더만 쓰기 허용</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="why">
+    <b>&quot;사람이 확인하는 시점&quot;을 30분으로 잡은 이유</b>
+    <p>예전에는 리포트 작성에 2시간 반, 검토에 10분이었습니다. 지금은 <strong>작성 10분, 검토 30분</strong>입니다. 총 시간은 3시간 → 40분으로 줄었지만, <strong>검토 시간은 오히려 늘렸습니다.</strong></p>
+    <p>이것이 자동화의 올바른 방향입니다 — 사람을 빼는 게 아니라 <strong>사람이 판단에만 시간을 쓰게</strong> 하는 것.</p>
+  </div>
+
+  <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body"><p>6번 항목(CPA·ROAS 재계산)이 다음 차시의 재료입니다. <strong>계산을 설명서로 시키면 틀립니다.</strong> 6차시에서 이 계산을 도구로 옮깁니다.</p></div></section>
+</div>
+
+<h3 id="5-1-내-업무에-대입">5-1. 내 업무에 대입해 보기</h3>
+
+<p>두 가지만 떠올리면 계약의 절반은 완성입니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th style="width:250px">질문</th><th>정하늘 대리의 답</th></tr></thead>
+<tbody>
+<tr><td>내 산출물에서 <strong>정해진 몇 가지 중 하나</strong>인 항목은?</td><td>매체(5개) · 이슈 등급(3단계)</td></tr>
+<tr><td><strong>비면 안 되는</strong> 항목은?</td><td>다음 행동 — 비어 있으면 리포트의 의미가 없음</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2 id="스스로-점검">6. 스스로 점검</h2>
+
+<ul class="checklist">
+<li>계약 없이 돌렸을 때의 흔들림을 직접 봤다 (분류·영향도·행동 칸)</li>
+<li>내 업무 산출물의 항목을 표로 정의했다</li>
+<li>허용 값을 정할 수 있는 항목을 최소 하나 찾았다</li>
+<li><code>output-contract.md</code> 와 스키마 파일을 만들었다</li>
+<li>읽기 전용과 폴더 쓰기의 차이를 설명할 수 있다</li>
+<li>자동화해도 되는 조건(&quot;세 번 이상&quot;)을 안다</li>
+</ul>
+
+<h3 id="흔한-실패">흔한 실패와 대처</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th>증상</th><th>왜 생기나</th><th>대처</th></tr></thead>
+<tbody>
+<tr><td>항목이 20개가 넘음</td><td>있으면 좋은 것까지 다 넣음</td><td><strong>없으면 안 되는 것</strong>만 남기세요. 6~10개면 충분합니다</td></tr>
+<tr><td>허용 값을 못 정하겠음</td><td>자유 서술 항목만 있음</td><td>&quot;상태&quot;나 &quot;등급&quot; 같은 항목을 하나 추가해 보세요</td></tr>
+<tr><td>계약을 걸어도 흔들림</td><td>지시에서 계약 파일을 참조하지 않음</td><td>&quot;<code>output-contract.md</code> 의 형식을 지켜서&quot; 를 <strong>매번</strong> 명시</td></tr>
+<tr><td>&quot;그냥 매번 고치면 되는데요&quot;</td><td>1회성 관점</td><td>52주 × 5분 = 연 4시간. 그리고 담당자가 바뀌면 처음부터입니다</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2 id="더-해보기">7. 더 해보기 (선택)</h2>
+
+<ul>
+<li><strong>계약 위반 실험</strong> — 일부러 계약에 없는 항목을 요구해 보세요. AI가 거절하거나 다시 시도하는지 확인합니다.</li>
+<li><strong>지난 결과와 비교</strong> — 같은 계약으로 만든 결과 두 개를 주고 &quot;전주 대비 변화&quot; 를 정리하게 해보세요. 계약이 있어야 가능한 작업입니다.</li>
+<li><strong>원본 교안</strong> — <a href="https://github.com/namojo/harness-edu/blob/main/codex-engineering/track-b-ops/README.md" target="_blank" rel="noopener">track-b-ops/README.md</a> · <a href="https://github.com/namojo/harness-edu/blob/main/codex-engineering/README.md" target="_blank" rel="noopener">Harness Engineering 5원칙</a></li>
+</ul>
+
+<hr>
+
+<h2 id="다음-차시">8. 다음 차시</h2>
+
+<p>형식은 고정됐습니다. 그런데 <strong>표 안의 숫자</strong>는 믿을 수 있을까요? 6차시에서는 AI가 암산한 숫자와 도구가 계산한 숫자를 비교하고, <strong>계산을 도구에 위임</strong>합니다.</p>
+
+<div class="lesson-nav">
+  <a class="next-card" href="ch6.html"><span class="k">6차시</span><strong>계산은 도구에게</strong><span>파이썬 40줄 계산기를 AI에 붙입니다. 코드는 읽기만 합니다.</span></a>
+  <a class="next-card" href="../install/mcp-server.html"><span class="k">미리 준비</span><strong>MCP 서버 설치가이드</strong><span>6차시 전에 해두면 좋습니다 (20~30분).</span></a>
+</div>
+
+    </article>
+
+<nav class="pager" aria-label="페이지 이동">
+  <a class="pager-prev" href="ch4.html"><span class="dir">← 이전</span><strong>4차시 · 전문가 팀 만들기</strong></a>
+  <a class="pager-next" href="ch6.html"><span class="dir">다음 →</span><strong>6차시 · 계산은 도구에게</strong></a>
+</nav>
+  </main>
+
+  <aside class="side" aria-label="과정 내비게이션">
+    <details class="side-box" open>
+      <summary>🗺️ 과정 지도 — 다른 차시로 이동</summary>
+      <h4>차시</h4>
+      <div class="map-group">
+        <a class="map-link" href="../install/index.html"><b>0</b>실습 환경 준비</a>
+        <a class="map-link" href="ch1.html"><b>1</b>나의 업무 지도</a>
+        <a class="map-link" href="ch2.html"><b>2</b>지식을 파일로</a>
+        <a class="map-link" href="ch3.html"><b>3</b>일의 단계 판단</a>
+        <a class="map-link" href="ch4.html"><b>4</b>전문가 팀 만들기</a>
+        <a class="map-link on" href="ch5.html"><b>5</b>반복을 시스템으로</a>
+        <a class="map-link" href="ch6.html"><b>6</b>계산은 도구에게</a>
+        <a class="map-link" href="ch7.html"><b>7</b>내 업무에 이식하기</a>
+      </div>
+      <h4 class="mt">참고</h4>
+      <div class="map-group">
+        <a class="map-link opt" href="../install/index.html"><b>?</b>설치가이드</a>
+        <a class="map-link opt" href="https://github.com/namojo/harness-edu/blob/main/codex-engineering/track-b-ops/README.md"><b>↗</b>트랙 B 원본 교안</a>
+      </div>
+      <a class="map-home" href="../index.html">↩ 과정 홈</a>
+    </details>
+    <details class="side-box side-toc" open>
+      <summary>🔖 이 페이지 목차</summary>
+      <h4>이 페이지 목차</h4>
+      <ul class="toc-list">
+        <li><a href="#준비할-것">준비할 것</a></li>
+        <li><a href="#처음-나오는-말">처음 나오는 말</a></li>
+        <li><a href="#배우는-것">배우는 것</a></li>
+        <li><a href="#문제">1. 문제</a></li>
+        <li><a href="#체험">2. 흔들림 체험</a></li>
+        <li><a href="#개념">3. 출력 계약</a></li>
+        <li><a href="#권한">4. 권한과 안전</a></li>
+        <li class="toc-l3"><a href="#4-2-샌드박스">4-2. 울타리 3단계</a></li>
+        <li><a href="#실습지">5. 사례 · 출력 계약</a></li>
+        <li><a href="#스스로-점검">6. 스스로 점검</a></li>
+        <li><a href="#더-해보기">7. 더 해보기</a></li>
+        <li><a href="#다음-차시">8. 다음 차시</a></li>
+      </ul>
+    </details>
+  </aside>
+</div>
+
+<footer><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#faf9f5"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    harness-edu
+  </a>
+  <p>인쇄해서 보셔도 됩니다. (Ctrl+P / Command+P)</p>
+  <p><a href="../index.html">과정 홈</a> · <a href="../install/index.html">설치가이드</a> · <a href="https://github.com/namojo/harness-edu" target="_blank" rel="noopener">GitHub 저장소</a></p>
+</div></footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

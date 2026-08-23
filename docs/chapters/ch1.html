@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1차시. 나의 업무 지도 — 무엇을 맡길 것인가 · harness-edu</title>
+<meta name="description" content="AI에게 무엇을 맡기고 무엇을 맡기지 않을지 판단하는 기준을 세우고, 내 반복 업무를 지도로 그립니다. 비전공자를 위한 하네스 교육 1차시.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="ch1">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="topnav"><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#141413"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    <span class="brand-full">harness-edu</span>
+  </a>
+  <nav aria-label="주요 메뉴">
+    <a href="../index.html">과정 홈</a>
+    <a href="../index.html#curriculum" aria-current="page">커리큘럼</a>
+    <a href="../install/index.html">설치가이드</a>
+  </nav>
+</div></header>
+
+<div class="wrap page-head">
+  <div class="eyebrow">1차시 · 교재 + 사례</div>
+  <h1>나의 업무 지도 — 무엇을 맡길 것인가</h1>
+  <p class="sub">AI에게 일을 시키기 전에, <strong>무엇을 맡기고 무엇을 끝까지 사람이 쥘지</strong> 먼저 정합니다. 이 차시에서 고른 업무 하나를 7차시까지 계속 끌고 갑니다.</p>
+  <div class="meta">
+    <span class="badge">1 / 7</span>
+    <span>⏱ 50분</span>
+    <span>🧑‍💼 실무 사례</span>
+    <span>🧑‍💼 비전공자 대상</span>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <main id="main" class="main-col">
+    <article class="prose">
+
+<h2 id="준비할-것">이 차시에서 준비할 것</h2>
+
+<div class="prep">
+  <div class="prep-item"><b>선행</b><span><a href="../install/index.html">0차시 · 실습 환경 준비</a> 완료</span></div>
+  <div class="prep-item"><b>확인</b><span>터미널에서 <code>claude</code> 실행이 되는 상태</span></div>
+  <div class="prep-item"><b>사례</b><span>광고대행사 AE <strong>정하늘 대리</strong> — 1~7차시 관통</span></div>
+  <div class="prep-item"><b>가져올 것</b><span>내가 <strong>매주 반복하는 업무</strong> 하나를 떠올릴 수 있는 상태</span></div>
+</div>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p>아직 설치가 안 끝났다면 여기서 멈추고 <a href="../install/index.html">설치가이드</a>부터 하세요. 이 차시 후반에 Claude Code를 직접 실행합니다.</p></div></section>
+
+<hr>
+
+<h2 id="처음-나오는-말">이 차시에서 처음 나오는 말</h2>
+
+<div class="terms"><dl>
+  <dt>에이전트</dt><dd>사람 대신 <strong>여러 단계의 일을 스스로 진행하는 AI</strong>. 질문에 답만 하는 챗봇과 달리, 파일을 읽고 만들고 실행합니다.</dd>
+  <dt>하네스</dt><dd>에이전트가 <strong>매번 같은 품질로 일하도록 감싸는 구조</strong>. 역할·규칙·도구를 파일로 정리해 둔 한 벌을 말합니다.</dd>
+  <dt>위임 수준</dt><dd>그 업무를 AI에게 <strong>어디까지 맡길지</strong> 정한 단계. 이 과정에서는 세 단계(보조 / 자동화 후보 / 사람의 판단)로 씁니다.</dd>
+  <dt>컨텍스트</dt><dd>AI가 지금 <strong>보고 있는 정보의 범위</strong>. 실행한 폴더의 파일, 방금 나눈 대화가 여기에 들어갑니다.</dd>
+</dl></div>
+
+<hr>
+
+<h2 id="배우는-것">이 차시에서 배우는 것</h2>
+
+<ul class="goals">
+  <li>AI를 <strong>쓰는 것</strong>과 AI와 <strong>일하는 것</strong>의 차이를 구분한다</li>
+  <li>내 업무를 단계로 펼쳐, 맡길 일과 쥐고 있을 일을 <strong>기준을 갖고</strong> 나눈다</li>
+  <li>7차시까지 끌고 갈 <strong>내 업무 1개</strong>를 고르고, 안전한 입력 범위를 정한다</li>
+</ul>
+
+<hr>
+
+<h2 id="왜-지금인가">1. 왜 지금인가</h2>
+
+<h3 id="1-1-도구는-이미-들어와-있다">1-1. 도구는 이미 들어와 있고, 격차는 다른 데서 벌어집니다</h3>
+
+<p>AI를 안 쓰는 사람은 이제 드뭅니다. 보고서 초안, 메일 문안, 자료 요약 — 대부분 한 번쯤 시켜 봤습니다. 그런데 <strong>몇 달 뒤에 남는 것</strong>은 사람마다 크게 다릅니다.</p>
+
+<div class="vs">
+  <div class="bad">
+    <h4>A. 매번 새로 시키는 사람</h4>
+    <p>필요할 때마다 대화창을 열고 길게 설명합니다. 결과가 마음에 들면 복사해서 문서에 붙입니다.</p>
+    <ul>
+      <li>지난달에 잘 나왔던 그 프롬프트가 어디 있는지 모릅니다</li>
+      <li>같은 요청인데 이번엔 형식이 다릅니다</li>
+      <li>옆 사람에게 넘겨줄 것이 없습니다</li>
+    </ul>
+  </div>
+  <div class="good">
+    <h4>B. 구조를 만드는 사람</h4>
+    <p>같은 일이 세 번 반복되면 규칙과 역할을 <strong>파일로</strong> 정리합니다. 다음부터는 그 파일을 씁니다.</p>
+    <ul>
+      <li>매주 같은 형식의 결과가 나옵니다</li>
+      <li>규칙이 바뀌면 파일 한 줄만 고칩니다</li>
+      <li>팀원이 그대로 받아서 씁니다</li>
+    </ul>
+  </div>
+</div>
+
+<p>둘의 차이는 <strong>프롬프트 실력이 아니라 재현성</strong>입니다. 이 과정은 A에서 B로 넘어가는 방법을 다룹니다.</p>
+
+<h3 id="1-2-속도가-아니라-재현성">1-2. 우리가 진짜로 사려는 것은 속도가 아닙니다</h3>
+
+<p>AI로 30분 걸리던 일을 5분에 끝냈다고 해봅시다. 그런데 결과를 <strong>사람이 20분 검토</strong>해야 하고, 다음 주에 또 처음부터 설명해야 한다면 남는 이득은 크지 않습니다.</p>
+
+<blockquote>
+  <p>업무에서 의미 있는 개선은 <strong>&quot;빨라졌다&quot;가 아니라 &quot;매번 같은 품질로 나온다&quot;</strong> 입니다. 품질이 일정해야 검토 시간이 줄고, 검토 시간이 줄어야 실제로 일이 줄어듭니다.</p>
+</blockquote>
+
+<h3 id="1-3-대체가-아니라-분업">1-3. &quot;AI가 내 일을 대체하는가&quot; 라는 질문에 대하여</h3>
+
+<p>이 과정은 그 질문에 답하지 않습니다. 대신 <strong>분업</strong>을 다룹니다. 어떤 일은 넘겨도 되고, 어떤 일은 넘기면 안 되고, 그 경계를 <strong>내가 정하는 것</strong>이 핵심 역량입니다. 경계를 정할 줄 아는 사람이 도구를 통제합니다.</p>
+
+<hr>
+
+<h2 id="개념-익히기">2. 개념 익히기</h2>
+
+<h3 id="2-1-쓰는-것과-일하는-것">2-1. AI를 &quot;쓰는 것&quot;과 AI와 &quot;일하는 것&quot;</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>AI를 쓴다</th><th>AI와 일한다</th></tr></thead>
+<tbody>
+<tr><td>단위</td><td>질문 한 번</td><td>업무 흐름 하나</td></tr>
+<tr><td>주는 것</td><td>질문</td><td>역할 · 규칙 · 자료 · 형식</td></tr>
+<tr><td>결과</td><td>답변 (복사해서 씀)</td><td>파일 (그대로 산출물)</td></tr>
+<tr><td>다음 번</td><td>다시 설명</td><td>같은 구조를 재실행</td></tr>
+<tr><td>남는 것</td><td>대화 기록</td><td><strong>자산 (파일)</strong></td></tr>
+</tbody></table></div>
+
+<p>이 과정에서 계속 쓰는 도구인 <strong>Claude Code</strong> 는 두 번째 쪽에 특화되어 있습니다. 대화창이 아니라 <strong>내 폴더 안에서</strong> 일하고, 결과를 파일로 남기기 때문입니다.</p>
+
+<h3 id="2-2-업무를-여섯-단계로">2-2. 내 업무를 여섯 단계로 펼쳐 보기</h3>
+
+<p>어떤 지식 업무든 대개 이 여섯 단계를 지납니다. 통째로 &quot;맡긴다/안 맡긴다&quot;를 정하면 판단이 거칠어집니다. <strong>단계별로</strong> 봐야 정확합니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>단계</th><th>하는 일</th><th>AI 적합도</th><th>왜</th></tr></thead>
+<tbody>
+<tr><td>① 수집</td><td>자료 모으기</td><td>높음</td><td>흩어진 파일·문서를 훑는 일은 사람보다 빠릅니다</td></tr>
+<tr><td>② 정리</td><td>형식·용어 통일</td><td><strong>매우 높음</strong></td><td>표현이 제각각인 자료를 맞추는 일에 가장 강합니다 (2차시 주제)</td></tr>
+<tr><td>③ 분석</td><td>계산·비교</td><td>조건부</td><td>정확한 숫자는 <strong>도구</strong>에 맡겨야 합니다 (6차시 주제)</td></tr>
+<tr><td>④ 초안</td><td>문서 작성</td><td>높음</td><td>빈 화면에서 시작하지 않게 해 줍니다</td></tr>
+<tr><td>⑤ 검토</td><td>빠진 것 찾기</td><td>보조</td><td>교차 검증에는 쓰되, 최종 승인은 사람이 (4차시 주제)</td></tr>
+<tr><td>⑥ 배포</td><td>보고·공유</td><td>낮음</td><td>맥락과 책임이 붙는 일입니다</td></tr>
+</tbody></table></div>
+
+<h3 id="2-3-사람이-계속-쥐는-일">2-3. 사람이 계속 책임져야 하는 일</h3>
+
+<ul>
+<li><strong>무엇이 중요한지 정하는 일</strong> — 어떤 지표를 볼지, 무엇을 먼저 보고할지</li>
+<li><strong>맥락이 걸린 판단</strong> — 이 표현이 이 상대에게 적절한지</li>
+<li><strong>최종 승인</strong> — 내보내도 되는지, 책임질 수 있는지</li>
+<li><strong>사실 확인</strong> — 특히 숫자·인용·날짜. AI는 그럴듯하게 틀립니다</li>
+</ul>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>기억할 문장</strong>: AI는 <strong>못 하는 것</strong>보다 <strong>틀린 것을 자신 있게 말하는 것</strong>이 더 위험합니다. 그래서 이 과정은 &quot;더 잘 시키는 법&quot; 만큼 &quot;틀리면 걸리게 만드는 구조&quot; 를 함께 다룹니다.</p></div></section>
+
+<h3 id="2-4-위임-수준-3단계">2-4. 위임 수준 3단계</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th>수준</th><th>뜻</th><th>사람의 역할</th><th>예</th></tr></thead>
+<tbody>
+<tr><td><strong>ⓐ AI 보조</strong></td><td>사람이 하되 AI가 돕는다</td><td>전 과정 주도</td><td>보고서 문장 다듬기, 아이디어 확장</td></tr>
+<tr><td><strong>ⓑ 자동화 후보</strong></td><td>AI가 하고 사람이 검수한다</td><td>기준 제시 + 결과 검수</td><td>주간 실적 취합, 용어 통일, 형식 변환</td></tr>
+<tr><td><strong>ⓒ 사람의 판단</strong></td><td>맡기지 않는다</td><td>전부</td><td>인사 평가, 계약 조건 결정, 대외 발표 승인</td></tr>
+</tbody></table></div>
+
+<p>ⓑ 로 분류한 일이 <strong>이 과정에서 하네스로 만들 후보</strong>입니다. ⓒ 는 하네스를 만들지 않습니다 — 그것도 중요한 결정입니다.</p>
+
+<h3 id="2-5-입력-신호등">2-5. 입력 신호등 — 무엇을 넣어도 되는가</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th>신호</th><th>자료</th><th>이 과정에서</th></tr></thead>
+<tbody>
+<tr><td>🟢 초록</td><td>공개 자료, 가상 데이터, 일반화된 표현</td><td><strong>실습은 전부 여기서만</strong></td></tr>
+<tr><td>🟡 노랑</td><td>사내 비민감 자료 (공개된 조직도, 일반 양식)</td><td>교육 이후, 회사 규정 확인 뒤</td></tr>
+<tr><td>🔴 빨강</td><td>개인정보, 계약·단가, 미공개 실적, 고객 데이터</td><td><strong>넣지 않습니다</strong></td></tr>
+</tbody></table></div>
+
+<blockquote class="rule">
+  <p><strong>이 과정 전체에 적용되는 규칙</strong><br>
+  ① 실습은 저장소에 들어 있는 <strong>가상 데이터</strong>로만 합니다.<br>
+  ② Claude Code는 <strong>실행한 폴더의 파일을 읽을 수 있습니다.</strong> 그래서 실습은 항상 <code>harness-edu</code> 폴더에서 합니다.<br>
+  ③ AI가 파일을 수정·삭제하려 할 때 승인을 묻습니다. <strong>습관적으로 승인하지 않고</strong> 무엇을 하려는지 읽습니다.</p>
+</blockquote>
+
+<h3 id="2-6-하네스-미리보기">2-6. 하네스의 기본 구조 미리보기</h3>
+
+<p>다음 차시부터 만들 것을 먼저 이름만 익혀 둡니다. 하네스는 결국 이 세 가지의 조합입니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>축</th><th>질문</th><th>무엇인가</th><th>배우는 차시</th></tr></thead>
+<tbody>
+<tr><td><strong>Agent</strong></td><td>누가</td><td>역할과 경계를 정한 담당자</td><td>4차시</td></tr>
+<tr><td><strong>Skill</strong></td><td>무엇을 · 어떻게</td><td>AI가 읽는 설명서 (지식·절차)</td><td>2차시</td></tr>
+<tr><td><strong>Tool</strong></td><td>무엇으로</td><td>실제로 실행되는 계산기 (코드)</td><td>6차시</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2 id="먼저-해보기">3. 먼저 한 번 해보기 — 왜 매번 다를까</h2>
+
+<p>개념보다 손이 빠릅니다. 실습 폴더에서 Claude Code를 켜고, <strong>같은 요청을 두 번</strong> 해봅니다.</p>
+
+<p><strong>1)</strong> 실습 폴더로 이동해 실행합니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd "$env:USERPROFILE\Desktop\harness-edu"; claude</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/Desktop/harness-edu &amp;&amp; claude</pre></div></div></div>
+
+<p><strong>2)</strong> 입력창에 아래를 넣습니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 — 1회차</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>xlsx 폴더의 생산보고서 파일들을 보고, 라인별 상황을 표로 정리해줘.</pre></div>
+
+<p><strong>3)</strong> 결과가 나오면 대화를 비우고 <strong>똑같이</strong> 한 번 더 넣습니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 — 대화 비우기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/clear</pre></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 — 2회차</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>xlsx 폴더의 생산보고서 파일들을 보고, 라인별 상황을 표로 정리해줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 두 번 모두 표가 나오지만 <strong>열 구성·용어·정렬 기준이 서로 다릅니다.</strong> 어느 쪽도 틀리지 않았는데 같지도 않습니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>이렇게 나오면 오류</strong>: 파일을 못 읽는다고 하면 실습 폴더가 아닌 곳에서 실행한 것입니다. <code>/exit</code> 후 위 <strong>1)</strong> 명령으로 다시 들어가세요. 엑셀을 못 읽는다면 <code>document-skills</code> 플러그인 설치를 확인하세요 (<a href="../install/setup-windows.html#3-8-harness-설치">설치가이드 3-8절</a>).</p></div></section>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>관찰 포인트</strong>: 지금 본 &quot;매번 다름&quot; 이 이 과정 전체가 푸는 문제입니다. 2차시에서 <strong>지식을 파일로 꺼내면</strong> 이 흔들림이 어떻게 줄어드는지 직접 비교합니다.</p></div></section>
+
+<hr>
+
+<h2 id="실습">4. 사례 — 광고대행사 AE의 업무 지도</h2>
+
+<p>지금까지의 개념을 <strong>실제 사례 하나</strong>로 확인합니다. 이 과정 전체를 이 사람과 함께 갑니다.</p>
+
+<div class="persona">
+  <span class="avatar" aria-hidden="true">🧑‍💼</span>
+  <div class="who">
+    <h4>정하늘 대리 · 한빛애드 마케팅솔루션팀 (가상 인물)</h4>
+    <p>4년차 <strong>AE(광고기획)</strong>. 화장품 브랜드 &lsquo;루미에르&rsquo;의 디지털 캠페인을 담당합니다. 엑셀과 PPT는 능숙하지만 <strong>터미널은 이번이 처음</strong>입니다.</p>
+    <p>매주 월요일 오전, 5개 매체(네이버 GFA · 카카오 모먼트 · 메타 · 구글 애즈 · 틱톡)에서 내려받은 성과 데이터를 합쳐 <strong>광고주 주간 리포트</strong>를 만듭니다. 매주 2시간 반이 걸립니다.</p>
+    <div class="chips"><span>비개발자</span><span>광고대행사</span><span>주간 반복 업무</span><span>이 과정의 사례 주인공</span></div>
+  </div>
+</div>
+
+<p>1차시부터 7차시까지 <strong>정하늘 대리의 업무 하나</strong>를 따라갑니다. 매 차시 그가 무엇을 만들었는지 <strong>완성된 결과</strong>로 보여 드립니다. 여러분은 같은 자리에 자기 업무를 대입해 보면 됩니다.</p>
+
+<div class="case">
+  <div class="case-head">
+    <span class="tag-case">사례</span>
+    <strong>정하늘 대리의 업무 지도</strong>
+    <span>1차시 결과물</span>
+  </div>
+
+  <p class="case-step"><em>①</em> 매주 반복하는 업무 다섯 가지</p>
+  <p>범위를 좁게 적는 것이 핵심입니다. &quot;리포트 업무&quot;가 아니라 <strong>언제 · 무엇을 · 무엇을 내놓는지</strong>까지.</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:34px">#</th><th>업무 (언제 · 무엇을 · 산출물)</th><th style="width:90px">주당 소요</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>월요일 오전 — 5개 매체 성과 데이터를 합쳐 <strong>광고주 주간 리포트 1장 + 이슈 목록</strong></td><td>2.5시간</td></tr>
+      <tr><td>2</td><td>수요일 — 소재별 성과를 보고 <strong>다음 주 소재 교체안</strong> 정리</td><td>1.5시간</td></tr>
+      <tr><td>3</td><td>수시 — 광고주 문의에 대한 <strong>회신 메일 작성</strong></td><td>2시간</td></tr>
+      <tr><td>4</td><td>월말 — 월간 정산용 <strong>매체별 집행 내역 대사</strong></td><td>3시간(월 1회)</td></tr>
+      <tr><td>5</td><td>신규 제안 시 — <strong>경쟁 브랜드 캠페인 리서치</strong> 요약</td><td>4시간(비정기)</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="case-step"><em>②</em> 자동화 적합도 채점 <span class="muted">(각 항목 1~3점)</span></p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>반복<br>빈도</th><th>소요<br>시간</th><th>정형성</th><th>이득<br>합계</th><th>민감도</th><th>오류<br>파급</th><th>위험<br>합계</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong> 주간 리포트</td><td>3</td><td>3</td><td>3</td><td><strong>9</strong></td><td>1</td><td>2</td><td><strong>3</strong></td></tr>
+      <tr><td><strong>2</strong> 소재 교체안</td><td>3</td><td>2</td><td>1</td><td>6</td><td>1</td><td>2</td><td>3</td></tr>
+      <tr><td><strong>3</strong> 회신 메일</td><td>3</td><td>2</td><td>1</td><td>6</td><td>3</td><td>3</td><td><strong>6</strong></td></tr>
+      <tr><td><strong>4</strong> 정산 대사</td><td>1</td><td>3</td><td>3</td><td>7</td><td>3</td><td>3</td><td><strong>6</strong></td></tr>
+      <tr><td><strong>5</strong> 경쟁사 리서치</td><td>1</td><td>3</td><td>2</td><td>6</td><td>1</td><td>1</td><td>2</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="case-step"><em>③</em> 위임 수준 배정</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:150px">업무</th><th style="width:130px">위임 수준</th><th>그렇게 정한 이유</th></tr></thead>
+    <tbody>
+      <tr><td>1 주간 리포트</td><td><strong>ⓑ 자동화 후보</strong></td><td>이득 9점 · 위험 3점. 형식이 고정돼 있고 매주 반복. <strong>이번 과정의 1순위</strong></td></tr>
+      <tr><td>2 소재 교체안</td><td>ⓐ AI 보조</td><td>데이터 정리는 맡기되 &quot;어떤 소재를 뺄지&quot;는 브랜드 톤 판단이라 사람이</td></tr>
+      <tr><td>3 회신 메일</td><td>ⓐ AI 보조</td><td>초안은 도움 되지만 <strong>발송은 사람이</strong>. 광고주 관계가 걸림</td></tr>
+      <tr><td>4 정산 대사</td><td><strong>ⓒ 사람의 판단</strong></td><td>금액 오류가 곧 정산 사고. 계약 단가·VAT 조건이 얽혀 있음</td></tr>
+      <tr><td>5 경쟁사 리서치</td><td>ⓐ AI 보조</td><td>비정기라 시스템으로 만들 이득이 작음. 그때그때 시켜 쓰는 것으로 충분</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="why">
+    <b>왜 이렇게 나눴나</b>
+    <ul>
+      <li><strong>이득만 보지 않았습니다.</strong> 정산 대사(4번)는 이득 7점으로 높지만 위험도 6점입니다. 틀리면 돈 문제라서 <strong>ⓒ로 남겼습니다.</strong></li>
+      <li><strong>가장 힘든 일을 고르지 않았습니다.</strong> 경쟁사 리서치(5번)가 4시간으로 제일 오래 걸리지만 <strong>비정기</strong>입니다. 하네스의 이득은 반복에서 나옵니다.</li>
+      <li>다섯 개 중 <strong>ⓑ는 하나뿐</strong>입니다. 이것이 정상입니다.</li>
+    </ul>
+  </div>
+
+  <p class="case-step"><em>④</em> 안전한 입력 범위 — 신호등</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th style="width:120px">신호</th><th>주간 리포트 업무에서 다루는 자료</th></tr></thead>
+    <tbody>
+      <tr><td>🟢 넣어도 됨</td><td>매체 성과 지표(노출·클릭·전환), 소재 이름, 캠페인 구조, 공개된 업계 벤치마크</td></tr>
+      <tr><td>🟡 조건부</td><td>브랜드명·제품명 — 사내 규정 확인 후. 실습 중에는 &quot;A브랜드&quot;로 치환</td></tr>
+      <tr><td>🔴 넣지 않음</td><td><strong>계약 단가표, 매체 수수료율, 광고주 담당자 연락처, 미공개 신제품 출시일</strong></td></tr>
+    </tbody>
+  </table></div>
+
+  <p>🔴 자료를 빼고도 실습이 가능한 방법: <strong>단가·수수료 대신 &quot;집행액&quot; 총액만 사용</strong>합니다. 리포트에 필요한 지표(CPA·ROAS)는 총액만으로 계산됩니다.</p>
+
+  <p class="case-step"><em>⑤</em> 7차시까지 끌고 갈 업무 — 업무 카드</p>
+
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><th style="width:160px">업무 이름</th><td>루미에르 <strong>주간 캠페인 성과 리포트</strong></td></tr>
+      <tr><th>입력</th><td>5개 매체에서 내려받은 성과 파일(엑셀·CSV) + 지난주 리포트 + 캠페인 목표(월 ROAS 350%)</td></tr>
+      <tr><th>산출물</th><td>광고주 제출용 <strong>주간 요약 1장</strong> + <strong>이슈·다음 행동 목록</strong></td></tr>
+      <tr><th>품질 기준</th><td>① 숫자는 원본과 100% 일치 ② 매체별 용어가 하나로 통일 ③ 이슈가 하나도 빠지지 않을 것 ④ 지난주 대비 증감이 반드시 포함</td></tr>
+      <tr><th>지금 가장 귀찮은 부분</th><td>매체마다 <strong>컬럼 이름과 지표 정의가 달라서</strong> 매번 손으로 맞추는 일. 특히 메타의 &lsquo;결과&rsquo; 컬럼은 캠페인 목적에 따라 의미가 바뀜</td></tr>
+    </tbody>
+  </table></div>
+
+  <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body"><p>이 <strong>업무 카드</strong>가 2~7차시의 재료입니다. 4차시에서 하네스에게 도메인을 설명할 때 이 네 줄을 그대로 씁니다.</p></div></section>
+</div>
+
+<h3 id="4-1-내-업무에-대입">4-1. 내 업무에 대입해 보기</h3>
+
+<p>사례를 그대로 따라 하되, 머릿속으로 <strong>자기 업무를 하나만</strong> 대입해 보세요. 종이에 적지 않아도 됩니다. 세 가지만 떠올리면 충분합니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th style="width:210px">질문</th><th>정하늘 대리의 답</th><th>나의 답은?</th></tr></thead>
+<tbody>
+<tr><td>매주 반복하는 일 중 <strong>형식이 정해진 것</strong>은?</td><td>월요일 주간 성과 리포트</td><td>—</td></tr>
+<tr><td>거기서 <strong>가장 귀찮은 부분</strong>은?</td><td>매체마다 다른 용어를 손으로 맞추기</td><td>—</td></tr>
+<tr><td>절대 <strong>넣으면 안 되는 자료</strong>는?</td><td>계약 단가표, 수수료율</td><td>—</td></tr>
+</tbody></table></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p>떠오르지 않으면 그냥 <strong>사례를 따라오세요.</strong> 7차시까지 보고 나면 &quot;아, 내 업무의 그 부분이구나&quot; 가 훨씬 잘 보입니다.</p></div></section>
+
+<hr>
+
+<h2 id="스스로-점검">5. 스스로 점검</h2>
+
+<ul class="checklist">
+<li>반복 업무 5개를 &quot;언제·무엇을·산출물&quot; 형태로 적었다</li>
+<li>각 업무에 위임 수준(ⓐ/ⓑ/ⓒ)을 붙였고, 이유를 한 줄로 말할 수 있다</li>
+<li>🔴 로 분류한 자료가 무엇인지 구체적으로 말할 수 있다</li>
+<li>7차시까지 끌고 갈 업무 1개를 골랐고, 입력·산출물·품질 기준을 적었다</li>
+<li>같은 요청을 두 번 했을 때 결과가 달라지는 것을 직접 봤다</li>
+</ul>
+
+<h3 id="흔한-실패">흔한 실패와 대처</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th>증상</th><th>왜 생기나</th><th>대처</th></tr></thead>
+<tbody>
+<tr><td>업무를 너무 크게 적음</td><td>&quot;보고서 업무&quot; 처럼 묶어서 생각하는 습관</td><td>요일·시각·산출물 개수까지 들어가게 다시 쓰기</td></tr>
+<tr><td>다섯 개 모두 ⓑ 자동화 후보</td><td>이득만 보고 위험을 안 매김</td><td>민감도·오류 파급을 다시 채점, 최소 1개는 ⓒ 로</td></tr>
+<tr><td>실제 고객명·금액을 적음</td><td>구체적으로 써야 좋다고 생각</td><td>즉시 일반화. 구체성은 &quot;구조&quot;에서 확보하면 됩니다</td></tr>
+<tr><td>고른 업무가 월 1회짜리</td><td>가장 힘든 일을 고름</td><td>반복 빈도가 높은 일로 교체. 하네스의 이득은 반복에서 나옵니다</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2 id="다음-차시">6. 다음 차시</h2>
+
+<p>3절에서 본 &quot;같은 요청, 다른 결과&quot; 의 원인은 <strong>판단 기준이 AI 머릿속에만 있기 때문</strong>입니다. 2차시에서는 그 기준을 <strong>파일로 꺼내</strong> 결과가 어떻게 안정되는지 직접 비교합니다.</p>
+
+<div class="lesson-nav">
+  <a class="next-card" href="ch2.html"><span class="k">2차시</span><strong>지식을 파일로</strong><span>용어·규칙을 밖으로 꺼내면 결과가 안정됩니다. (xlsx 모듈)</span></a>
+  <a class="next-card" href="../install/index.html"><span class="k">아직 설치 전이라면</span><strong>실습 환경 준비</strong><span>0차시 설치가이드로 이동합니다.</span></a>
+</div>
+
+    </article>
+
+<nav class="pager" aria-label="페이지 이동">
+  <a class="pager-prev" href="../install/index.html"><span class="dir">← 이전</span><strong>0차시 · 실습 환경 준비</strong></a>
+  <a class="pager-next" href="ch2.html"><span class="dir">다음 →</span><strong>2차시 · 지식을 파일로</strong></a>
+</nav>
+  </main>
+
+  <aside class="side" aria-label="과정 내비게이션">
+    <details class="side-box" open>
+      <summary>🗺️ 과정 지도 — 다른 차시로 이동</summary>
+      <h4>차시</h4>
+      <div class="map-group">
+        <a class="map-link" href="../install/index.html"><b>0</b>실습 환경 준비</a>
+        <a class="map-link on" href="ch1.html"><b>1</b>나의 업무 지도</a>
+        <a class="map-link" href="ch2.html"><b>2</b>지식을 파일로</a>
+        <a class="map-link" href="ch3.html"><b>3</b>일의 단계 판단</a>
+        <a class="map-link" href="ch4.html"><b>4</b>전문가 팀 만들기</a>
+        <a class="map-link" href="ch5.html"><b>5</b>반복을 시스템으로</a>
+        <a class="map-link" href="ch6.html"><b>6</b>계산은 도구에게</a>
+        <a class="map-link" href="ch7.html"><b>7</b>내 업무에 이식하기</a>
+      </div>
+      <h4 class="mt">참고</h4>
+      <div class="map-group">
+        <a class="map-link opt" href="../install/index.html"><b>?</b>설치가이드</a>
+      </div>
+      <a class="map-home" href="../index.html">↩ 과정 홈</a>
+    </details>
+    <details class="side-box side-toc" open>
+      <summary>🔖 이 페이지 목차</summary>
+      <h4>이 페이지 목차</h4>
+      <ul class="toc-list">
+        <li><a href="#준비할-것">준비할 것</a></li>
+        <li><a href="#처음-나오는-말">처음 나오는 말</a></li>
+        <li><a href="#배우는-것">배우는 것</a></li>
+        <li><a href="#왜-지금인가">1. 왜 지금인가</a></li>
+        <li><a href="#개념-익히기">2. 개념 익히기</a></li>
+        <li class="toc-l3"><a href="#2-2-업무를-여섯-단계로">2-2. 여섯 단계</a></li>
+        <li class="toc-l3"><a href="#2-4-위임-수준-3단계">2-4. 위임 수준</a></li>
+        <li class="toc-l3"><a href="#2-5-입력-신호등">2-5. 입력 신호등</a></li>
+        <li><a href="#먼저-해보기">3. 먼저 한 번 해보기</a></li>
+        <li><a href="#실습">4. 사례 — 업무 지도</a></li>
+        <li><a href="#스스로-점검">5. 스스로 점검</a></li>
+        <li><a href="#다음-차시">6. 다음 차시</a></li>
+      </ul>
+    </details>
+  </aside>
+</div>
+
+<footer><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#faf9f5"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    harness-edu
+  </a>
+  <p>인쇄해서 보셔도 됩니다. (Ctrl+P / Command+P)</p>
+  <p><a href="../index.html">과정 홈</a> · <a href="../install/index.html">설치가이드</a> · <a href="https://github.com/namojo/harness-edu" target="_blank" rel="noopener">GitHub 저장소</a></p>
+</div></footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
