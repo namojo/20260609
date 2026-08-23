@@ -205,6 +205,7 @@
       <a href="#principles">4원리</a>
       <a href="#axes">3축</a>
       <a href="#curriculum">커리큘럼</a>
+      <a href="install/index.html">설치가이드</a>
       <a href="#tools">도구</a>
       <a href="#start">시작하기</a>
     </nav>
@@ -305,12 +306,131 @@
 </section>
 
 <!-- CURRICULUM -->
+<!-- 차시 커리큘럼 -->
 <section class="band" id="curriculum" style="background:var(--surface-soft)">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">커리큘럼</p>
+      <p class="eyebrow">커리큘럼 · 7차시</p>
+      <h2>비전공자를 위한 하네스 과정</h2>
+      <p class="lead muted">코드를 쓰지 않는 실무자를 위한 7차시 과정입니다. 1차시에서 고른 <b>내 업무 하나</b>를 7차시까지 끌고 가며, 마지막에 <b>파일로 남는 하네스 한 벌</b>을 완성합니다. 각 차시는 <b>교재 + 실무 사례</b>로 구성됩니다. 광고대행사 AE <b>정하늘 대리</b>가 1차시부터 7차시까지 자기 업무를 하네스로 만드는 과정을 &lsquo;완성된 답&rsquo;으로 보여 줍니다.</p>
+    </div>
+
+    <div class="stage">
+      <div class="stage-label"><span class="st">먼저</span><h3>0차시 — 실습 환경 준비</h3><span class="desc">교육 전날까지 완료 · 25~35분</span></div>
+      <div class="mods">
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">필수</span></div>
+          <h4>설치가이드</h4>
+          <p class="goal">터미널을 처음 열어 보는 분 기준으로 씌었습니다. Git · Claude Code · 에이전트 팀 · Harness 플러그인까지 한 번에 준비합니다.</p>
+          <div class="meta"><span>💻 Windows / 🍎 macOS</span><span>🔒 관리자 권한 불필요</span></div>
+          <a class="go" href="install/index.html">설치가이드 열기 →</a>
+        </div>
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">선택</span></div>
+          <h4>Codex CLI</h4>
+          <p class="goal">ChatGPT Plus 구독으로 두 번째 AI를 붙입니다. 3·5차시의 도구 비교 실습에 씁니다.</p>
+          <div class="meta"><span>🔑 ChatGPT Plus 이상</span><span>~15분</span></div>
+          <a class="go" href="install/codex.html">Codex 설치가이드 →</a>
+        </div>
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">6차시 전</span></div>
+          <h4>MCP 서버 (Tool)</h4>
+          <p class="goal">파이썬 40줄 계산기를 AI에 붙입니다. 코드는 읽기만 합니다.</p>
+          <div class="meta"><span>🐍 Python 3.10+</span><span>~30분</span></div>
+          <a class="go" href="install/mcp-server.html">MCP 설치가이드 →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-label"><span class="st">1부</span><h3>기준 세우기 — 무엇을 맡길 것인가</h3><span class="desc">개념과 판단 기준 · 약 2시간</span></div>
+      <div class="mods">
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">1차시</span></div>
+          <h4>나의 업무 지도</h4>
+          <p class="goal">AI에게 맡길 일과 사람이 쥘 일을 기준을 갖고 나눕니다. 광고 AE의 업무 지도를 완성된 예시로 봅니다.</p>
+          <div class="meta"><span>⏱ 50분</span><span>🧑‍💼 사례</span></div>
+          <a class="go" href="chapters/ch1.html">1차시 열기 →</a>
+        </div>
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">2차시</span></div>
+          <h4>지식을 파일로</h4>
+          <p class="goal">왜 매번 결과가 다른가. 판단 기준을 프롬프트 밖 파일로 꺼내면 무엇이 달라지는지 직접 비교합니다.</p>
+          <div class="meta"><span>🏭 제조 · 엑셀</span><span>⏱ 55분</span></div>
+          <a class="go" href="chapters/ch2.html">2차시 열기 →</a>
+        </div>
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">3차시</span></div>
+          <h4>일의 단계 판단</h4>
+          <p class="goal">혼자 / 팀 / 시스템. 같은 보고서를 세 방식으로 만들어 보고 "이 일은 몇 단계짜리인가"를 판정합니다.</p>
+          <div class="meta"><span>📊 리서치</span><span>⏱ 55분</span></div>
+          <a class="go" href="chapters/ch3.html">3차시 열기 →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-label"><span class="st">2부</span><h3>시스템으로 만들기 — 팀 · 계약 · 도구</h3><span class="desc">직접 만드는 구간 · 약 2시간 45분</span></div>
+      <div class="mods">
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">4차시</span></div>
+          <h4>전문가 팀 만들기</h4>
+          <p class="goal">단일 프롬프트 vs 하네스를 A/B로 비교하고, 차이가 중간 산출물에서 온다는 것을 확인한 뒤 내 팀을 만듭니다.</p>
+          <div class="meta"><span>🏛️ 공공 · 제안서</span><span>⏱ 60분</span></div>
+          <a class="go" href="chapters/ch4.html">4차시 열기 →</a>
+        </div>
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">5차시</span></div>
+          <h4>반복을 시스템으로</h4>
+          <p class="goal">매주 형식이 흔들리는 문제를 출력 계약으로 없앱니다. 권한을 어디까지 줄지도 함께 정합니다.</p>
+          <div class="meta"><span>🏦 금융 · 모니터링</span><span>⏱ 50분</span></div>
+          <a class="go" href="chapters/ch5.html">5차시 열기 →</a>
+        </div>
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">6차시</span></div>
+          <h4>계산은 도구에게</h4>
+          <p class="goal">암산한 숫자와 도구가 계산한 숫자를 비교합니다. Skill(설명서)과 Tool(계산기)의 차이를 손으로 익힙니다.</p>
+          <div class="meta"><span>🐍 Python 읽기만</span><span>⏱ 55분</span></div>
+          <a class="go" href="chapters/ch6.html">6차시 열기 →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-label"><span class="st">마무리</span><h3>내 업무에 이식하기</h3><span class="desc">조립 → 검증 → 운영 · 60분</span></div>
+      <div class="mods">
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">7차시</span></div>
+          <h4>설계 · 검증 · 운영</h4>
+          <p class="goal">조각을 한 벌로 조립하고, 남이 돌려도 되는지 교차 검증한 뒤, 30일 운영 계획을 세웁니다.</p>
+          <div class="meta"><span>🎓 수료</span><span>⏱ 60분</span></div>
+          <a class="go" href="chapters/ch7.html">7차시 열기 →</a>
+        </div>
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">선택</span></div>
+          <h4>확장 트랙 4가지</h4>
+          <p class="goal">파이프라인 하네스 · 스펙 기반 설계 · 계약 중심 팬아웃 · 코드 유지보수. 관심 있는 것만 고릅니다.</p>
+          <div class="meta"><span>📦 저장소 모듈</span><span>각 40~60분</span></div>
+          <a class="go" href="chapters/extras.html">확장 트랙 →</a>
+        </div>
+        <div class="mod reveal" data-aud="both">
+          <div class="badges"><span class="badge b-both">운영자</span></div>
+          <h4>과정 설계 문서</h4>
+          <p class="goal">대상·설계 원칙·차시별 세부 목차·평가 기준·콘텐츠 제작 가이드를 담은 설계도입니다.</p>
+          <div class="meta"><span>📐 CURRICULUM.md</span></div>
+          <a class="go" href="https://github.com/namojo/harness-edu/blob/main/CURRICULUM.md" target="_blank" rel="noopener">설계 문서 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="modules">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">실습 모듈 원본</p>
       <h2>입문 → 실무 → 확장</h2>
-      <p class="lead muted">위에서 아래로 갈수록 "일회성 요청"에서 "반복 가능한 시스템"으로 옮겨 갑니다. 각 카드는 GitHub의 실습 폴더로 연결됩니다.</p>
+      <p class="lead muted">차시 커리큘럼이 사용하는 <b>실습 모듈의 원본 교안</b>입니다. 각 카드는 GitHub의 실습 폴더로 연결됩니다. 순서대로 배우려면 위의 <a href="#curriculum" style="color:var(--primary-active)">7차시 커리큘럼</a>을 따르세요.</p>
       <div class="filter" role="tablist" aria-label="대상자 필터">
         <button class="active" data-f="all">전체</button>
         <button data-f="nondev">비개발자</button>
@@ -489,19 +609,18 @@
     <div class="sec-head">
       <p class="eyebrow">시작하기</p>
       <h2>4단계로 환경 준비</h2>
-      <p class="lead muted">최초 1회만 설치하면 됩니다. 자세한 순서는 자가 학습 가이드를 따르세요.</p>
+      <p class="lead muted">최초 1회만 설치하면 됩니다. 터미널이 처음이어도 괜찮습니다 — <a href="install/index.html" style="color:var(--primary-active)">설치가이드</a>가 명령마다 "이렇게 나오면 정상 / 이렇게 나오면 오류"를 함께 안내합니다.</p>
     </div>
     <div class="steps">
-      <div class="step reveal"><p class="n">STEP 1</p><h4>Git · Python 설치</h4><pre>git --version
-python --version</pre><p>클론과 확장(MCP) 실습에 필요합니다.</p></div>
-      <div class="step reveal"><p class="n">STEP 2</p><h4>Claude Code 설치</h4><pre>irm https://claude.ai/install.ps1 | iex</pre><p>설치 후 PATH 등록. (README 참고)</p></div>
+      <div class="step reveal"><p class="n">STEP 1</p><h4>Git 설치</h4><pre>git --version</pre><p>실습 저장소와 플러그인을 받는 데 필요합니다. (Python은 6차시에서만)</p></div>
+      <div class="step reveal"><p class="n">STEP 2</p><h4>Claude Code 설치</h4><pre>irm https://claude.ai/install.ps1 | iex</pre><p>설치 후 터미널을 새로 엽니다.</p></div>
       <div class="step reveal"><p class="n">STEP 3</p><h4>Harness · Skills 플러그인</h4><pre>/plugin marketplace add revfactory/harness
 /plugin install harness@harness-marketplace</pre><p>Anthropic Skills도 함께 설치합니다.</p></div>
-      <div class="step reveal"><p class="n">STEP 4</p><h4>Codex 로그인</h4><pre>codex --version
-codex login status</pre><p>실무 트랙에서 사용합니다.</p></div>
+      <div class="step reveal"><p class="n">STEP 4</p><h4>에이전트 팀 켜기</h4><pre>setx CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS 1</pre><p>하네스의 필수 조건입니다. (Codex는 선택)</p></div>
     </div>
     <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-      <a class="btn btn-primary" href="https://github.com/namojo/harness-edu/blob/main/README.md" target="_blank" rel="noopener">설치 가이드 전체 →</a>
+      <a class="btn btn-primary" href="install/index.html">설치가이드 열기 →</a>
+      <a class="btn btn-secondary" href="chapters/ch1.html">1차시 시작하기 →</a>
       <a class="btn btn-secondary" href="https://github.com/namojo/harness-edu/blob/main/%EC%8B%A4%EC%8A%B5.txt" target="_blank" rel="noopener">실습 과제(실습.txt) →</a>
     </div>
   </div>

@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP 서버 설치가이드 — 나만의 도구 붙이기 · harness-edu</title>
+<meta name="description" content="파이썬 40줄로 만든 계산 도구(MCP 서버)를 Claude Code와 Codex에 붙입니다. 코드를 몰라도 순서대로 따라 할 수 있습니다.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="install-mcp-server">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="topnav"><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#141413"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    <span class="brand-full">harness-edu</span>
+  </a>
+  <nav aria-label="주요 메뉴">
+    <a href="../index.html">과정 홈</a>
+    <a href="../index.html#curriculum">커리큘럼</a>
+    <a href="index.html" aria-current="page">설치가이드</a>
+  </nav>
+</div></header>
+
+<div class="wrap page-head">
+  <div class="eyebrow">설치가이드 · 나만의 도구(Tool) 붙이기</div>
+  <h1>MCP 서버 설치가이드</h1>
+  <p class="sub">AI가 못 하는 일(정확한 계산)을 코드에 맡깁니다. 파이썬 40줄짜리 계산기를 Claude Code와 Codex 양쪽에 붙여 봅니다. <strong>코드를 몰라도 순서대로 따라 하면 됩니다.</strong></p>
+  <div class="meta">
+    <span class="badge">설치 3 / 3</span>
+    <span>⏱ 20~30분</span>
+    <span>💻 Windows / 🍎 macOS</span>
+    <span class="badge-opt">🐍 Python 필요 (이 문서에서만)</span>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <main id="main" class="main-col">
+    <article class="prose">
+
+<blockquote>
+  <p><strong>작성일</strong>: 2026-08-20<br>
+  <strong>선행 조건</strong>: <a href="setup-windows.html">공통 준비</a> 완료 (실습 저장소를 이미 받아 둔 상태)<br>
+  <strong>대상 실습</strong>: 저장소의 <code>tool/</code> 모듈 — 생산지표(OEE) 계산 도구<br>
+  <strong>끝나면</strong>: Claude Code가 &quot;B라인 어제 OEE 알려줘&quot; 를 <strong>암산하지 않고 도구를 호출해</strong> 답하는 상태</p>
+</blockquote>
+
+<hr>
+
+<h2 id="빠른-설치">빠른 설치 (아는 사람용 · 10분)</h2>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 ① — Windows</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd "$env:USERPROFILE\Desktop\harness-edu\tool\mcp-server"
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 ① — macOS</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/Desktop/harness-edu/tool/mcp-server
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt</pre></div></div></div>
+
+<p><strong>②</strong> Claude Code에 등록 (같은 폴더에서)</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics -- python server.py</pre></div></div></div>
+
+<p><strong>③</strong> 확인 → Claude Code 실행 → 입력창에서 도구 호출</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp list</pre></div></div></div>
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>production-metrics 도구로 07-14 B라인 OEE를 구해줘.</pre></div>
+
+<hr>
+
+<h2 id="1-이-도구는-무엇인가">1. 이 도구는 무엇인가</h2>
+
+<p><strong>MCP 서버</strong> 는 AI에게 붙이는 <strong>계산기</strong>입니다. 이 과정에서 배우는 세 축 중 마지막인 <strong>Tool</strong> 에 해당합니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>축</th><th>무엇인가</th><th>형태</th><th>같은 질문에 같은 답?</th></tr></thead>
+<tbody>
+<tr><td><strong>Agent</strong></td><td>역할·경계 (누가)</td><td>지시문 파일</td><td>—</td></tr>
+<tr><td><strong>Skill</strong></td><td>지식·절차 (무엇을·어떻게)</td><td>AI가 읽는 문서</td><td>✗ 모델이 해석</td></tr>
+<tr><td><strong>Tool</strong></td><td>실행 수단 (무엇으로)</td><td><strong>실제 코드</strong></td><td>✓ 항상 같음</td></tr>
+</tbody></table></div>
+
+<p>왜 필요한지는 한 번 보면 바로 이해됩니다. &quot;B라인 어제 OEE(설비종합효율) 알려줘&quot; 를 물었을 때—</p>
+
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">도구 없이 — AI가 암산</span></div><pre>가동률 0.75쯤, 성능 0.94쯤... OEE 대략 70% 안팎으로 보입니다</pre></div>
+
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">도구 있이 — 코드가 계산</span></div><pre>{ "availability": 0.75, "performance": 0.9444, "quality": 0.9853,
+  "oee": 0.6979, "oee_pct": "69.8%", "bottleneck": "가동률" }</pre></div>
+
+<p>앞은 그럴듯하지만 <strong>검증할 수 없고 매번 값이 다릅니다.</strong> 뒤는 몇 번을 돌려도 <strong>69.8%</strong> 이고, 병목이 가동률이라는 <strong>진단</strong>까지 코드가 계산합니다.</p>
+
+<blockquote>
+  <p><strong>왜 MCP인가</strong>: MCP(Model Context Protocol)는 Anthropic이 공개한 <strong>오픈 표준</strong>입니다. 서버 하나를 만들어 두면 <strong>Claude Code도, Codex도, 앞으로 나올 다른 AI도 그대로 씁니다.</strong> 사내 계산 도구를 &quot;도구별로 다시 만들지 않는&quot; 방법이고, 이것이 이 실습의 핵심 메시지입니다.</p>
+</blockquote>
+
+<p>이 실습에서 붙이는 서버(<code>production-metrics</code>)에는 도구가 3개 있습니다.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>도구</th><th>하는 일</th></tr></thead>
+<tbody>
+<tr><td><code>list_records</code></td><td>조회 가능한 라인·날짜 목록</td></tr>
+<tr><td><code>compute_oee</code></td><td>지정한 라인·날짜의 OEE 계산 + 병목 진단</td></tr>
+<tr><td><code>defect_ppm</code></td><td>불량률(ppm) 계산</td></tr>
+</tbody></table></div>
+
+<hr>
+
+<h2 id="2-설치-전-확인">2. 설치 전 확인</h2>
+
+<div class="table-wrap"><table>
+<thead><tr><th>항목</th><th>필요한 것</th><th>확인·대처</th></tr></thead>
+<tbody>
+<tr><td>선행 설치</td><td>공통 준비 완료 + 실습 저장소</td><td><a href="setup-windows.html">Windows</a> / <a href="setup-mac.html">macOS</a></td></tr>
+<tr><td><strong>Python</strong></td><td>3.10 이상</td><td>3-1절에서 확인 (없으면 설치 안내)</td></tr>
+<tr><td>Codex (선택)</td><td>같은 도구를 Codex에도 붙일 때만</td><td><a href="codex.html">Codex CLI 설치가이드</a></td></tr>
+<tr><td>관리자 권한</td><td>필요 없음</td><td>가상환경(<code>.venv</code>)은 실습 폴더 안에 만듭니다</td></tr>
+</tbody></table></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>Python은 이 문서에서만 씁니다.</strong> 다른 모듈(엑셀·문서·하네스 실습)에는 필요하지 않습니다. 이 모듈을 건너뛰면 Python도 설치하지 않아도 됩니다.</p></div></section>
+
+<blockquote class="rule">
+  <p><strong>가상환경(<code>.venv</code>)이 뭔가요</strong>: 이 실습에만 쓰는 <strong>격리된 파이썬 방</strong>입니다. 내 PC의 다른 파이썬 환경을 건드리지 않고, 실습이 끝나면 폴더만 지우면 완전히 정리됩니다. 그래서 회사 노트북에서도 안전합니다.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="3-설치-절차">3. 설치 절차</h2>
+
+<h3 id="3-1-python-확인">3-1. Python 확인 (없으면 설치)</h3>
+
+<p><strong>Windows</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python --version</pre></div></div></div>
+
+<p><strong>macOS</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python3 --version</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>Python 3.13.1</code> 처럼 <strong>3.10 이상</strong>이면 다음 절로 넘어갑니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+<p><strong>Windows에서 Microsoft Store가 열리거나 인식되지 않으면</strong> 아래로 설치합니다. 설치 후 <strong>PowerShell을 닫고 새로 열어</strong> 다시 확인하세요.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>winget install --id Python.Python.3.13 -e --source winget</pre></div></div></div>
+<p><strong>macOS</strong>는 <code>python3</code> 가 기본 포함되어 있습니다. 없다고 나오면 <code>xcode-select --install</code> 을 먼저 실행하세요.</p>
+</div></section>
+
+<h3 id="3-2-실습-폴더로-이동">3-2. 도구 폴더로 이동</h3>
+
+<p><strong>Windows</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd "$env:USERPROFILE\Desktop\harness-edu\tool\mcp-server"</pre></div></div></div>
+
+<p><strong>macOS</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/Desktop/harness-edu/tool/mcp-server</pre></div></div></div>
+
+<p>파일이 맞게 있는지 확인합니다.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>ls</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 세 항목이 보입니다.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">예상 화면</span></div><pre>data    requirements.txt    server.py</pre></div>
+</div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>경로를 찾을 수 없다고 나오면</strong>: 공통 준비의 <code>git clone</code> 단계가 빠졌습니다. <a href="setup-windows.html#3-6-실습-저장소-받기">실습 저장소 받기</a>를 먼저 하세요.</p></div></section>
+
+<h3 id="3-3-가상환경-만들기">3-3. 가상환경 만들고 켜기</h3>
+
+<p><strong>Windows</strong> — 두 줄을 차례로 실행합니다.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python -m venv .venv</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>.\.venv\Scripts\Activate.ps1</pre></div></div></div>
+
+<p><strong>macOS</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python3 -m venv .venv</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>source .venv/bin/activate</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 프롬프트 맨 앞에 <code>(.venv)</code> 가 붙습니다. <strong>이 표시가 곧 &quot;격리된 방 안에 들어와 있다&quot;는 뜻입니다.</strong></p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>Windows에서 <code>이 시스템에서 스크립트를 실행할 수 없으므로</code></strong> → <a href="#문제-1">문제 해결 ①</a></p></div></section>
+
+<h3 id="3-4-필요한-패키지-설치">3-4. 필요한 패키지 설치</h3>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 — (.venv) 표시 확인 후</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>pip install -r requirements.txt</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 여러 줄이 흐르고 마지막에 <code>Successfully installed mcp-...</code> 가 나옵니다. 1~3분.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>이렇게 나오면 오류</strong>: <code>ERROR: Could not find a version...</code> 또는 시간 초과 → 사내 프록시가 파이썬 저장소를 막고 있습니다. 휴대폰 테더링으로 재시도하고, 계속 막히면 IT 담당자에게 <code>pypi.org</code> 접근을 요청하세요.</p></div></section>
+
+<h3 id="3-5-도구-로직만-먼저-검증">3-5. 도구가 실제로 계산하는지 먼저 확인</h3>
+
+<p>AI에 붙이기 전에, 계산 자체가 맞는지 확인합니다. (AI 없이 코드만 실행)</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python -c "from server import compute_oee; print(compute_oee('B','2026-07-14'))"</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 계산 결과가 그대로 출력됩니다.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">예상 화면</span></div><pre>{'availability': 0.75, 'performance': 0.9444, 'quality': 0.9853,
+ 'oee': 0.6979, 'oee_pct': '69.8%', 'bottleneck': '가동률'}</pre></div>
+<p><strong>몇 번을 실행해도 값이 같습니다.</strong> 이것이 Skill(암산)과 결정적으로 다른 점입니다.</p>
+</div></section>
+
+<h3 id="3-6-claude-code에-등록">3-6. Claude Code에 등록</h3>
+
+<p><code>tool/mcp-server</code> 폴더에서 실행합니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics -- python server.py</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 서버가 등록됐다는 메시지가 나옵니다. <code>--</code> 뒤가 &quot;서버를 실행하는 명령&quot;입니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+<p><strong>가상환경을 쓸 때 더 안전한 방법</strong>: <code>python</code> 대신 가상환경의 파이썬 <strong>절대경로</strong>를 주면 &quot;모듈을 못 찾는&quot; 오류를 예방할 수 있습니다.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows — 이렇게 등록해도 됩니다</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics -- "$PWD\.venv\Scripts\python.exe" "$PWD\server.py"</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS — 이렇게 등록해도 됩니다</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics -- "$PWD/.venv/bin/python" "$PWD/server.py"</pre></div></div></div>
+</div></section>
+
+<p>등록 목록을 확인합니다.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp list</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 목록에 <code>production-metrics</code> 가 보입니다.</p></div></section>
+
+<blockquote>
+  <p><strong>등록 범위를 고를 수도 있습니다</strong><br>
+  <code>--scope project</code> → 이 프로젝트만 (<code>.mcp.json</code> 파일이 생겨 팀원과 공유 가능)<br>
+  <code>--scope user</code> → 내 모든 프로젝트에서 사용<br>
+  지정하지 않으면 기본값으로 등록됩니다. 실습에서는 기본값으로 충분합니다.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="4-설치-확인">4. 설치 확인</h2>
+
+<p>Claude Code를 실행하고(같은 폴더에서 <code>claude</code>), 입력창에서 확인합니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/mcp</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>production-metrics</code> 가 <strong>connected</strong> 상태로 보입니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>목록에 없거나 failed 라면</strong>: Claude Code를 <code>/exit</code> 로 나갔다가 다시 실행하세요(등록 후 재시작 필요). 그래도 안 되면 <a href="#문제-2">문제 해결 ②</a>.</p></div></section>
+
+<p><strong>최종 체크리스트</strong></p>
+<ul class="checklist">
+<li><code>python --version</code> (mac: <code>python3</code>) 이 3.10 이상</li>
+<li>프롬프트에 <code>(.venv)</code> 표시 확인</li>
+<li><code>pip install -r requirements.txt</code> 성공</li>
+<li>3-5절 계산 결과가 <code>69.8%</code> 로 출력</li>
+<li><code>claude mcp list</code> 에 <code>production-metrics</code> 표시</li>
+<li>Claude Code에서 <code>/mcp</code> 가 connected 표시</li>
+<li>아래 6절 첫 동작 테스트 통과</li>
+</ul>
+
+<hr>
+
+<h2 id="5-초기-설정연동">5. 초기 설정·연동</h2>
+
+<h3 id="5-1-무엇을-위임하는가">5-1. 도구 승인 화면에서 무엇을 위임하는가</h3>
+
+<p>AI가 도구를 처음 호출할 때 승인을 물어봅니다. 이때 위임하는 것은 <strong>&quot;이 폴더의 CSV를 읽어 계산하는 코드를 실행할 권한&quot;</strong> 입니다. 외부로 데이터를 보내지 않고, 계산은 내 PC에서 일어납니다.</p>
+
+<blockquote class="rule">
+  <p><strong>안전 원칙</strong><br>
+  ① 이 서버는 <code>tool/mcp-server/data/production.csv</code> <strong>가상 데이터</strong>만 읽습니다.<br>
+  ② 실제 생산·재무 데이터를 이 폴더에 복사해 넣지 않습니다. 실습은 가상 데이터로 충분합니다.<br>
+  ③ 사내 실 데이터에 붙이는 것은 교육 이후 <strong>IT·보안 검토를 거친 뒤</strong> 진행합니다.</p>
+</blockquote>
+
+<h3 id="5-2-codex에도-붙이기">5-2. 같은 도구를 Codex에도 붙이기 (선택)</h3>
+
+<p>MCP가 오픈 표준이라는 것을 여기서 확인합니다. <strong>코드를 한 줄도 바꾸지 않고</strong> 다른 AI에 붙입니다. (<a href="codex.html">Codex CLI</a> 를 설치한 경우에만)</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex mcp add production-metrics -- python "$env:USERPROFILE\Desktop\harness-edu\tool\mcp-server\server.py"</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex mcp add production-metrics -- python3 ~/Desktop/harness-edu/tool/mcp-server/server.py</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>등록 확인</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex mcp list</pre></div></div></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>관찰 포인트</strong>: 스킬(문서)은 도구마다 <strong>복사</strong>해야 했지만, Tool은 <strong>하나의 서버를 양쪽이 각자 등록</strong>해 공유합니다. 계산 로직의 원본이 한 곳뿐이라 고칠 때도 한 번만 고치면 됩니다.</p></div></section>
+
+<hr>
+
+<h2 id="6-첫-동작-테스트">6. 첫 동작 테스트 (5분)</h2>
+
+<p>Claude Code 입력창에서 순서대로 넣어 보세요.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">① 도구가 불리는지 확인</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>production-metrics 도구로 07-14 B라인 OEE를 구해줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: AI가 <code>compute_oee</code> 를 호출하고(화면에 도구 호출 표시가 보입니다) <strong>69.8%</strong> 를 답합니다. 승인을 물으면 승인하세요.</p></div></section>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">② 도구 + 해석을 함께</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>production-metrics 도구로 07-14 A·B·C 세 라인의 OEE를 구하고,
+가장 낮은 라인의 병목이 무엇인지, 개선하려면 어디를 봐야 하는지 정리해줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 도구를 <strong>세 번</strong> 호출해 정확한 값을 받아 온 뒤, 거기에 <strong>해석</strong>만 얹습니다. — &quot;정확한 산수는 도구, 해석은 모델&quot; 이라는 분업이 눈으로 보입니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>AI가 도구를 안 부르고 직접 암산하려 하면</strong>: &quot;<code>compute_oee</code> 도구를 사용해서&quot; 라고 명시하세요. 도구 설명이 구체적일수록 자동 호출이 잘 됩니다 — 이것이 <strong>도구 설명문(docstring)도 지시서</strong>인 이유입니다.</p></div></section>
+
+<hr>
+
+<h2 id="7-문제-해결">7. 문제 해결</h2>
+
+<h3 id="문제-1">① Windows: <code>Activate.ps1</code> 을 로드할 수 없습니다</h3>
+<ul>
+<li><strong>원인</strong>: PowerShell 스크립트 실행 정책이 <code>Restricted</code> 로 잠겨 있습니다.</li>
+<li><strong>해결</strong>: 아래로 <strong>본인 계정 범위만</strong> 완화하고(<code>Y</code> 승인), 3-3절을 다시 실행합니다.</li>
+</ul>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</pre></div></div></div>
+<p>회사 정책으로 실패하면 <strong>우회하지 말고</strong> IT 담당자에게 요청하세요.</p>
+
+<h3 id="문제-2">② 도구 목록에 안 뜨거나 연결 실패(failed)</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>증상</th><th>원인 · 해결</th></tr></thead>
+<tbody>
+<tr><td><code>spawn python ENOENT</code></td><td><code>python</code> 이 경로에 없습니다. 3-6절의 <strong>절대경로 방식</strong>으로 다시 등록하세요.</td></tr>
+<tr><td>목록에 안 뜸</td><td>등록 후 <strong>Claude Code 재시작</strong>이 필요합니다. 먼저 <code>claude mcp list</code> 로 등록 여부를 확인하세요.</td></tr>
+<tr><td><code>ModuleNotFoundError: mcp</code></td><td>서버를 실행하는 파이썬에 패키지가 없습니다. <code>(.venv)</code> 를 켠 상태에서 <code>pip install -r requirements.txt</code> 를 다시 하고, 절대경로 방식으로 등록하세요.</td></tr>
+<tr><td>데이터를 못 찾음</td><td><code>server.py</code> 는 자기 위치 기준으로 <code>data/production.csv</code> 를 찾습니다. 파일을 옮기지 마세요.</td></tr>
+</tbody></table></div>
+
+<h3 id="문제-3">③ 등록을 지우고 다시 하고 싶습니다</h3>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp remove production-metrics</pre></div></div></div>
+<p>이후 3-6절을 다시 실행합니다. <code>claude mcp get production-metrics</code> 로 현재 등록 내용을 볼 수 있습니다.</p>
+
+<h3 id="문제-4">④ <code>(.venv)</code> 표시가 사라졌습니다</h3>
+<ul>
+<li>터미널을 새로 열면 가상환경은 꺼집니다. <strong>정상입니다.</strong> 다시 켜려면 3-3절의 <code>activate</code> 명령을 실행하세요.</li>
+<li>AI가 도구를 호출할 때는 가상환경을 켜 둘 필요가 없습니다 — 등록된 명령이 알아서 실행됩니다(절대경로 등록 권장 이유).</li>
+</ul>
+
+<h3 id="문제-5">⑤ 한글 데이터가 깨져 보입니다</h3>
+<ul>
+<li>Windows 11의 <strong>터미널(Windows Terminal)</strong> 로 실행하세요. 데이터 파일 자체는 UTF-8로 정상입니다.</li>
+</ul>
+
+<hr>
+
+<h2 id="8-제거연동-해제">8. 제거·연동 해제</h2>
+
+<p><strong>1) 등록 해제</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp remove production-metrics</pre></div></div></div>
+<p>Codex에도 붙였다면: <code>codex mcp remove production-metrics</code></p>
+
+<p><strong>2) 가상환경 삭제</strong> — <code>tool/mcp-server/.venv</code> 폴더를 지우면 설치한 패키지가 모두 사라집니다. 시스템 파이썬은 그대로입니다.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>Remove-Item -Recurse -Force .\.venv</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>rm -rf .venv</pre></div></div></div>
+
+<p><strong>3) Python 제거</strong> (원한다면) — Windows: <code>설정 → 앱 → 설치된 앱 → Python</code> → 제거. macOS: 시스템 파이썬은 지우지 마세요.</p>
+
+<hr>
+
+<h2 id="9-다른-연결-방법">9. 다른 연결 방법 (필요할 때만)</h2>
+
+<h3 id="9-a-mcpjson-파일로-팀-공유">A. <code>.mcp.json</code> 파일로 등록 (팀 공유용)</h3>
+<p>프로젝트 루트에 아래 파일을 두면, 저장소를 받은 팀원 모두가 같은 도구를 씁니다. 경로는 각자 환경에 맞게(절대경로 권장) 조정합니다.</p>
+<div class="code-card is-lite"><div class="code-bar"><span class="code-label">.mcp.json</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>{
+  "mcpServers": {
+    "production-metrics": {
+      "command": "python",
+      "args": ["tool/mcp-server/server.py"]
+    }
+  }
+}</pre></div>
+<p>Claude Code를 다시 시작하면 인식하며, 처음 로드 시 신뢰 여부를 물어볼 수 있습니다.</p>
+
+<h3 id="9-b-원격-http-서버">B. 원격(HTTP) 서버 — 심화</h3>
+<p>지금은 내 PC에서 <code>python server.py</code> 를 띄우는 방식입니다. 팀 전체가 공유하려면 서버를 HTTP로 올리고 아래처럼 등록합니다. 로컬 계산기가 <strong>사내 API</strong>로 승격되는 단계입니다.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add my-remote --transport http https://mcp.example.com/mcp</pre></div></div></div>
+
+<h3 id="9-c-이미-공개된-mcp-서버-쓰기">C. 이미 공개된 MCP 서버 쓰기</h3>
+<p>세상에는 이미 공개된 MCP 서버가 많습니다. &quot;만들기 전에 이미 누가 만든 도구가 없는지 찾는다&quot; 도 중요한 감각입니다. 실습 심화 과제는 저장소 <code>tool/README.md</code> 7절을 보세요.</p>
+
+<hr>
+
+<h2 id="10-다음-단계">10. 다음 단계</h2>
+
+<div class="next-grid">
+  <a class="next-card" href="../index.html#curriculum"><span class="k">교육</span><strong>커리큘럼으로</strong><span>설치가 모두 끝났습니다. Tool 모듈 실습으로 이동하세요.</span></a>
+  <a class="next-card" href="index.html"><span class="k">설치</span><strong>설치가이드 홈</strong><span>전체 설치 현황을 다시 확인합니다.</span></a>
+  <a class="next-card" href="https://github.com/namojo/harness-edu/blob/main/tool/README.md"><span class="k">교안</span><strong>tool/ 모듈 교안</strong><span>도구를 직접 만들고 확장하는 심화 과제.</span></a>
+</div>
+
+<hr>
+
+<h2 id="확인한-출처">확인한 출처</h2>
+<ul>
+<li>이 저장소의 <code>tool/README.md</code>, <code>tool/register-claude-code.md</code>, <code>tool/register-codex.md</code></li>
+<li>MCP 공식 소개 — <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">modelcontextprotocol.io</a></li>
+<li>Claude Code MCP 등록 — <a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener">code.claude.com/docs/en/mcp</a></li>
+<li>Codex MCP 등록 — <a href="https://developers.openai.com/codex" target="_blank" rel="noopener">developers.openai.com/codex</a></li>
+</ul>
+
+    </article>
+
+<nav class="pager" aria-label="페이지 이동">
+  <a class="pager-prev" href="codex.html"><span class="dir">← 이전</span><strong>Codex CLI</strong></a>
+  <a class="pager-next" href="../index.html#curriculum"><span class="dir">다음 →</span><strong>커리큘럼 시작</strong></a>
+</nav>
+  </main>
+
+  <aside class="side" aria-label="설치가이드 내비게이션">
+    <details class="side-box" open>
+      <summary>🧰 설치가이드 — 다른 문서로 이동</summary>
+      <h4>필수 순서</h4>
+      <div class="map-group">
+        <a class="map-link" href="setup-windows.html"><b>1</b>공통 준비 · Windows</a>
+        <a class="map-link" href="setup-mac.html"><b>1</b>공통 준비 · macOS</a>
+        <a class="map-link" href="codex.html"><b>2</b>Codex CLI</a>
+        <a class="map-link on" href="mcp-server.html"><b>3</b>MCP 서버 (Tool)</a>
+      </div>
+      <h4 class="mt">참고</h4>
+      <div class="map-group">
+        <a class="map-link opt" href="index.html"><b>?</b>설치가이드 홈</a>
+      </div>
+      <a class="map-home" href="../index.html">↩ 과정 홈</a>
+    </details>
+    <details class="side-box side-toc" open>
+      <summary>🔖 이 페이지 목차</summary>
+      <h4>이 페이지 목차</h4>
+      <ul class="toc-list">
+        <li><a href="#빠른-설치">빠른 설치 (아는 사람용)</a></li>
+        <li><a href="#1-이-도구는-무엇인가">1. 이 도구는 무엇인가</a></li>
+        <li><a href="#2-설치-전-확인">2. 설치 전 확인</a></li>
+        <li><a href="#3-설치-절차">3. 설치 절차</a></li>
+        <li class="toc-l3"><a href="#3-1-python-확인">3-1. Python 확인</a></li>
+        <li class="toc-l3"><a href="#3-3-가상환경-만들기">3-3. 가상환경 만들기</a></li>
+        <li class="toc-l3"><a href="#3-5-도구-로직만-먼저-검증">3-5. 계산 검증</a></li>
+        <li class="toc-l3"><a href="#3-6-claude-code에-등록">3-6. Claude Code에 등록</a></li>
+        <li><a href="#4-설치-확인">4. 설치 확인</a></li>
+        <li><a href="#5-초기-설정연동">5. 초기 설정·연동</a></li>
+        <li class="toc-l3"><a href="#5-2-codex에도-붙이기">5-2. Codex에도 붙이기</a></li>
+        <li><a href="#6-첫-동작-테스트">6. 첫 동작 테스트</a></li>
+        <li><a href="#7-문제-해결">7. 문제 해결</a></li>
+        <li><a href="#8-제거연동-해제">8. 제거·연동 해제</a></li>
+        <li><a href="#9-다른-연결-방법">9. 다른 연결 방법</a></li>
+        <li><a href="#10-다음-단계">10. 다음 단계</a></li>
+      </ul>
+    </details>
+  </aside>
+</div>
+
+<footer><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#faf9f5"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    harness-edu
+  </a>
+  <p>인터넷이 끊겨도 열립니다. 인쇄해서 쓰셔도 됩니다.</p>
+  <p><a href="../index.html">과정 홈</a> · <a href="index.html">설치가이드 목록</a> · <a href="https://github.com/namojo/harness-edu" target="_blank" rel="noopener">GitHub 저장소</a></p>
+</div></footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

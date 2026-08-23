@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>확장 트랙 — 더 깊은 실습 4가지 · harness-edu</title>
+<meta name="description" content="본 과정 이후의 심화 실습. 파이프라인 하네스, 스펙 기반 설계, 계약 중심 팬아웃, 코드 유지보수 하네스.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="extras">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="topnav"><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#141413"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    <span class="brand-full">harness-edu</span>
+  </a>
+  <nav aria-label="주요 메뉴">
+    <a href="../index.html">과정 홈</a>
+    <a href="../index.html#curriculum" aria-current="page">커리큘럼</a>
+    <a href="../install/index.html">설치가이드</a>
+  </nav>
+</div></header>
+
+<div class="wrap page-head">
+  <div class="eyebrow">확장 트랙 · 선택</div>
+  <h1>더 깊은 실습 4가지</h1>
+  <p class="sub">7차시를 마친 뒤, 관심 있는 주제만 골라서 하면 됩니다. <strong>필수가 아닙니다.</strong> 각 트랙은 저장소의 모듈 교안을 그대로 따라갑니다.</p>
+  <div class="meta">
+    <span class="badge-opt badge">선택 과정</span>
+    <span>⏱ 각 40~60분</span>
+    <span>📦 저장소 모듈 기반</span>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <main id="main" class="main-col">
+    <article class="prose">
+
+<h2 id="고르는-법">어떤 걸 고를까</h2>
+
+<div class="table-wrap"><table>
+<thead><tr><th>이런 분이라면</th><th>추천</th></tr></thead>
+<tbody>
+<tr><td>정기 보고서를 만드는 실무자</td><td><a href="#e1">E1. 파이프라인 하네스</a></td></tr>
+<tr><td>여러 부서 데이터를 합치는 일을 하는 분</td><td><a href="#e3">E3. 계약 중심 팬아웃</a></td></tr>
+<tr><td>새 도구·서비스를 기획하는 분</td><td><a href="#e2">E2. 스펙부터 설계</a></td></tr>
+<tr><td>코드를 다루는 분</td><td><a href="#e2">E2</a> · <a href="#e3">E3</a> · <a href="#e4">E4</a></td></tr>
+</tbody></table></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>E1은 비전공자도 그대로 할 수 있습니다.</strong> E2~E4는 코드가 나오지만, <strong>구조를 보는 것</strong>만으로도 배울 것이 있습니다. 읽고 넘어가도 괜찮습니다.</p></div></section>
+
+<hr>
+
+<h2 id="e1">E1. 파이프라인 하네스 — 정책 데이터에서 슬라이드까지</h2>
+
+<div class="table-wrap"><table>
+<tbody>
+<tr><th style="width:110px">난이도</th><td>비전공자 가능</td></tr>
+<tr><th>시간</th><td>약 40분</td></tr>
+<tr><th>모듈</th><td><code>slide/</code></td></tr>
+<tr><th>배우는 것</th><td>수집 → 갱신 → 디자인 생성 → 검수로 이어지는 <strong>4단계 파이프라인</strong></td></tr>
+</tbody></table></div>
+
+<p>공개 정책 데이터를 모아 엑셀 현황판을 갱신하고, <strong>정부 표준 디자인 슬라이드</strong>를 자동 생성합니다. 2차시가 단일 프롬프트 ETL이었다면, 여기는 여러 단계가 이어지는 <strong>파이프라인형</strong> 하네스입니다.</p>
+
+<p><strong>관찰 포인트</strong> — 기준일 셀 하나를 바꾸면 <strong>전체가 다시 계산</strong>되는 &quot;살아 있는 문서&quot; 구조. 수식으로 계산되는 지표와 하드코딩된 값의 차이를 눈으로 확인하세요.</p>
+
+<div class="lesson-nav">
+  <a class="next-card" href="https://github.com/namojo/harness-edu/blob/main/slide/README.md" target="_blank" rel="noopener"><span class="k">교안</span><strong>slide/README.md</strong><span>정책 데이터 → 표준 슬라이드 실습</span></a>
+</div>
+
+<hr>
+
+<h2 id="e2">E2. 스펙부터 설계 — 명세를 쓰고 팀을 짓는다</h2>
+
+<div class="table-wrap"><table>
+<tbody>
+<tr><th style="width:110px">난이도</th><td>개발 지식 권장</td></tr>
+<tr><th>시간</th><td>약 60분</td></tr>
+<tr><th>모듈</th><td><code>map/</code></td></tr>
+<tr><th>배우는 것</th><td><strong>무엇을(What)</strong> 을 명세로 먼저 쓰고, <strong>누가·어떻게</strong> 를 하네스로 구성</td></tr>
+</tbody></table></div>
+
+<p>&quot;맛집 지도 앱 만들어줘&quot; 한 줄로 시키면 AI가 수백 가지 결정을 임의로 내립니다. 그 문제를 <strong>역할 분리</strong>로 푸는 훈련입니다. 프로젝트 명세서를 먼저 쓰고, 그 명세를 실행할 에이전트 팀을 직접 설계합니다.</p>
+
+<p><strong>관찰 포인트</strong> — 4차시에서는 하네스를 &quot;만들어 달라&quot; 고 했다면, 여기서는 <strong>내가 설계</strong>합니다. 스펙(계약서)이 있으면 에이전트가 해석할 여지가 얼마나 줄어드는지 보세요.</p>
+
+<div class="lesson-nav">
+  <a class="next-card" href="https://github.com/namojo/harness-edu/blob/main/map/README.md" target="_blank" rel="noopener"><span class="k">교안</span><strong>map/README.md</strong><span>Spec → Harness 개발 파이프라인</span></a>
+</div>
+
+<hr>
+
+<h2 id="e3">E3. 계약 중심 팬아웃 — 이기종 데이터를 하나로</h2>
+
+<div class="table-wrap"><table>
+<tbody>
+<tr><th style="width:110px">난이도</th><td>개발 지식 권장</td></tr>
+<tr><th>시간</th><td>약 60분</td></tr>
+<tr><th>모듈</th><td><code>dashboard/</code></td></tr>
+<tr><th>배우는 것</th><td>표준 스키마를 <strong>먼저 확정</strong>해 병렬 개발을 가능하게 하는 구조</td></tr>
+</tbody></table></div>
+
+<p>설비 200대가 <strong>제각각의 형식</strong>으로 데이터를 보냅니다 — 숫자 상태코드, 영문 약어, 한글 키, CSV 문자열. 같은 사실이 4가지 형식·3가지 단위·2가지 언어로 도착합니다. 2차시의 &quot;분임조 은어 문제&quot; 가 실시간 스트림으로 확장된 셈입니다.</p>
+
+<p><strong>관찰 포인트</strong> — 5차시에서 배운 <strong>계약</strong>이 여기서 진가를 발휘합니다. 표준 형식을 먼저 정하면 데이터를 보내는 쪽과 받는 쪽을 <strong>동시에</strong> 만들 수 있습니다.</p>
+
+<div class="lesson-nav">
+  <a class="next-card" href="https://github.com/namojo/harness-edu/blob/main/dashboard/README.md" target="_blank" rel="noopener"><span class="k">교안</span><strong>dashboard/README.md</strong><span>실시간 설비 모니터링 대시보드</span></a>
+</div>
+
+<hr>
+
+<h2 id="e4">E4. 코드 유지보수 하네스 — 진단·패치·리뷰·자동화</h2>
+
+<div class="table-wrap"><table>
+<tbody>
+<tr><th style="width:110px">난이도</th><td>개발</td></tr>
+<tr><th>시간</th><td>약 40분</td></tr>
+<tr><th>모듈</th><td><code>codex-engineering/track-a-engineering/</code></td></tr>
+<tr><th>배우는 것</th><td>대화형 진단 → 승인하며 패치 → 교차 리뷰 → 자동 검사</td></tr>
+</tbody></table></div>
+
+<p>숨은 결함이 있는 품질 검사 스크립트로 <strong>&quot;테스트 통과 ≠ 정확&quot;</strong> 을 체험합니다. 5차시에서 배운 <strong>권한 통제</strong>(대화형 승인 vs 자동 실행 샌드박스)가 실제 코드 작업에서 어떻게 쓰이는지 보는 트랙입니다.</p>
+
+<div class="lesson-nav">
+  <a class="next-card" href="https://github.com/namojo/harness-edu/blob/main/codex-engineering/track-a-engineering/README.md" target="_blank" rel="noopener"><span class="k">교안</span><strong>track-a-engineering</strong><span>Codex 실무 하네스 — 엔지니어링</span></a>
+  <a class="next-card" href="https://github.com/namojo/harness-edu/blob/main/codex-engineering/README.md" target="_blank" rel="noopener"><span class="k">개요</span><strong>Harness Engineering 5원칙</strong><span>샌드박스·출력 계약·검증자 분리</span></a>
+</div>
+
+<hr>
+
+<h2 id="정리">확장 트랙을 관통하는 것</h2>
+
+<p>네 트랙 모두 <strong>본 과정에서 배운 원리의 변주</strong>입니다. 도메인만 바뀝니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>원리</th><th>본 과정에서</th><th>확장 트랙에서</th></tr></thead>
+<tbody>
+<tr><td>역할 분리</td><td>4차시 에이전트 팀</td><td>E2 — 스펙(What)과 팀(Who/How)을 분리</td></tr>
+<tr><td>지식의 외부화</td><td>2차시 용어집</td><td>E1 — 템플릿·디자인 표준을 파일로</td></tr>
+<tr><td>계약이 병렬성을 만든다</td><td>5차시 출력 계약</td><td>E3 — 스키마를 먼저 정해 동시 개발</td></tr>
+<tr><td>검증자 분리</td><td>4차시 검증 담당</td><td>E4 — 교차 리뷰와 자동 검사 게이트</td></tr>
+</tbody></table></div>
+
+<blockquote>
+  <p>새 도메인을 만나면 물어보세요. <strong>&quot;여기서 지식은 무엇이고, 계약은 무엇이며, 검증자는 누구인가?&quot;</strong> 이 세 질문이면 대부분의 하네스를 설계할 수 있습니다.</p>
+</blockquote>
+
+    </article>
+
+<nav class="pager" aria-label="페이지 이동">
+  <a class="pager-prev" href="ch7.html"><span class="dir">← 이전</span><strong>7차시 · 내 업무에 이식하기</strong></a>
+  <a class="pager-next" href="../index.html"><span class="dir">다음 →</span><strong>과정 홈</strong></a>
+</nav>
+  </main>
+
+  <aside class="side" aria-label="과정 내비게이션">
+    <details class="side-box" open>
+      <summary>🗺️ 과정 지도 — 다른 차시로 이동</summary>
+      <h4>차시</h4>
+      <div class="map-group">
+        <a class="map-link" href="../install/index.html"><b>0</b>실습 환경 준비</a>
+        <a class="map-link" href="ch1.html"><b>1</b>나의 업무 지도</a>
+        <a class="map-link" href="ch2.html"><b>2</b>지식을 파일로</a>
+        <a class="map-link" href="ch3.html"><b>3</b>일의 단계 판단</a>
+        <a class="map-link" href="ch4.html"><b>4</b>전문가 팀 만들기</a>
+        <a class="map-link" href="ch5.html"><b>5</b>반복을 시스템으로</a>
+        <a class="map-link" href="ch6.html"><b>6</b>계산은 도구에게</a>
+        <a class="map-link" href="ch7.html"><b>7</b>내 업무에 이식하기</a>
+      </div>
+      <h4 class="mt">참고</h4>
+      <div class="map-group">
+        <a class="map-link opt on" href="extras.html"><b>+</b>확장 트랙</a>
+        <a class="map-link opt" href="../install/index.html"><b>?</b>설치가이드</a>
+      </div>
+      <a class="map-home" href="../index.html">↩ 과정 홈</a>
+    </details>
+    <details class="side-box side-toc" open>
+      <summary>🔖 이 페이지 목차</summary>
+      <h4>이 페이지 목차</h4>
+      <ul class="toc-list">
+        <li><a href="#고르는-법">어떤 걸 고를까</a></li>
+        <li><a href="#e1">E1. 파이프라인 하네스</a></li>
+        <li><a href="#e2">E2. 스펙부터 설계</a></li>
+        <li><a href="#e3">E3. 계약 중심 팬아웃</a></li>
+        <li><a href="#e4">E4. 코드 유지보수</a></li>
+        <li><a href="#정리">관통하는 원리</a></li>
+      </ul>
+    </details>
+  </aside>
+</div>
+
+<footer><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#faf9f5"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    harness-edu
+  </a>
+  <p><a href="../index.html">과정 홈</a> · <a href="../install/index.html">설치가이드</a> · <a href="https://github.com/namojo/harness-edu" target="_blank" rel="noopener">GitHub 저장소</a></p>
+</div></footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

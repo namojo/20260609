@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex CLI 설치가이드 · harness-edu</title>
+<meta name="description" content="ChatGPT Plus 구독으로 OpenAI Codex CLI를 붙입니다. 같은 일을 Claude Code와 Codex 두 도구로 비교하는 실습에 씁니다.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="install-codex">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="topnav"><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#141413"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    <span class="brand-full">harness-edu</span>
+  </a>
+  <nav aria-label="주요 메뉴">
+    <a href="../index.html">과정 홈</a>
+    <a href="../index.html#curriculum">커리큘럼</a>
+    <a href="index.html" aria-current="page">설치가이드</a>
+  </nav>
+</div></header>
+
+<div class="wrap page-head">
+  <div class="eyebrow">설치가이드 · 두 번째 AI 붙이기</div>
+  <h1>Codex CLI 설치가이드</h1>
+  <p class="sub">ChatGPT Plus 구독으로 OpenAI의 터미널 AI를 붙입니다. &quot;같은 일을 두 도구에 시켜 비교한다&quot;가 이 과정의 핵심 실습 중 하나입니다.</p>
+  <div class="meta">
+    <span class="badge">설치 2 / 3</span>
+    <span>⏱ 10~15분</span>
+    <span>💻 Windows / 🍎 macOS</span>
+    <span class="badge-opt">🔑 ChatGPT Plus 이상 구독 필요</span>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <main id="main" class="main-col">
+    <article class="prose">
+
+<blockquote>
+  <p><strong>작성일</strong>: 2026-08-20 (명령어는 이 날짜에 공식 저장소로 확인)<br>
+  <strong>선행 조건</strong>: <a href="setup-windows.html">공통 준비 (Windows)</a> 또는 <a href="setup-mac.html">공통 준비 (macOS)</a> 완료<br>
+  <strong>끝나면</strong>: <code>codex</code> 명령이 동작하고 ChatGPT 계정으로 로그인된 상태</p>
+</blockquote>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🔑</span><div class="callout-body">
+<p><strong>ChatGPT 구독이 없으면 이 문서를 건너뛰세요.</strong> Codex는 <strong>Plus / Pro / Business / Edu / Enterprise</strong> 플랜에서 쓸 수 있고, 무료 플랜으로는 쓸 수 없습니다. Codex를 쓰지 않아도 Claude Code만으로 대부분의 모듈을 진행할 수 있습니다. (비교 실습만 관찰 학습으로 대체)</p>
+</div></section>
+
+<hr>
+
+<h2 id="빠른-설치">빠른 설치 (아는 사람용 · 5분)</h2>
+
+<p><strong>Windows</strong> (PowerShell)</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>irm https://chatgpt.com/codex/install.ps1 | iex</pre></div></div></div>
+
+<p><strong>macOS</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>curl -fsSL https://chatgpt.com/codex/install.sh | sh</pre></div></div></div>
+
+<p>창을 새로 열고 확인 → 로그인 → 확인</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex --version</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex login</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex login status</pre></div></div></div>
+
+<hr>
+
+<h2 id="1-이-도구는-무엇인가">1. 이 도구는 무엇인가</h2>
+
+<p><strong>Codex CLI</strong> 는 OpenAI가 만든 터미널 AI 에이전트입니다. Claude Code와 하는 일이 거의 같고, <strong>모델이 다릅니다</strong>(OpenAI GPT 계열). 그래서 이 과정에서는 두 가지 용도로 씁니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th>용도</th><th>무엇을 배우나</th><th>관련 모듈</th></tr></thead>
+<tbody>
+<tr><td><strong>두 번째 의견</strong></td><td>같은 지시서를 두 도구에 주고 결과 차이를 본다 → &quot;지시가 구체적이면 도구가 달라도 결과가 비슷해진다&quot;를 체감</td><td>지시서·하네스 모듈</td></tr>
+<tr><td><strong>도구 이식성 확인</strong></td><td>내가 만든 스킬·MCP 도구를 다른 도구에도 붙여 본다 → &quot;자산은 도구에 종속되지 않는다&quot;</td><td><a href="mcp-server.html">MCP 서버</a> 모듈</td></tr>
+</tbody></table></div>
+
+<blockquote>
+  <p><strong>왜 두 도구를 쓰나</strong>: 한 도구만 쓰면 &quot;이 AI가 원래 잘하는 것&quot;과 &quot;내 지시가 좋아서 잘된 것&quot;을 구분할 수 없습니다. 두 도구에 같은 지시서를 주면 <strong>지시서의 품질</strong>이 눈에 보입니다. 이것이 하네스를 배우는 가장 빠른 길입니다.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="2-설치-전-확인">2. 설치 전 확인</h2>
+
+<div class="table-wrap"><table>
+<thead><tr><th>항목</th><th>필요한 것</th><th>확인·대처</th></tr></thead>
+<tbody>
+<tr><td>선행 설치</td><td>공통 준비 완료</td><td><a href="setup-windows.html">Windows</a> / <a href="setup-mac.html">macOS</a></td></tr>
+<tr><td>구독</td><td><strong>ChatGPT Plus 이상</strong></td><td><a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a> 왼쪽 아래 계정에서 확인</td></tr>
+<tr><td>OpenAI API Key</td><td><strong>필요 없음</strong></td><td>구독 계정 로그인으로 사용 (별도 과금 없음)</td></tr>
+<tr><td>저장 공간</td><td>300MB 이상</td><td>—</td></tr>
+<tr><td>관리자 권한</td><td>필요 없음</td><td>사용자 폴더에 설치됩니다</td></tr>
+</tbody></table></div>
+
+<blockquote class="rule">
+  <p><strong>계정 주의</strong> — 회사 ChatGPT 계정(Business/Enterprise)으로 로그인하면 회사 정책에 따라 사용 기록이 관리될 수 있습니다. 실습은 가상 데이터만 사용하고, 실제 업무 파일이 있는 폴더에서 실행하지 않습니다.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="3-설치-절차">3. 설치 절차</h2>
+
+<h3 id="3-1-터미널-열기">3-1. 터미널 열기</h3>
+<p><strong>Windows</strong>: 시작 → <code>PowerShell</code> 검색 → 실행 (관리자 권한 불필요)<br>
+<strong>macOS</strong>: <kbd>Command</kbd>+<kbd>스페이스</kbd> → <code>터미널</code> → 실행</p>
+
+<h3 id="3-2-설치-명령-실행">3-2. 설치 명령 실행</h3>
+
+<p><strong>Windows</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>irm https://chatgpt.com/codex/install.ps1 | iex</pre></div></div></div>
+
+<p><strong>macOS</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>curl -fsSL https://chatgpt.com/codex/install.sh | sh</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 다운로드 진행 표시가 흐르고 설치 완료 메시지가 나옵니다. 1~3분.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>이렇게 나오면 오류</strong>: Windows에서 <code>'irm'은(는) 내부 또는 외부 명령이 아닙니다</code> → PowerShell이 아니라 CMD입니다. 프롬프트 앞에 <code>PS</code> 가 있어야 합니다. 스크립트 실행이 정책으로 막히면 <a href="#문제-1">문제 해결 ①</a>.</p></div></section>
+
+<h3 id="3-3-창을-새로-열기">3-3. 터미널 창을 닫고 새로 열기</h3>
+
+<p><strong>이 단계를 건너뛰면 다음 명령이 &quot;찾을 수 없다&quot;고 나옵니다.</strong> 설치 프로그램이 등록한 경로는 새 창에서만 반영됩니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>새 창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex --version</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>codex-cli 0.143.0</code> 형태의 버전 번호. 숫자는 달라도 됩니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>이렇게 나오면 오류</strong>: <code>codex</code> 를 찾을 수 없다 → <a href="#문제-2">문제 해결 ②</a></p></div></section>
+
+<hr>
+
+<h2 id="4-설치-확인">4. 설치 확인</h2>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex --version</pre></div></div></div>
+
+<p>버전 번호가 나오면 설치는 끝났습니다. 아직 <strong>로그인은 하지 않은 상태</strong>입니다.</p>
+
+<hr>
+
+<h2 id="5-초기-설정연동">5. 초기 설정·연동 (ChatGPT 계정 연결)</h2>
+
+<h3 id="5-1-실습-폴더로-이동">5-1. 실습 폴더로 이동</h3>
+
+<p><strong>Windows</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd "$env:USERPROFILE\Desktop\harness-edu"</pre></div></div></div>
+
+<p><strong>macOS</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/Desktop/harness-edu</pre></div></div></div>
+
+<h3 id="5-2-로그인">5-2. ChatGPT 계정으로 로그인</h3>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex login</pre></div></div></div>
+
+<p>브라우저가 열리면 <strong>Sign in with ChatGPT</strong> 를 선택하고 구독 계정으로 로그인합니다.</p>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 브라우저에 &quot;로그인 완료&quot; 화면이 뜨고, 터미널에도 성공 메시지가 나옵니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>브라우저가 안 열리면</strong>: 터미널에 표시된 <code>https://...</code> 주소를 복사해 직접 붙여넣으세요. 원격 접속·서버 환경이라면 <code>codex login --device-auth</code> 를 씁니다.</p></div></section>
+
+<h3 id="5-3-로그인-확인">5-3. 로그인 확인</h3>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex login status</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: ChatGPT 계정으로 로그인되어 있다는 한 줄.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">예상 화면</span></div><pre>Logged in using ChatGPT</pre></div>
+</div></section>
+
+<p><strong>최종 체크리스트</strong></p>
+<ul class="checklist">
+<li>ChatGPT Plus 이상 구독 확인</li>
+<li><code>codex --version</code> 이 버전 번호를 출력</li>
+<li><code>codex login status</code> 가 로그인 상태를 표시</li>
+<li>아래 6절 첫 동작 테스트 통과</li>
+</ul>
+
+<hr>
+
+<h2 id="6-첫-동작-테스트">6. 첫 동작 테스트 (5분)</h2>
+
+<h3 id="6-1-읽기-전용으로-한-번">6-1. 읽기 전용으로 한 번 (가장 안전)</h3>
+
+<p>실습 폴더에서 아래를 실행합니다. <strong>파일을 절대 수정하지 않는 모드</strong>입니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex exec --sandbox read-only --skip-git-repo-check "이 폴더에 어떤 실습 폴더가 있는지 한국어로 3줄 요약해라"</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 진행 로그가 흐른 뒤 한국어 요약 3줄이 출력되고 프롬프트로 돌아옵니다. 30초~2분.</p></div></section>
+
+<div class="table-wrap"><table>
+<thead><tr><th>옵션</th><th>무엇인가</th><th>언제</th></tr></thead>
+<tbody>
+<tr><td><code>codex</code></td><td>대화형 화면 (사람이 직접 대화)</td><td>탐색·질문할 때</td></tr>
+<tr><td><code>codex exec "..."</code></td><td>한 번 시키고 끝 (화면 점유 없음)</td><td>정해진 작업을 돌릴 때</td></tr>
+<tr><td><code>--sandbox read-only</code></td><td>파일을 <strong>읽기만</strong> 함</td><td><strong>처음엔 항상 이것</strong></td></tr>
+<tr><td><code>--sandbox workspace-write</code></td><td>현재 폴더 안에서 파일 생성·수정 허용</td><td>결과물을 만들 때</td></tr>
+</tbody></table></div>
+
+<h3 id="6-2-두-도구-비교-핵심-실습">6-2. 두 도구 비교 (이 과정의 핵심 감각)</h3>
+
+<p>같은 지시를 Claude Code와 Codex에 각각 주고 결과를 비교해 보세요.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">두 도구에 똑같이 주는 지시</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>xlsx 폴더의 생산보고서 6개를 읽고, 라인별 불량률을 계산해서
+불량률이 높은 순으로 표를 만들어줘. 계산 근거도 함께 적어줘.</pre></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>관찰 포인트</strong>: 두 결과의 <strong>표 형식·기준·용어</strong>가 서로 다를 것입니다. 어느 쪽이 더 낫냐가 아니라, <strong>&quot;지시가 느슨하면 도구마다 다르게 해석한다&quot;</strong> 는 사실이 중요합니다. 이 간극을 없애는 것이 뒤에 배울 <strong>지시서(Skill)</strong> 와 <strong>도구(Tool)</strong> 입니다.</p></div></section>
+
+<h3 id="6-3-이미지-생성-선택">6-3. 이미지 생성 (선택)</h3>
+
+<p>Codex에는 이미지 생성 도구가 <strong>내장</strong>되어 있어 추가 설치가 필요 없습니다. 발표자료 표지 같은 것을 만들 때 씁니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 — 사용 가능한지 확인</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex features list</pre></div></div></div>
+
+<p>목록에 <code>image_generation</code> 이 보이면 아래처럼 생성할 수 있습니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex exec --sandbox workspace-write --skip-git-repo-check "이미지 생성 도구로 '스마트 공장 품질관리 대시보드, 미니멀 일러스트' 이미지를 만들고 ./cover.png 로 저장해라. 저장 경로만 한 줄로 보고."</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 현재 폴더에 <code>cover.png</code> 가 생깁니다. <strong>1장당 1~2분</strong> 걸리고 ChatGPT 구독 사용량을 씁니다. 해상도를 정확히 지정하기는 어렵습니다(모델이 프롬프트에 맞춰 결정).</p></div></section>
+
+<hr>
+
+<h2 id="7-문제-해결">7. 문제 해결</h2>
+
+<h3 id="문제-1">① Windows: 스크립트 실행이 막힙니다</h3>
+<p><code>이 시스템에서 스크립트를 실행할 수 없으므로...</code> 가 나오면 아래를 한 번 실행하고(<code>Y</code> 승인) 설치를 다시 시도합니다.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</pre></div></div></div>
+<p>회사 노트북에서 <code>그룹 정책에 의해 재정의됩니다</code> / <code>액세스가 거부되었습니다</code> 로 실패하면 <strong>우회하지 말고</strong> IT 담당자에게 요청하세요.</p>
+
+<h3 id="문제-2">② 설치했는데 <code>codex</code> 를 찾을 수 없습니다</h3>
+<ul>
+<li><strong>1순위</strong>: 터미널을 <strong>완전히 닫고</strong> 새로 열어 <code>codex --version</code> 재확인 (원인 대부분이 이것입니다).</li>
+<li><strong>2순위</strong>: PC 재부팅 후 재확인.</li>
+<li><strong>3순위</strong>: macOS라면 아래를 실행하고 새 창을 엽니다.</li>
+</ul>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 (macOS)</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>echo 'export PATH="$HOME/.local/bin:$PATH"' &gt;&gt; ~/.zshrc</pre></div></div></div>
+
+<h3 id="문제-3">③ &quot;구독이 필요합니다&quot; / 사용량이 초과되었다고 나옵니다</h3>
+<ul>
+<li><strong>원인</strong>: 무료 플랜 계정으로 로그인했거나, 구독 사용량을 이미 다 썼습니다.</li>
+<li><strong>해결</strong>: <code>codex login status</code> 로 계정을 확인하고, 필요하면 <code>codex logout</code> → <code>codex login</code> 으로 구독 계정으로 다시 로그인합니다. 사용량 초과라면 시간이 지나 초기화될 때까지 기다립니다.</li>
+</ul>
+
+<h3 id="문제-4">④ 로그인 브라우저가 열리지 않습니다</h3>
+<ul>
+<li>터미널에 표시된 주소를 복사해 브라우저에 직접 붙여넣습니다.</li>
+<li>그래도 안 되면 <code>codex login --device-auth</code> — 화면에 코드가 나오고, 다른 기기 브라우저에서 그 코드를 입력합니다.</li>
+</ul>
+
+<h3 id="문제-5">⑤ 실행하면 <code>not a git repository</code> 라고 나옵니다</h3>
+<ul>
+<li><strong>원인</strong>: Codex는 기본적으로 Git 저장소 안에서 실행되기를 기대합니다.</li>
+<li><strong>해결</strong>: 명령에 <code>--skip-git-repo-check</code> 를 붙이면 됩니다. 이 문서의 예시에는 모두 포함되어 있습니다.</li>
+</ul>
+
+<h3 id="문제-6">⑥ 한글이 깨져 보입니다 (Windows)</h3>
+<ul>
+<li>Windows 11의 <strong>터미널(Windows Terminal)</strong> 로 여세요. 시작 → <code>터미널</code> 검색 → 실행.</li>
+</ul>
+
+<hr>
+
+<h2 id="8-제거연동-해제">8. 제거·연동 해제</h2>
+
+<p><strong>1) 로그아웃 (계정 연결만 끊기)</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex logout</pre></div></div></div>
+
+<p><strong>2) 프로그램 제거</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>Remove-Item -Path "$env:USERPROFILE\.local\bin\codex.exe" -Force -ErrorAction SilentlyContinue</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>rm -f ~/.local/bin/codex</pre></div></div></div>
+
+<p><strong>3) 설정·기록까지 지우기</strong> (선택 — 되돌릴 수 없습니다) — <code>~/.codex</code> (Windows: <code>%USERPROFILE%\.codex</code>) 폴더를 삭제합니다.</p>
+
+<p><strong>4) 권한 회수</strong> — ChatGPT 계정에 연결된 앱 권한을 정리하려면 <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a> 설정에서 확인하세요.</p>
+
+<hr>
+
+<h2 id="9-다른-설치-방법">9. 다른 설치 방법 (본문이 막힐 때만)</h2>
+<ul>
+<li><strong>Homebrew (macOS)</strong>: <code>brew install --cask codex</code> — brew를 이미 쓰는 분만. 갱신은 <code>brew upgrade codex</code>.</li>
+<li><strong>npm</strong>: Node.js가 이미 있는 분만 <code>npm install -g @openai/codex</code>. Node.js를 새로 깔 필요는 없습니다.</li>
+<li><strong>자동 스크립트로 함께 설치 (Windows)</strong>: <a href="setup-windows.html#9-a-자동-점검-스크립트">공통 준비의 점검 스크립트</a>를 <code>.\setup-windows.ps1 -Codex</code> 로 실행하면 이 문서의 3절을 자동 처리합니다.</li>
+<li><strong>WSL2</strong>: 이 과정에서는 쓰지 않습니다.</li>
+</ul>
+
+<hr>
+
+<h2 id="10-다음-단계">10. 다음 단계</h2>
+
+<div class="next-grid">
+  <a class="next-card" href="mcp-server.html"><span class="k">설치 3 / 3</span><strong>MCP 서버 (Tool)</strong><span>같은 도구를 Claude Code와 Codex 양쪽에 붙여 &quot;도구 이식성&quot;을 확인합니다.</span></a>
+  <a class="next-card" href="../index.html#curriculum"><span class="k">교육</span><strong>커리큘럼 보기</strong><span>두 도구 비교 실습이 포함된 모듈로 이동합니다.</span></a>
+  <a class="next-card" href="index.html"><span class="k">설치</span><strong>설치가이드 홈</strong><span>전체 설치 현황을 다시 확인합니다.</span></a>
+</div>
+
+<hr>
+
+<h2 id="확인한-출처">확인한 출처</h2>
+<ul>
+<li>Codex CLI 설치 명령·지원 플랜 — <a href="https://github.com/openai/codex" target="_blank" rel="noopener">github.com/openai/codex</a> (README)</li>
+<li>Codex 문서 — <a href="https://developers.openai.com/codex" target="_blank" rel="noopener">developers.openai.com/codex</a></li>
+<li>ChatGPT 플랜별 Codex 사용 범위 — <a href="https://help.openai.com/en/articles/11369540-codex-in-chatgpt" target="_blank" rel="noopener">help.openai.com</a></li>
+</ul>
+
+    </article>
+
+<nav class="pager" aria-label="페이지 이동">
+  <a class="pager-prev" href="setup-windows.html"><span class="dir">← 이전</span><strong>공통 준비</strong></a>
+  <a class="pager-next" href="mcp-server.html"><span class="dir">다음 →</span><strong>MCP 서버 (Tool)</strong></a>
+</nav>
+  </main>
+
+  <aside class="side" aria-label="설치가이드 내비게이션">
+    <details class="side-box" open>
+      <summary>🧰 설치가이드 — 다른 문서로 이동</summary>
+      <h4>필수 순서</h4>
+      <div class="map-group">
+        <a class="map-link" href="setup-windows.html"><b>1</b>공통 준비 · Windows</a>
+        <a class="map-link" href="setup-mac.html"><b>1</b>공통 준비 · macOS</a>
+        <a class="map-link on" href="codex.html"><b>2</b>Codex CLI</a>
+        <a class="map-link" href="mcp-server.html"><b>3</b>MCP 서버 (Tool)</a>
+      </div>
+      <h4 class="mt">참고</h4>
+      <div class="map-group">
+        <a class="map-link opt" href="index.html"><b>?</b>설치가이드 홈</a>
+      </div>
+      <a class="map-home" href="../index.html">↩ 과정 홈</a>
+    </details>
+    <details class="side-box side-toc" open>
+      <summary>🔖 이 페이지 목차</summary>
+      <h4>이 페이지 목차</h4>
+      <ul class="toc-list">
+        <li><a href="#빠른-설치">빠른 설치 (아는 사람용)</a></li>
+        <li><a href="#1-이-도구는-무엇인가">1. 이 도구는 무엇인가</a></li>
+        <li><a href="#2-설치-전-확인">2. 설치 전 확인</a></li>
+        <li><a href="#3-설치-절차">3. 설치 절차</a></li>
+        <li><a href="#4-설치-확인">4. 설치 확인</a></li>
+        <li><a href="#5-초기-설정연동">5. 초기 설정·연동</a></li>
+        <li class="toc-l3"><a href="#5-2-로그인">5-2. ChatGPT 로그인</a></li>
+        <li><a href="#6-첫-동작-테스트">6. 첫 동작 테스트</a></li>
+        <li class="toc-l3"><a href="#6-2-두-도구-비교-핵심-실습">6-2. 두 도구 비교</a></li>
+        <li class="toc-l3"><a href="#6-3-이미지-생성-선택">6-3. 이미지 생성 (선택)</a></li>
+        <li><a href="#7-문제-해결">7. 문제 해결</a></li>
+        <li><a href="#8-제거연동-해제">8. 제거·연동 해제</a></li>
+        <li><a href="#9-다른-설치-방법">9. 다른 설치 방법</a></li>
+        <li><a href="#10-다음-단계">10. 다음 단계</a></li>
+      </ul>
+    </details>
+  </aside>
+</div>
+
+<footer><div class="wrap">
+  <a class="brand" href="../index.html">
+    <span class="spike" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="#faf9f5"><rect x="11" y="1" width="2" height="22"/><rect x="1" y="11" width="22" height="2"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(45 12 12)"/><rect x="3.8" y="3.8" width="2" height="16.4" transform="rotate(-45 12 12)"/></g></svg></span>
+    harness-edu
+  </a>
+  <p>인터넷이 끊겨도 열립니다. 인쇄해서 쓰셔도 됩니다.</p>
+  <p><a href="../index.html">과정 홈</a> · <a href="index.html">설치가이드 목록</a> · <a href="https://github.com/namojo/harness-edu" target="_blank" rel="noopener">GitHub 저장소</a></p>
+</div></footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
