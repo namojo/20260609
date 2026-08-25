@@ -262,7 +262,7 @@ if (-not (Installed claude)) {
         }
 
         Step "플러그인 설치: harness@harness-marketplace"
-        claude plugin install harness@harness-marketplace --yes 2>&1 | ForEach-Object { Info $_ }
+        claude plugin install harness@harness-marketplace --scope user --yes 2>&1 | ForEach-Object { Info $_ }
 
         $pluginList = (claude plugin list 2>&1 | Out-String)
         if ($pluginList -match 'harness') {
@@ -272,7 +272,7 @@ if (-not (Installed claude)) {
             Fail "harness 플러그인 설치를 확인할 수 없습니다."
             Info "Claude Code 를 실행한 뒤 입력창에서 직접 시도하세요:"
             Info "  /plugin marketplace add revfactory/harness"
-            Info "  /plugin install harness@harness-marketplace"
+            Info "  /plugin install harness@harness-marketplace   (설치 범위는 User 선택)"
             $Result['harness 플러그인'] = '확인 필요'
             $Problems.Add('harness 플러그인 설치 확인 필요')
         }
@@ -426,6 +426,7 @@ if ($Problems.Count -eq 0) {
     Write-Host "     cd `"$practice`"" -ForegroundColor DarkGray
     Write-Host "     claude" -ForegroundColor DarkGray
     Write-Host "     그리고 입력창에: 하네스 구성해줘" -ForegroundColor DarkGray
+    Write-Host "     되묻는 질문이 오면 확인 완료 - 답하지 말고 ESC 누른 뒤 /exit" -ForegroundColor DarkGray
 } else {
     Write-Host "   남은 할 일:" -ForegroundColor Yellow
     $i = 1

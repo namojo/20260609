@@ -163,7 +163,10 @@ OEE는 가동률 × 성능 × 품질이야. 계산 과정도 보여줘.</pre></d
 
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 (Claude Code 종료 상태에서)</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp list</pre></div></div></div>
 
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 목록에 <code>production-metrics</code> 가 보입니다. 안 보이면 <a href="../install/mcp-server.html#3-6-claude-code에-등록">설치가이드 3-6절</a>을 먼저 하세요.</p></div></section>
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 목록에 <code>production-metrics</code> 가 보입니다. 안 보이면 <a href="../install/mcp-server.html#3-6-claude-code에-등록">설치가이드 3-6절</a>을 먼저 하세요.</p>
+<p><strong>등록은 됐는데 이 폴더에서만 보인다면</strong> 기본값인 local 스코프로 등록된 것입니다. <code>claude mcp remove production-metrics</code> 후 <code>--scope user</code> 를 붙여 다시 등록하세요 — 7차시에서 <code>my-harness</code> 폴더로 옮기면 도구가 사라집니다.</p>
+</div></section>
 
 <p>Claude Code를 실행하고 입력창에서 연결 상태를 봅니다.</p>
 
@@ -318,7 +321,7 @@ def compute_oee(line: str, date: str) -> dict:
 <div class="table-wrap"><table>
 <thead><tr><th>증상</th><th>왜 생기나</th><th>대처</th></tr></thead>
 <tbody>
-<tr><td><code>/mcp</code> 에 안 보임</td><td>등록 후 재시작 안 함</td><td><code>/exit</code> 후 다시 <code>claude</code>. <code>claude mcp list</code> 로 등록 먼저 확인</td></tr>
+<tr><td><code>/mcp</code> 에 안 보임</td><td>재시작 안 함 <strong>또는</strong> local 스코프로 등록</td><td><code>/exit</code> 후 다시 <code>claude</code>. 그래도 없으면 <code>--scope user</code> 로 재등록</td></tr>
 <tr><td><code>spawn python ENOENT</code></td><td>파이썬 경로를 못 찾음</td><td><a href="../install/mcp-server.html#문제-2">설치가이드 문제 해결 ②</a> — 절대경로로 재등록</td></tr>
 <tr><td>도구를 안 부르고 암산함</td><td>도구를 쓰라는 지시가 약함</td><td>&quot;<code>compute_oee</code> 도구를 사용해서&quot; 명시</td></tr>
 <tr><td>Tool 후보가 안 떠오름</td><td>계산을 일이라고 생각 안 함</td><td>엑셀 <strong>수식 칸</strong>을 열어 보세요. 거기 있는 것이 전부 후보입니다</td></tr>

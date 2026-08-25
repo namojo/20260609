@@ -76,7 +76,7 @@
 /plugin marketplace add anthropics/skills
 /plugin install document-skills@anthropic-agent-skills</pre></div>
 
-<p><strong>7.</strong> 동작 확인 — 입력창에 <code>하네스 구성해줘</code> 를 넣고 되묻는 질문이 오면 완료.</p>
+<p><strong>7.</strong> 동작 확인 — 입력창에 <code>하네스 구성해줘</code> 를 넣고 <strong>되묻는 질문이 오면 완료</strong>입니다. 답하지 말고 <kbd>ESC</kbd> 로 입력창에 돌아온 뒤 <code>/exit</code> (<a href="#6-첫-동작-테스트">자세히</a>).</p>
 
 <p><strong>막히면</strong>: <code>'git' 용어가 ... 인식되지 않습니다</code> → <a href="#문제-1">문제 해결 ①</a> · <code>claude</code> 명령을 못 찾음 → <a href="#문제-2">②</a> · 플러그인 추가 실패 → <a href="#문제-5">⑤</a></p>
 
@@ -287,21 +287,59 @@ C:\harness-edu</pre></div>
   <p><strong>Claude Code 나가는 법</strong>: 입력창에 <code>/exit</code> 를 넣고 Enter (또는 <kbd>Ctrl</kbd>+<kbd>C</kbd> 두 번). 다시 들어가려면 폴더로 <code>cd</code> 한 뒤 <code>claude</code>.</p>
 </blockquote>
 
-<h3 id="3-8-harness-설치">3-8. Harness 플러그인 설치</h3>
+<h3 id="3-8-harness-설치">3-8. Harness 플러그인 설치 (스코프 선택 주의)</h3>
 
 <p>여기서부터는 <strong>PowerShell이 아니라 Claude Code 입력창</strong>에 입력합니다. <code>/</code> 로 시작하는 명령은 Claude Code 자체 명령입니다.</p>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body">
+<p><strong>설치 중에 &quot;어느 범위에 설치할까요?&quot; 화면이 나옵니다. 반드시 <span style="white-space:nowrap">User scope</span> 를 고르세요.</strong></p>
+<div class="table-wrap"><table>
+<thead><tr><th style="width:130px">선택지</th><th>뜻</th><th>이 과정에서</th></tr></thead>
+<tbody>
+<tr><td><strong>User scope</strong><br><span class="muted">사용자 범위</span></td><td>내 계정의 <strong>모든 폴더</strong>에서 쓸 수 있게 설치</td><td><strong>✅ 이것을 선택</strong></td></tr>
+<tr><td>Project scope<br><span class="muted">프로젝트 범위</span></td><td>이 폴더(저장소)에서만. 설정이 <code>.claude/settings.json</code> 에 기록되어 <strong>팀원과 공유</strong>됨</td><td>❌ 다른 폴더로 옮기면 안 됩니다</td></tr>
+<tr><td>Local scope<br><span class="muted">로컬 범위</span></td><td>이 폴더에서만, 나만</td><td>❌ 같은 이유로 부적합</td></tr>
+</tbody></table></div>
+<p><strong>왜 User scope인가</strong>: 이 과정은 폴더를 계속 옮겨 다닙니다 — <code>C:\harness-edu\xlsx</code>(2차시), <code>codex</code>(3차시), <code>harness</code>(4차시), <code>my-harness</code>(4·5·7차시), <code>tool\mcp-server</code>(6차시). Project·Local로 설치하면 <strong>설치한 그 폴더에서만</strong> 동작해서, 4차시에 새 폴더를 만든 순간 <code>하네스 구성해줘</code> 가 먹히지 않습니다.</p>
+</div></section>
 
 <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ①</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin marketplace add revfactory/harness</pre></div>
 
 <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ②</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin install harness@harness-marketplace</pre></div>
 
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 마켓플레이스가 등록되고, 설치 확인 화면이 나오면 <strong>Enter로 승인</strong>합니다. 마지막에 harness 플러그인이 설치됐다는 메시지가 나옵니다.</p></div></section>
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 플러그인 상세 화면이 열리고 <strong>설치 범위(scope)를 고르는 목록</strong>이 나옵니다. 방향키로 <strong>User</strong> 를 선택하고 Enter.</p>
+<p>설치가 끝나면 마지막 줄을 확인하세요.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">둘 중 하나가 나옵니다</span></div><pre>Plugin is now active.              → 바로 쓸 수 있습니다
+Run /reload-plugins to activate.   → 아래 명령을 한 번 실행하세요</pre></div>
+</div></section>
 
-<p>이어서 문서 작업용 <strong>Anthropic Skills</strong> 플러그인도 설치합니다. (엑셀·워드·PPT 실습에서 씁니다)</p>
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">위에서 &quot;Run /reload-plugins&quot; 라고 나왔을 때만</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/reload-plugins</pre></div>
+
+<p>이어서 문서 작업용 <strong>Anthropic Skills</strong> 플러그인도 설치합니다. (엑셀·워드·PPT 실습에서 씁니다) <strong>이때도 User scope를 고릅니다.</strong></p>
 
 <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ③</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin marketplace add anthropics/skills</pre></div>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ④</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin install document-skills@anthropic-agent-skills</pre></div>
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ④ — 여기서도 User scope</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin install document-skills@anthropic-agent-skills</pre></div>
+
+<h4 id="3-8-1-스코프-확인">설치 범위가 맞는지 확인하기</h4>
+
+<p>입력창에서 <code>/plugin</code> 을 실행하고 <strong>Installed</strong> 탭을 보면, 목록이 <strong>범위별로 묶여</strong> 표시됩니다. 두 플러그인이 <strong>User</strong> 그룹 아래에 있으면 정상입니다.</p>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+<p><strong>Project나 Local로 설치했다면</strong> 지우고 다시 설치하면 됩니다. 입력창에서:</p>
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin uninstall harness@harness-marketplace</pre></div>
+<p>그다음 ②번을 다시 실행하고 이번에는 <strong>User</strong> 를 고릅니다. Skills 플러그인도 같은 방법입니다.</p>
+</div></section>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body">
+<p><strong>대화 없이 한 번에 설치하려면</strong> — 터미널(Claude Code 종료 상태)에서 아래를 실행하면 <strong>스코프 질문 없이 User 범위로</strong> 설치됩니다. 셸 명령의 기본값이 User이기 때문입니다.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기 (선택)</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude plugin marketplace add revfactory/harness
+claude plugin install harness@harness-marketplace --scope user
+claude plugin marketplace add anthropics/skills
+claude plugin install document-skills@anthropic-agent-skills --scope user</pre></div></div></div>
+<p>이 방식으로 설치하면 다음에 <code>claude</code> 를 실행할 때 적용됩니다.</p>
+</div></section>
 
 <section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>이렇게 나오면 오류</strong>: <code>git</code> 을 찾을 수 없다거나 마켓플레이스 추가가 실패하면 3-3절 Git 설치가 끝나지 않은 것입니다 → <a href="#문제-5">문제 해결 ⑤</a>.</p></div></section>
 
@@ -337,7 +375,7 @@ C:\harness-edu</pre></div>
 <li><code>echo $env:CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code> 가 <code>1</code> 출력</li>
 <li><code>C:\harness-edu</code> 폴더 존재 (또는 사용자 폴더) — 경로에 <strong>OneDrive·Desktop 없음</strong></li>
 <li><code>claude</code> 실행 후 한국어로 대화 성공</li>
-<li><code>/plugin</code> 목록에 <strong>harness</strong>, <strong>document-skills</strong> 표시</li>
+<li><code>/plugin</code> → Installed 탭에서 <strong>harness</strong>, <strong>document-skills</strong> 가 <strong>User 범위</strong>에 표시</li>
 <li>아래 6절 첫 동작 테스트 통과</li>
 </ul>
 
@@ -394,7 +432,21 @@ C:\harness-edu</pre></div>
 
 <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>하네스 구성해줘</pre></div>
 
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: &quot;어떤 도메인의 하네스를 만들까요?&quot; 처럼 <strong>되묻는 질문</strong>이 옵니다. 이 질문이 오면 플러그인이 정상 작동하는 것입니다. 확인만 하는 단계이므로 여기서 <code>/exit</code> 로 나가도 됩니다.</p></div></section>
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: &quot;어떤 도메인의 하네스를 만들까요?&quot; 처럼 <strong>되묻는 질문</strong>이 옵니다. <strong>이 질문이 오면 플러그인이 정상 작동하는 것이고, 설치는 여기서 끝입니다.</strong></p></div></section>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🚪</span><div class="callout-body">
+<p><strong>여기서 답하지 말고 빠져나옵니다.</strong> 지금은 동작만 확인하는 단계입니다. 도메인을 답하면 실제로 에이전트 팀을 만들기 시작해 시간이 오래 걸립니다.</p>
+<p><strong>빠져나오는 순서</strong></p>
+<ol>
+<li><strong><kbd>ESC</kbd> 키를 한 번 누릅니다.</strong> 질문·선택 목록 화면이 닫히고 <strong>입력창으로 돌아옵니다.</strong></li>
+<li>화면이 그대로면 <strong><kbd>ESC</kbd> 를 한 번 더</strong> 누릅니다. (질문이 여러 겹일 수 있습니다)</li>
+<li>맨 아래에 입력창 표시 <code>&gt;</code> 가 보이면 아래를 입력하고 <kbd>Enter</kbd>.</li>
+</ol>
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">입력창으로 돌아온 뒤</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/exit</pre></div>
+<p><strong>주의</strong>: 선택 목록이 떠 있는 상태에서 <code>/exit</code> 를 치면 명령이 아니라 <strong>답변으로 입력됩니다.</strong> 반드시 <kbd>ESC</kbd> 로 입력창에 돌아온 뒤에 치세요.</p>
+</div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>그래도 빠져나오지 못하면</strong>: <kbd>Ctrl</kbd>+<kbd>C</kbd> 를 <strong>두 번</strong> 누릅니다(Mac도 Control 키). 그러면 Claude Code가 종료되고 터미널 프롬프트로 돌아옵니다. 이미 팀을 만들기 시작했다면 <kbd>ESC</kbd> 로 작업을 중단한 뒤 <code>/exit</code> 하세요. <strong>중간에 끊어도 설치에는 아무 문제가 없습니다.</strong></p></div></section>
 
 <section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>이렇게 나오면 오류</strong>: 하네스를 모른다는 듯 일반적인 답만 하면 플러그인이 안 붙은 것입니다 → <code>/plugin</code> 으로 목록을 확인하고 3-8절을 다시 하세요.</p></div></section>
 

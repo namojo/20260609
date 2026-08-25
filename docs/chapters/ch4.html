@@ -347,7 +347,10 @@ DEL-01 ~ DEL-04   산출물 4건</pre></div>
 
 에이전트는 3~5명으로 하고, 결과를 대조 검증하는 담당을 반드시 포함해줘.</pre></div>
 
-<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p>만들어진 팀에서 <strong>두 가지만 확인</strong>하세요 — ① 같은 일을 하는 담당이 둘로 나뉘어 있지 않은가 ② <strong>검증 담당이 따로 있는가.</strong> 사례의 ④번처럼 대개 이 두 곳에서 손봐야 합니다.</p></div></section>
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+<p>만들어진 팀에서 <strong>두 가지만 확인</strong>하세요 — ① 같은 일을 하는 담당이 둘로 나뉘어 있지 않은가 ② <strong>검증 담당이 따로 있는가.</strong> 사례의 ④번처럼 대개 이 두 곳에서 손봐야 합니다.</p>
+<p><strong>새 폴더에서 <code>하네스 구성해줘</code> 가 먹히지 않으면</strong> 플러그인이 <strong>User 범위</strong>로 설치되지 않은 것입니다. <code>/plugin</code> → Installed 탭에서 <strong>harness</strong> 가 User 그룹에 있는지 확인하세요. Project·Local 범위로 설치했다면 <strong>설치한 그 폴더에서만</strong> 동작합니다 (<a href="../install/setup-windows.html#3-8-harness-설치">설치가이드 3-8절</a>).</p>
+</div></section>
 
 <hr>
 
@@ -368,6 +371,7 @@ DEL-01 ~ DEL-04   산출물 4건</pre></div>
 <thead><tr><th>증상</th><th>왜 생기나</th><th>대처</th></tr></thead>
 <tbody>
 <tr><td>팀이 안 만들어지고 혼자 답함</td><td>에이전트 팀 기능이 꺼져 있음</td><td>환경변수 확인 → <strong>터미널 새로 열기</strong> → 재실행</td></tr>
+<tr><td>새 폴더에서 <code>하네스 구성해줘</code> 가 안 먹힘</td><td>플러그인이 User 범위가 아님 (Project·Local로 설치)</td><td><code>/plugin</code> → Installed 에서 범위 확인. 아니면 지우고 <strong>User</strong> 로 재설치</td></tr>
 <tr><td>담당자가 10명 넘게 생성됨</td><td>도메인 설명이 너무 넓음</td><td>&quot;3~5명으로 줄여줘&quot; 재요청. 사람이 많을수록 조율 비용이 커집니다</td></tr>
 <tr><td>팀이 엉성하고 일반적임</td><td>1단계 설명이 한 줄</td><td>도메인·입력·산출물·품질 기준 <strong>네 가지를 다시 채워</strong> 재실행</td></tr>
 <tr><td>검증 담당이 없음</td><td>요청에 안 넣음</td><td>4단계 프롬프트로 추가. <strong>이건 타협하지 마세요</strong></td></tr>

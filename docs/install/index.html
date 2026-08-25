@@ -105,6 +105,16 @@
   <p><strong>교육 전날까지</strong> 1번(공통 준비)만이라도 끝내 두세요. 나머지는 해당 모듈 직전에 해도 늦지 않습니다.</p>
 </blockquote>
 
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body">
+<p><strong>설치할 때 &quot;범위(scope)&quot;를 묻는 화면이 두 번 나옵니다 — 둘 다 <span style="white-space:nowrap">User</span> 를 고르세요.</strong></p>
+<div class="table-wrap"><table>
+<thead><tr><th style="width:180px">무엇</th><th>선택</th><th>왜</th></tr></thead>
+<tbody>
+<tr><td>Harness · Skills 플러그인</td><td><strong>User scope</strong></td><td>과정 중 폴더를 계속 옮겨 다니므로, 특정 폴더에만 설치되면 4차시부터 동작하지 않습니다</td></tr>
+<tr><td>MCP 서버 (6차시)</td><td><code>--scope user</code> 명시</td><td>기본값이 <strong>local</strong>(그 폴더 전용)이라 붙이지 않으면 7차시에서 도구가 사라집니다</td></tr>
+</tbody></table></div>
+</div></section>
+
 <hr>
 
 <h2 id="2-무엇을-설치하나">2. 무엇을 설치하나 (그리고 무엇을 설치하지 않나)</h2>
@@ -159,8 +169,8 @@
 <li>에이전트 팀 환경변수가 <code>1</code> (Windows <code>echo $env:CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code> · Mac <code>echo $CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code>)</li>
 <li><code>C:\harness-edu</code>(Mac은 <code>~/harness-edu</code>) 폴더 존재</li>
 <li><code>claude</code> 실행 후 한국어로 대화 성공</li>
-<li><code>/plugin</code> 목록에 <strong>harness</strong>, <strong>document-skills</strong> 표시</li>
-<li>입력창에 <code>하네스 구성해줘</code> → 되묻는 질문이 옴</li>
+<li><code>/plugin</code> → Installed 탭에서 <strong>harness</strong>, <strong>document-skills</strong> 가 <strong>User 범위</strong>에 표시</li>
+<li>입력창에 <code>하네스 구성해줘</code> → 되묻는 질문이 옴 (답하지 말고 <kbd>ESC</kbd> → <code>/exit</code>)</li>
 </ul>
 
 <hr>

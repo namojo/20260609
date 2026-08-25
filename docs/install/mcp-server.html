@@ -64,7 +64,7 @@ source .venv/bin/activate
 pip install -r requirements.txt</pre></div></div></div>
 
 <p><strong>②</strong> Claude Code에 등록 (같은 폴더에서)</p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics -- python server.py</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics --scope user -- python server.py</pre></div></div></div>
 
 <p><strong>③</strong> 확인 → Claude Code 실행 → 입력창에서 도구 호출</p>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp list</pre></div></div></div>
@@ -198,30 +198,40 @@ pip install -r requirements.txt</pre></div></div></div>
 <p><strong>몇 번을 실행해도 값이 같습니다.</strong> 이것이 Skill(암산)과 결정적으로 다른 점입니다.</p>
 </div></section>
 
-<h3 id="3-6-claude-code에-등록">3-6. Claude Code에 등록</h3>
+<h3 id="3-6-claude-code에-등록">3-6. Claude Code에 등록 (스코프 주의)</h3>
 
 <p><code>tool/mcp-server</code> 폴더에서 실행합니다.</p>
 
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics -- python server.py</pre></div></div></div>
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body">
+<p><strong><code>--scope user</code> 를 꼭 붙이세요.</strong> 붙이지 않으면 기본값이 <strong>local</strong> 이라서 <strong>지금 이 폴더에서만</strong> 도구가 보입니다.</p>
+<div class="table-wrap"><table>
+<thead><tr><th style="width:110px">스코프</th><th>어디서 보이나</th><th>이 과정에서</th></tr></thead>
+<tbody>
+<tr><td><strong>user</strong></td><td>내 계정의 <strong>모든 폴더</strong></td><td><strong>✅ 이것을 사용</strong></td></tr>
+<tr><td>local <span class="muted">(기본값)</span></td><td>등록한 그 폴더에서만, 나만</td><td>❌ 7차시에서 <code>my-harness</code> 폴더로 옮기면 도구가 사라집니다</td></tr>
+<tr><td>project</td><td><code>.mcp.json</code> 으로 팀 공유</td><td>△ 팀에 배포할 때 (9-A절 참고)</td></tr>
+</tbody></table></div>
+</div></section>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics --scope user -- python server.py</pre></div></div></div>
 
 <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 서버가 등록됐다는 메시지가 나옵니다. <code>--</code> 뒤가 &quot;서버를 실행하는 명령&quot;입니다.</p></div></section>
 
 <section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
-<p><strong>가상환경을 쓸 때 더 안전한 방법</strong>: <code>python</code> 대신 가상환경의 파이썬 <strong>절대경로</strong>를 주면 &quot;모듈을 못 찾는&quot; 오류를 예방할 수 있습니다.</p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows — 이렇게 등록해도 됩니다</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics -- "$PWD\.venv\Scripts\python.exe" "$PWD\server.py"</pre></div></div></div>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS — 이렇게 등록해도 됩니다</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics -- "$PWD/.venv/bin/python" "$PWD/server.py"</pre></div></div></div>
+<p><strong>가상환경을 쓸 때 더 안전한 방법</strong>: <code>python</code> 대신 가상환경의 파이썬 <strong>절대경로</strong>를 주면 &quot;모듈을 못 찾는&quot; 오류를 예방할 수 있습니다. user 스코프는 <strong>다른 폴더에서도 이 서버를 띄우므로</strong>, 상대경로보다 절대경로가 확실합니다.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows — 권장</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics --scope user -- "C:\harness-edu\tool\mcp-server\.venv\Scripts\python.exe" "C:\harness-edu\tool\mcp-server\server.py"</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS — 권장</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics --scope user -- ~/harness-edu/tool/mcp-server/.venv/bin/python ~/harness-edu/tool/mcp-server/server.py</pre></div></div></div>
 </div></section>
 
 <p>등록 목록을 확인합니다.</p>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp list</pre></div></div></div>
 
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 목록에 <code>production-metrics</code> 가 보입니다.</p></div></section>
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 목록에 <code>production-metrics</code> 가 보입니다. 스코프까지 확인하려면 <code>claude mcp get production-metrics</code> 를 실행하세요.</p></div></section>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>다른 폴더에서도 되는지 확인</strong>해 보세요. 아무 폴더로 <code>cd</code> 한 뒤 <code>claude mcp list</code> 에 여전히 보이면 user 스코프로 잘 등록된 것입니다. local 이면 목록에서 사라집니다.</p></div></section>
 
 <blockquote>
-  <p><strong>등록 범위를 고를 수도 있습니다</strong><br>
-  <code>--scope project</code> → 이 프로젝트만 (<code>.mcp.json</code> 파일이 생겨 팀원과 공유 가능)<br>
-  <code>--scope user</code> → 내 모든 프로젝트에서 사용<br>
-  지정하지 않으면 기본값으로 등록됩니다. 실습에서는 기본값으로 충분합니다.</p>
+  <p><strong>잘못 등록했다면</strong> 지우고 다시 하면 됩니다 — <code>claude mcp remove production-metrics</code> 후 위 명령을 <code>--scope user</code> 를 붙여 재실행하세요.</p>
 </blockquote>
 
 <hr>
@@ -242,7 +252,7 @@ pip install -r requirements.txt</pre></div></div></div>
 <li>프롬프트에 <code>(.venv)</code> 표시 확인</li>
 <li><code>pip install -r requirements.txt</code> 성공</li>
 <li>3-5절 계산 결과가 <code>69.8%</code> 로 출력</li>
-<li><code>claude mcp list</code> 에 <code>production-metrics</code> 표시</li>
+<li><code>claude mcp list</code> 에 <code>production-metrics</code> 표시 — <strong>다른 폴더에서도 보일 것</strong>(user 스코프)</li>
 <li>Claude Code에서 <code>/mcp</code> 가 connected 표시</li>
 <li>아래 6절 첫 동작 테스트 통과</li>
 </ul>
@@ -264,7 +274,7 @@ pip install -r requirements.txt</pre></div></div></div>
 
 <h3 id="5-2-codex에도-붙이기">5-2. 같은 도구를 Codex에도 붙이기 (선택)</h3>
 
-<p>MCP가 오픈 표준이라는 것을 여기서 확인합니다. <strong>코드를 한 줄도 바꾸지 않고</strong> 다른 AI에 붙입니다. (<a href="codex.html">Codex CLI</a> 를 설치한 경우에만)</p>
+<p>Codex에는 스코프 개념이 없고 등록하면 전역으로 적용됩니다. MCP가 오픈 표준이라는 것을 여기서 확인합니다. <strong>코드를 한 줄도 바꾸지 않고</strong> 다른 AI에 붙입니다. (<a href="codex.html">Codex CLI</a> 를 설치한 경우에만)</p>
 
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex mcp add production-metrics -- python "C:\harness-edu\tool\mcp-server\server.py"</pre></div></div></div>
 
@@ -346,7 +356,7 @@ pip install -r requirements.txt</pre></div></div></div>
 
 <h2 id="9-다른-연결-방법">9. 다른 연결 방법 (필요할 때만)</h2>
 
-<h3 id="9-a-mcpjson-파일로-팀-공유">A. <code>.mcp.json</code> 파일로 등록 (팀 공유용)</h3>
+<h3 id="9-a-mcpjson-파일로-팀-공유">A. <code>.mcp.json</code> 파일로 등록 (팀 공유용 · project 스코프)</h3>
 <p>프로젝트 루트에 아래 파일을 두면, 저장소를 받은 팀원 모두가 같은 도구를 씁니다. 경로는 각자 환경에 맞게(절대경로 권장) 조정합니다.</p>
 <div class="code-card is-lite"><div class="code-bar"><span class="code-label">.mcp.json</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>{
   "mcpServers": {
