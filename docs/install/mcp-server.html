@@ -53,12 +53,12 @@
 
 <h2 id="빠른-설치">빠른 설치 (아는 사람용 · 10분)</h2>
 
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 ① — Windows</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd "$env:USERPROFILE\Desktop\harness-edu\tool\mcp-server"
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 ① — Windows</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd C:\harness-edu\tool\mcp-server
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt</pre></div></div></div>
 
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 ① — macOS</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/Desktop/harness-edu/tool/mcp-server
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 ① — macOS</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/harness-edu/tool/mcp-server
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt</pre></div></div></div>
@@ -148,10 +148,10 @@ pip install -r requirements.txt</pre></div></div></div>
 <h3 id="3-2-실습-폴더로-이동">3-2. 도구 폴더로 이동</h3>
 
 <p><strong>Windows</strong></p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd "$env:USERPROFILE\Desktop\harness-edu\tool\mcp-server"</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd C:\harness-edu\tool\mcp-server</pre></div></div></div>
 
 <p><strong>macOS</strong></p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/Desktop/harness-edu/tool/mcp-server</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/harness-edu/tool/mcp-server</pre></div></div></div>
 
 <p>파일이 맞게 있는지 확인합니다.</p>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>ls</pre></div></div></div>
@@ -266,9 +266,9 @@ pip install -r requirements.txt</pre></div></div></div>
 
 <p>MCP가 오픈 표준이라는 것을 여기서 확인합니다. <strong>코드를 한 줄도 바꾸지 않고</strong> 다른 AI에 붙입니다. (<a href="codex.html">Codex CLI</a> 를 설치한 경우에만)</p>
 
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex mcp add production-metrics -- python "$env:USERPROFILE\Desktop\harness-edu\tool\mcp-server\server.py"</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex mcp add production-metrics -- python "C:\harness-edu\tool\mcp-server\server.py"</pre></div></div></div>
 
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex mcp add production-metrics -- python3 ~/Desktop/harness-edu/tool/mcp-server/server.py</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex mcp add production-metrics -- python3 ~/harness-edu/tool/mcp-server/server.py</pre></div></div></div>
 
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>등록 확인</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex mcp list</pre></div></div></div>
 
