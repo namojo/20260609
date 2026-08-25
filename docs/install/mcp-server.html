@@ -61,8 +61,9 @@ python -m venv .venv
 python3 -m venv .venv
 ./.venv/bin/python -m pip install -r requirements.txt</pre></div></div></div>
 
-<p><strong>②</strong> Claude Code에 등록 (같은 폴더에서)</p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics --scope user -- C:\harness-edu\tool\mcp-server\.venv\Scripts\python.exe C:\harness-edu\tool\mcp-server\server.py</pre></div></div></div>
+<p><strong>②</strong> Claude Code에 등록 — <code>--scope user</code> + 가상환경 파이썬 전체 경로</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>② Windows · PowerShell 에만</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics --scope user -- C:\harness-edu\tool\mcp-server\.venv\Scripts\python.exe C:\harness-edu\tool\mcp-server\server.py</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>② macOS · 터미널 에만</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp add production-metrics --scope user -- ~/harness-edu/tool/mcp-server/.venv/bin/python ~/harness-edu/tool/mcp-server/server.py</pre></div></div></div>
 
 <p><strong>③</strong> 확인 → Claude Code 실행 → 입력창에서 도구 호출</p>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp list</pre></div></div></div>
@@ -172,69 +173,48 @@ python3 -m venv .venv
 
 <section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>경로를 찾을 수 없다고 나오면</strong>: 공통 준비의 <code>git clone</code> 단계가 빠졌습니다. <a href="setup-windows.html#3-6-실습-저장소-받기">실습 저장소 받기</a>를 먼저 하세요.</p></div></section>
 
-<h3 id="3-3-가상환경-만들기">3-3. 가상환경 만들기</h3>
+<h3 id="3-3-도구-준비">3-3. 도구 준비 — 한 번에</h3>
 
-<p><strong>본인 OS 것만 실행하세요.</strong> Windows에서 <code>python3</code> 를 쓰면 별칭 오류가 나고, macOS에서 <code>python</code> 을 쓰면 명령을 찾지 못합니다.</p>
+<p>아래 <strong>세 줄을 한꺼번에</strong> 복사해 붙여넣으세요. 순서대로 ① 이 실습만의 격리된 파이썬 방을 만들고 ② 필요한 패키지를 설치하고 ③ 설치된 버전을 보여 줍니다. <strong>본인 OS 것만</strong> 쓰세요.</p>
 
-<p><strong>Windows</strong></p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python -m venv .venv</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip show mcp</pre></div></div></div>
 
-<p><strong>macOS</strong></p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python3 -m venv .venv</pre></div></div></div>
-
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 아무 메시지 없이 프롬프트가 돌아오고, 현재 폴더에 <code>.venv</code> 폴더가 생깁니다. <strong>터미널에서는 &quot;조용한 성공&quot;이 정상입니다.</strong></p></div></section>
-
-<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body">
-<p><strong>&quot;가상환경 켜기(activate)&quot; 는 하지 않습니다.</strong> 켜는 대신, 다음 단계부터 <strong>가상환경 안의 파이썬을 직접 지정</strong>합니다. 이유는 두 가지입니다.</p>
-<ul>
-<li>Windows에서 <code>activate</code> 는 실행 정책에 막히는 경우가 많습니다</li>
-<li>터미널을 새로 열면 켜둔 것이 <strong>꺼지고</strong>, 그 상태로 다음 명령을 실행하면 <code>ModuleNotFoundError</code> 가 납니다</li>
-</ul>
-<p>직접 지정하면 창을 새로 열어도, 어느 폴더에서 실행해도 항상 같은 파이썬이 쓰입니다.</p>
-</div></section>
-
-<h3 id="3-4-필요한-패키지-설치">3-4. 필요한 패키지 설치</h3>
-
-<p><strong>가상환경 안의 파이썬</strong>으로 설치합니다. 앞의 <code>.\.venv\Scripts\python.exe</code> 부분이 &quot;이 파이썬으로&quot; 라는 뜻입니다.</p>
-
-<p><strong>Windows</strong></p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>.\.venv\Scripts\python.exe -m pip install -r requirements.txt</pre></div></div></div>
-
-<p><strong>macOS</strong></p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>./.venv/bin/python -m pip install -r requirements.txt</pre></div></div></div>
-
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 여러 줄이 흐르고 마지막에 <code>Successfully installed mcp-...</code> 가 나옵니다. 1~3분.</p></div></section>
-
-<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>이렇게 나오면 오류</strong>: <code>ERROR: Could not find a version...</code> 또는 시간 초과 → 사내 프록시가 파이썬 저장소를 막고 있습니다. 휴대폰 테더링으로 재시도하고, 계속 막히면 IT 담당자에게 <code>pypi.org</code> 접근을 요청하세요.</p></div></section>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
+./.venv/bin/python -m pip show mcp</pre></div></div></div>
 
 <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
-<p><strong>설치된 버전 확인</strong> — <code>1.x</code> 여야 합니다.</p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>.\.venv\Scripts\python.exe -m pip show mcp</pre></div></div></div>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>./.venv/bin/python -m pip show mcp</pre></div></div></div>
-<div class="code-card is-out"><div class="code-bar"><span class="code-label">예상 화면</span></div><pre>Name: mcp
-Version: 1.19.0        ← 1 로 시작해야 합니다</pre></div>
+<p><strong>예상 결과</strong>: 설치 로그가 흐른 뒤(1~3분) 마지막에 버전이 나옵니다. <strong>버전이 <code>1</code> 로 시작하는지만 확인하세요.</strong></p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">예상 화면 (마지막 부분)</span></div><pre>Successfully installed mcp-1.19.0 ...
+
+Name: mcp
+Version: 1.19.0        ← 1 로 시작해야 합니다
+Location: C:\harness-edu\tool\mcp-server\.venv\Lib\site-packages</pre></div>
 </div></section>
 
-<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body">
-<p><strong>왜 버전을 1.x 로 고정하나</strong> — MCP 파이썬 패키지 <strong>2.0 부터 FastMCP 의 위치가 바뀌었습니다.</strong></p>
-<div class="table-wrap"><table>
-<thead><tr><th style="width:110px">버전</th><th>FastMCP 위치</th></tr></thead>
-<tbody>
-<tr><td><strong>1.x</strong></td><td><code>mcp.server.fastmcp</code> ← 이 실습의 <code>server.py</code> 가 쓰는 경로</td></tr>
-<tr><td>2.x</td><td><code>mcp.server.mcpserver</code> (이름이 바뀌고 <code>fastmcp</code> 는 삭제됨)</td></tr>
-</tbody></table></div>
-<p>그래서 <code>requirements.txt</code> 에 <code>mcp[cli]&gt;=1.2.0,&lt;2</code> 로 못 박아 두었습니다. 이 파일을 그대로 쓰면 문제가 생기지 않습니다.</p>
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+<p><strong>이렇게 나오면 오류</strong></p>
+<ul>
+<li><code>Version: 2.x</code> → 이 실습과 맞지 않는 버전입니다. <a href="#문제-1">문제 해결 ①</a> 의 명령으로 1.x 로 맞추세요.</li>
+<li><code>ERROR: Could not find a version...</code> / 시간 초과 → 사내 프록시가 파이썬 저장소를 막고 있습니다. 휴대폰 테더링으로 재시도하고, 계속 막히면 IT 담당자에게 <code>pypi.org</code> 접근을 요청하세요.</li>
+<li><code>python</code> 을 찾을 수 없다 → <a href="#3-1-python-확인">3-1절</a>로 돌아가세요. Windows는 <code>python</code>, macOS는 <code>python3</code> 입니다.</li>
+</ul>
 </div></section>
 
-<h3 id="3-5-도구-로직만-먼저-검증">3-5. 도구가 실제로 계산하는지 먼저 확인</h3>
+<blockquote>
+  <p><strong>왜 앞에 <code>.venv\Scripts\python.exe</code> 를 붙이나</strong> — 가상환경을 &quot;켜는&quot;(activate) 대신 <strong>쓸 파이썬을 매번 지정</strong>하는 방식입니다. 창을 새로 열어도, Windows 실행 정책과도 무관하게 항상 같은 파이썬이 쓰입니다. 켜고 끄는 것을 신경 쓸 필요가 없습니다.</p>
+  <p>그리고 <code>requirements.txt</code> 에 버전이 <code>&lt;2</code> 로 고정되어 있습니다. MCP 패키지 <strong>2.0 에서 FastMCP 의 위치가 <code>mcp.server.fastmcp</code> → <code>mcp.server.mcpserver</code> 로 바뀌어</strong>, 2.x 를 설치하면 이 실습의 <code>server.py</code> 가 동작하지 않습니다.</p>
+</blockquote>
 
-<p>AI에 붙이기 전에, 계산 자체가 맞는지 확인합니다. (AI 없이 코드만 실행) <strong>여기서도 같은 파이썬을 지정합니다.</strong></p>
+<h3 id="3-4-계산-확인">3-4. 계산이 맞는지 확인</h3>
 
-<p><strong>Windows</strong></p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>.\.venv\Scripts\python.exe -c "from server import compute_oee; print(compute_oee('B','2026-07-14'))"</pre></div></div></div>
+<p>AI에 붙이기 전에 계산 자체를 확인합니다. (AI 없이 코드만 실행)</p>
 
-<p><strong>macOS</strong></p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>./.venv/bin/python -c "from server import compute_oee; print(compute_oee('B','2026-07-14'))"</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>.\.venv\Scripts\python.exe -c "from server import compute_oee; print(compute_oee('B','2026-07-14'))"</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>./.venv/bin/python -c "from server import compute_oee; print(compute_oee('B','2026-07-14'))"</pre></div></div></div>
 
 <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
 <p><strong>예상 결과</strong>: 계산 결과가 그대로 출력됩니다.</p>
@@ -244,15 +224,14 @@ Version: 1.19.0        ← 1 로 시작해야 합니다</pre></div>
 </div></section>
 
 <section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
-<p><strong><code>ModuleNotFoundError: No module named 'mcp'</code> 가 나오면</strong> — 패키지가 <strong>다른 파이썬에</strong> 설치된 것입니다. 아래 한 줄로 지금 쓰는 파이썬과 설치 상태를 함께 확인하세요.</p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows — 진단</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>.\.venv\Scripts\python.exe -c "import sys; print(sys.executable); import mcp; print('mcp OK')"</pre></div></div></div>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS — 진단</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>./.venv/bin/python -c "import sys; print(sys.executable); import mcp; print('mcp OK')"</pre></div></div></div>
-<p>경로가 <code>.venv</code> 안을 가리키고 <code>mcp OK</code> 가 나오면 정상입니다. 여기서도 <code>ModuleNotFoundError</code> 가 나면 <strong>3-4절을 다시 실행</strong>하세요 (같은 명령이므로 여러 번 해도 안전합니다). 자세한 원인은 <a href="#문제-2">문제 해결 ②</a>.</p>
+<p><strong>이렇게 나오면 오류</strong></p>
+<ul>
+<li><code>No module named 'mcp.server.fastmcp'</code> → 2.x 가 설치된 것입니다 → <a href="#문제-1">문제 해결 ①</a></li>
+<li><code>No module named 'server'</code> / 파일이 없다 → <code>tool/mcp-server</code> 폴더가 아닌 곳에서 실행했습니다. <a href="#3-2-실습-폴더로-이동">3-2절</a>로 돌아가세요 (<code>ls</code> 에 <code>server.py</code> 가 보여야 합니다)</li>
+</ul>
 </div></section>
 
-<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>파일이 없다고 나오면</strong> <code>tool/mcp-server</code> 폴더가 아닌 곳에서 실행한 것입니다. <a href="#3-2-실습-폴더로-이동">3-2절</a>의 <code>cd</code> 명령으로 다시 들어가세요. (<code>ls</code> 를 쳤을 때 <code>server.py</code> 가 보여야 합니다)</p></div></section>
-
-<h3 id="3-6-claude-code에-등록">3-6. Claude Code에 등록 (스코프 주의)</h3>
+<h3 id="3-5-claude-code에-등록">3-5. Claude Code에 등록 (스코프 주의)</h3>
 
 <p><code>tool/mcp-server</code> 폴더에서 실행합니다.</p>
 
@@ -306,8 +285,7 @@ Version: 1.19.0        ← 1 로 시작해야 합니다</pre></div>
 <p><strong>최종 체크리스트</strong></p>
 <ul class="checklist">
 <li><code>python --version</code> (mac: <code>python3</code>) 이 3.10 이상</li>
-<li><code>.venv</code> 폴더 생성 확인 (활성화는 하지 않습니다)</li>
-<li><code>...python.exe -m pip install -r requirements.txt</code> 성공 (<code>Successfully installed mcp-...</code>)</li>
+<li>3-3절 세 줄 실행 후 <code>Version: 1.x</code> 확인</li>
 <li>3-5절 계산 결과가 <code>69.8%</code> 로 출력</li>
 <li><code>claude mcp list</code> 에 <code>production-metrics</code> 표시 — <strong>다른 폴더에서도 보일 것</strong>(user 스코프)</li>
 <li>Claude Code에서 <code>/mcp</code> 가 connected 표시</li>
@@ -371,7 +349,7 @@ Version: 1.19.0        ← 1 로 시작해야 합니다</pre></div>
 <tr><td>그냥 <code>python</code> 으로 실행했다</td><td>가상환경 파이썬을 <strong>지정</strong>해야 합니다 — <code>.\.venv\Scripts\python.exe</code> (mac: <code>./.venv/bin/python</code>)</td></tr>
 <tr><td>터미널을 새로 열었다</td><td>가상환경을 켜 뒀더라도 새 창에서는 꺼집니다. <strong>지정 방식을 쓰면 이 문제가 없습니다</strong></td></tr>
 <tr><td><code>pip install</code> 이 다른 파이썬에 설치했다</td><td>3-4절 명령(<code>...python.exe -m pip install ...</code>)으로 다시 실행하세요</td></tr>
-<tr><td>AI가 도구를 부를 때만 실패한다</td><td>등록이 <code>python server.py</code> 로 되어 있습니다. <a href="#3-6-claude-code에-등록">3-6절</a>의 <strong>전체 경로</strong> 방식으로 재등록</td></tr>
+<tr><td>AI가 도구를 부를 때만 실패한다</td><td>등록이 <code>python server.py</code> 로 되어 있습니다. <a href="#3-5-claude-code에-등록">3-5절</a>의 <strong>전체 경로</strong> 방식으로 재등록</td></tr>
 </tbody></table></div>
 <p><strong>진단 한 줄</strong> — 지금 쓰는 파이썬 위치와 설치 상태를 함께 봅니다.</p>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>.\.venv\Scripts\python.exe -c "import sys; print(sys.executable); import mcp; print('mcp OK')"</pre></div></div></div>
@@ -381,16 +359,16 @@ Version: 1.19.0        ← 1 로 시작해야 합니다</pre></div>
 <p><strong><code>No module named 'mcp.server.fastmcp'</code> 인 경우 (2.x 설치됨)</strong> — 아래 한 줄로 1.x 로 맞춥니다. 예전에 받은 <code>requirements.txt</code> 를 쓰고 있어도 이 명령은 버전을 직접 지정하므로 확실합니다.</p>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>.\.venv\Scripts\python.exe -m pip install "mcp[cli]>=1.2.0,<2"</pre></div></div></div>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>./.venv/bin/python -m pip install "mcp[cli]>=1.2.0,<2"</pre></div></div></div>
-<p>끝나면 <code>pip show mcp</code> 로 <code>Version: 1.x</code> 인지 확인하고, 3-5절 검증을 다시 실행하세요. 저장소를 최근에 받았다면 <code>requirements.txt</code> 에 이미 고정되어 있어 <a href="#3-4-필요한-패키지-설치">3-4절</a>을 다시 실행하는 것만으로도 해결됩니다.</p>
+<p>끝나면 <code>pip show mcp</code> 로 <code>Version: 1.x</code> 인지 확인하고, 3-5절 검증을 다시 실행하세요. 저장소를 최근에 받았다면 <code>requirements.txt</code> 에 이미 고정되어 있어 <a href="#3-3-도구-준비">3-3절</a>을 다시 실행하는 것만으로도 해결됩니다.</p>
 </div></section>
 
-<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><code>.venv\Scripts\python.exe</code> 자체가 없다고 나오면 가상환경이 안 만들어진 것입니다. <a href="#3-2-실습-폴더로-이동">3-2절</a>에서 <code>tool/mcp-server</code> 폴더에 들어와 있는지 확인하고 <a href="#3-3-가상환경-만들기">3-3절</a>을 다시 하세요.</p></div></section>
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><code>.venv\Scripts\python.exe</code> 자체가 없다고 나오면 가상환경이 안 만들어진 것입니다. <a href="#3-2-실습-폴더로-이동">3-2절</a>에서 <code>tool/mcp-server</code> 폴더에 들어와 있는지 확인하고 <a href="#3-3-도구-준비">3-3절</a>을 다시 하세요.</p></div></section>
 
 <h3 id="문제-2">② 도구 목록에 안 뜨거나 연결 실패(failed)</h3>
 <div class="table-wrap"><table>
 <thead><tr><th style="width:210px">증상</th><th>원인 · 해결</th></tr></thead>
 <tbody>
-<tr><td><code>spawn python ENOENT</code></td><td><code>python</code> 을 찾지 못했습니다. <a href="#3-6-claude-code에-등록">3-6절</a>의 <strong>전체 경로</strong> 방식으로 다시 등록하세요.</td></tr>
+<tr><td><code>spawn python ENOENT</code></td><td><code>python</code> 을 찾지 못했습니다. <a href="#3-5-claude-code에-등록">3-5절</a>의 <strong>전체 경로</strong> 방식으로 다시 등록하세요.</td></tr>
 <tr><td>목록에 안 뜸</td><td>등록 후 <strong>Claude Code 재시작</strong>이 필요합니다. 먼저 <code>claude mcp list</code> 로 등록 여부를 확인하세요.</td></tr>
 <tr><td><code>ModuleNotFoundError: mcp</code></td><td>서버를 실행하는 파이썬에 패키지가 없습니다 → <a href="#문제-1">문제 해결 ①</a></td></tr>
 <tr><td>이 폴더에서만 보임</td><td>local 스코프로 등록됐습니다. <code>claude mcp remove production-metrics</code> 후 <code>--scope user</code> 로 재등록</td></tr>
@@ -402,7 +380,7 @@ Version: 1.19.0        ← 1 로 시작해야 합니다</pre></div>
 <p>이후 3-6절을 다시 실행합니다. <code>claude mcp get production-metrics</code> 로 현재 등록 내용을 볼 수 있습니다.</p>
 
 <h3 id="문제-4">④ Windows: <code>Activate.ps1</code> 을 로드할 수 없습니다</h3>
-<p>이 문서는 가상환경을 <strong>켜지 않고</strong> 파이썬을 직접 지정하므로 이 오류를 만나지 않습니다. 다른 자료를 보고 <code>activate</code> 를 시도했다면, 켜지 말고 <a href="#3-4-필요한-패키지-설치">3-4절</a> 방식(<code>.\.venv\Scripts\python.exe -m pip ...</code>)을 쓰면 됩니다.</p>
+<p>이 문서는 가상환경을 <strong>켜지 않고</strong> 파이썬을 직접 지정하므로 이 오류를 만나지 않습니다. 다른 자료를 보고 <code>activate</code> 를 시도했다면, 켜지 말고 <a href="#3-3-도구-준비">3-3절</a> 방식(<code>.\.venv\Scripts\python.exe -m pip ...</code>)을 쓰면 됩니다.</p>
 <p>그래도 켜고 싶다면 아래로 본인 계정 범위만 완화합니다(<code>Y</code> 승인). 회사 정책으로 실패하면 <strong>우회하지 말고</strong> IT 담당자에게 요청하세요.</p>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</pre></div></div></div>
 
@@ -501,9 +479,9 @@ Version: 1.19.0        ← 1 로 시작해야 합니다</pre></div>
         <li><a href="#2-설치-전-확인">2. 설치 전 확인</a></li>
         <li><a href="#3-설치-절차">3. 설치 절차</a></li>
         <li class="toc-l3"><a href="#3-1-python-확인">3-1. Python 확인</a></li>
-        <li class="toc-l3"><a href="#3-3-가상환경-만들기">3-3. 가상환경 만들기</a></li>
-        <li class="toc-l3"><a href="#3-5-도구-로직만-먼저-검증">3-5. 계산 검증</a></li>
-        <li class="toc-l3"><a href="#3-6-claude-code에-등록">3-6. Claude Code에 등록</a></li>
+        <li class="toc-l3"><a href="#3-3-도구-준비">3-3. 도구 준비</a></li>
+        <li class="toc-l3"><a href="#3-4-계산-확인">3-4. 계산 확인</a></li>
+        <li class="toc-l3"><a href="#3-5-claude-code에-등록">3-5. Claude Code에 등록</a></li>
         <li><a href="#4-설치-확인">4. 설치 확인</a></li>
         <li><a href="#5-초기-설정연동">5. 초기 설정·연동</a></li>
         <li class="toc-l3"><a href="#5-2-codex에도-붙이기">5-2. Codex에도 붙이기</a></li>
