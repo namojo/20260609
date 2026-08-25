@@ -35,7 +35,7 @@ $Result = [ordered]@{
     'Claude 로그인'       = '미확인'
     'Agent Teams'         = '미확인'
     'harness 플러그인'    = '미확인'
-    '실습 폴더'           = '미확인'
+    '실습 저장소'         = '미확인'
 }
 if ($Codex) { $Result['Codex CLI'] = '미확인'; $Result['Codex 로그인'] = '미확인' }
 $Problems = [System.Collections.Generic.List[string]]::new()
@@ -279,24 +279,82 @@ if (-not (Installed claude)) {
     }
 }
 
-# ── 6. 실습 폴더 ─────────────────────────────────────────────────────────────
-Section 6 "실습 폴더"
-$practice = Join-Path $env:USERPROFILE 'Documents\harness-practice'
-if (Test-Path $practice) {
-    Ok "실습 폴더 준비됨: $practice"
-    $Result['실습 폴더'] = '준비됨'
-} elseif ($VerifyOnly) {
-    Warn "실습 폴더가 없습니다: $practice"
-    $Result['실습 폴더'] = '없음'
-} else {
-    New-Item -ItemType Directory -Path $practice -Force | Out-Null
-    if (Test-Path $practice) {
-        Ok "실습 폴더 생성: $practice"
-        $Result['실습 폴더'] = '준비됨'
-    } else {
-        Warn "실습 폴더를 만들지 못했습니다."
-        $Result['실습 폴더'] = '실패'
+# ── 6. 실습 저장소 (OneDrive 밖에 둔다) ─────────────────────────────────────
+Section 6 "실습 저장소"
+
+# 바탕 화면·문서 폴더는 OneDrive 폴더 백업 대상이라 저장소를 두면
+# 동기화가 .git 을 잠그고, 탐색기 경로와 실제 경로가 달라진다.
+# 드라이브 루트(C:\harness-edu)는 백업 대상이 아니므로 여기에 둔다.
+$practice = 'C:\harness-edu'
+
+# 회사 PC에서 C 드라이브 루트 쓰기가 막혀 있으면 사용자 폴더로 물러난다.
+if (-not (Test-Path $practice)) {
+    try {
+        $probe = Join-Path 'C:\' ('.harness-edu-write-test-' + $PID)
+        New-Item -ItemType Directory -Path $probe -ErrorAction Stop | Out-Null
+        Remove-Item -LiteralPath $probe -Force -ErrorAction SilentlyContinue
+    } catch {
+        $practice = Join-Path $env:USERPROFILE 'harness-edu'
+        Warn "C 드라이브 루트에 폴더를 만들 수 없어 사용자 폴더를 씁니다: $practice"
+        Info "회사 정책으로 루트 쓰기가 막힌 경우입니다. 실습에는 지장 없습니다."
     }
+}
+
+# 예전 안내(바탕 화면·문서)로 이미 받아 둔 사본이 있으면 알려 준다.
+$legacyPaths = @(
+    [Environment]::GetFolderPath('Desktop'),
+    (Join-Path $env:USERPROFILE 'Desktop'),
+    (Join-Path $env:USERPROFILE 'Documents'),
+    $env:USERPROFILE
+) | Where-Object { $_ } | ForEach-Object { Join-Path $_ 'harness-edu' } |
+    Select-Object -Unique | Where-Object { $_ -ne $practice } | Where-Object { Test-Path $_ }
+
+if (Test-Path (Join-Path $practice '.git')) {
+    Ok "실습 저장소 준비됨: $practice"
+    $Result['실습 저장소'] = '준비됨'
+} elseif (Test-Path $practice) {
+    Warn "폴더는 있지만 저장소가 아닙니다: $practice"
+    Info "폴더를 지우거나 이름을 바꾼 뒤 다시 실행하세요."
+    $Result['실습 저장소'] = '확인 필요'
+    $Problems.Add('실습 저장소 확인 필요 — ' + $practice)
+} elseif ($legacyPaths -and -not $VerifyOnly) {
+    Step "다른 위치에 있는 저장소를 옮깁니다: $($legacyPaths[0])"
+    try {
+        Move-Item -LiteralPath $legacyPaths[0] -Destination $practice -ErrorAction Stop
+        Ok "이동 완료 → $practice"
+        $Result['실습 저장소'] = '준비됨'
+    } catch {
+        Fail "이동 실패: $($_.Exception.Message)"
+        Info "OneDrive 아이콘 → 동기화 일시 중지 후 다시 실행하세요."
+        $Result['실습 저장소'] = '확인 필요'
+        $Problems.Add('실습 저장소 이동 실패 — 동기화 일시 중지 후 재시도')
+    }
+} elseif ($VerifyOnly) {
+    Fail "실습 저장소가 없습니다: $practice"
+    if ($legacyPaths) { Info "OneDrive 동기화 폴더에서 발견: $($legacyPaths -join ', ')" }
+    $Result['실습 저장소'] = '없음'
+    $Problems.Add('실습 저장소 미설치')
+} elseif (Installed git) {
+    Step "실습 저장소 받는 중... (약 6MB)"
+    git clone --quiet https://github.com/namojo/harness-edu.git $practice
+    if (Test-Path (Join-Path $practice '.git')) {
+        Ok "실습 저장소 준비됨: $practice"
+        $Result['실습 저장소'] = '준비됨'
+    } else {
+        Fail "저장소를 받지 못했습니다. 네트워크(github.com) 접근을 확인하세요."
+        $Result['실습 저장소'] = '실패'
+        $Problems.Add('실습 저장소 clone 실패')
+    }
+} else {
+    Warn "git 이 없어 저장소를 받을 수 없습니다."
+    $Result['실습 저장소'] = '건너뜀'
+}
+
+# 경로에 OneDrive 가 섞여 있으면 경고 (사용자가 직접 만든 경우 대비)
+if ((Test-Path $practice) -and ($practice -match 'OneDrive')) {
+    Warn "실습 경로에 OneDrive 가 포함되어 있습니다: $practice"
+    Info "동기화 충돌이 생길 수 있습니다. 사용자 폴더 바로 아래로 옮기세요."
+    $Problems.Add('실습 경로가 OneDrive 안에 있음')
 }
 
 # ── 7. (선택) Codex CLI ─────────────────────────────────────────────────────
