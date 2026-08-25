@@ -14,12 +14,14 @@
   --serif-latin:"Fraunces","Noto Serif KR",Garamond,serif;
   --sans:"Inter","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --maxw:1180px;
+  --maxw:1340px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{background:var(--canvas);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--canvas);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  /* 한국어는 기본 규칙에서 글자 단위로 잘린다. keep-all 로 어절(공백) 단위 줄바꿈 강제 */
+  word-break:keep-all;overflow-wrap:break-word;hyphens:manual}
 h1,h2,h3,h4,h5{font-family:var(--serif);color:var(--ink);font-weight:600;letter-spacing:-.02em;line-height:1.25}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
@@ -54,7 +56,11 @@ a{color:inherit;text-decoration:none}
 .side{position:sticky;top:76px;display:flex;flex-direction:column;gap:14px}
 
 /* ── 본문 타이포 ────────────────────────────────────────────── */
-.prose{max-width:74ch}
+/* 읽는 폭은 텍스트에만 제한하고, 표·코드·카드는 단 전체를 쓴다.
+   (예전에는 .prose 전체를 74ch로 묶어 화면이 넓어져도 표가 좁게 눌렸다) */
+.prose{max-width:none}
+.prose > p,.prose > ul,.prose > ol,.prose > blockquote > p{max-width:78ch}
+.prose > h2,.prose > h3,.prose > h4{max-width:60ch}
 .prose h2{font-size:25px;margin:46px 0 14px;padding-top:6px}
 .prose h2:first-child{margin-top:0}
 .prose h3{font-size:19px;margin:32px 0 10px}
@@ -71,18 +77,23 @@ a{color:inherit;text-decoration:none}
 /* 카드형 링크는 밑줄을 쓰지 않는다 */
 .prose .os-card,.prose .next-card,.prose .flow strong a,.prose .tag a,.prose .pager a{text-decoration:none}
 .prose .flow strong a:hover,.prose .tag a:hover{text-decoration:underline;text-decoration-color:var(--primary-active)}
-.prose code{font-family:var(--mono);font-size:.875em;background:var(--surface-card);border-radius:var(--r-sm);padding:2px 6px;color:var(--body-strong);word-break:break-word}
+.prose code{font-family:var(--mono);font-size:.875em;background:var(--surface-card);border-radius:var(--r-sm);padding:2px 6px;color:var(--body-strong);word-break:keep-all;overflow-wrap:break-word}
 .prose kbd{font-family:var(--sans);font-size:.85em;font-weight:600;background:#fff;border:1px solid var(--hairline);border-bottom-width:2px;border-radius:var(--r-sm);padding:2px 7px;color:var(--ink);white-space:nowrap}
 
 .prose blockquote{margin:18px 0;padding:16px 20px;background:var(--surface-soft);border-left:3px solid var(--primary);border-radius:0 var(--r-md) var(--r-md) 0}
 .prose blockquote p{margin:6px 0;font-size:15px}
 .prose blockquote.rule{background:var(--surface-cream-strong);border-left-color:var(--ink)}
 
+/* 박스(콜아웃·사례·용어) 안의 문장도 읽는 폭을 유지한다 — 폭이 넓어지면 한 줄이 너무 길어진다 */
+.callout-body > p,.case > p,.why p,.persona p,.flow .body p{max-width:78ch}
+.terms dd{max-width:80ch}
+.vs p,.vs li{max-width:52ch}
+
 /* ── 표 ─────────────────────────────────────────────────────── */
 .table-wrap{overflow-x:auto;margin:18px 0;border:1px solid var(--hairline);border-radius:var(--r-lg);background:#fff}
-.table-wrap table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:460px}
-.table-wrap th,.table-wrap td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--hairline-soft);vertical-align:top}
-.table-wrap thead th{background:var(--surface-soft);font-family:var(--sans);font-weight:700;font-size:13px;color:var(--body-strong);white-space:nowrap}
+.table-wrap table{border-collapse:collapse;width:100%;font-size:15px;min-width:460px}
+.table-wrap th,.table-wrap td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--hairline-soft);vertical-align:top;word-break:keep-all;overflow-wrap:break-word}
+.table-wrap thead th{background:var(--surface-soft);font-family:var(--sans);font-weight:700;font-size:13.5px;color:var(--body-strong);white-space:normal;line-height:1.4}
 .table-wrap tbody tr:last-child td{border-bottom:0}
 .table-wrap code{background:var(--surface-soft)}
 
@@ -94,7 +105,7 @@ a{color:inherit;text-decoration:none}
 .copy-btn:hover{background:var(--ink);color:var(--on-dark);border-color:var(--ink)}
 .copy-btn.done{background:var(--success);border-color:var(--success);color:#fff}
 
-.code-card pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+.code-card pre{font-family:var(--mono);font-size:13.5px;line-height:1.7;white-space:pre-wrap;word-break:normal;overflow-wrap:anywhere;overflow-x:auto}
 
 /* 주소창·검색창에 붙여넣는 짧은 문자열 */
 .code-card.is-lite pre{background:#fff;border:1px solid var(--hairline);border-radius:0 0 var(--r-md) var(--r-md);padding:13px 15px;color:var(--body-strong)}
