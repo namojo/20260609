@@ -324,6 +324,7 @@ def compute_oee(line: str, date: str) -> dict:
 <tr><td><code>/mcp</code> 에 안 보임</td><td>재시작 안 함 <strong>또는</strong> local 스코프로 등록</td><td><code>/exit</code> 후 다시 <code>claude</code>. 그래도 없으면 <code>--scope user</code> 로 재등록</td></tr>
 <tr><td><code>spawn python ENOENT</code></td><td>파이썬 경로를 못 찾음</td><td><a href="../install/mcp-server.html#문제-2">설치가이드 문제 해결 ②</a> — 전체 경로로 재등록</td></tr>
 <tr><td><code>ModuleNotFoundError: mcp</code></td><td>패키지를 설치한 파이썬과 실행한 파이썬이 다름</td><td><a href="../install/mcp-server.html#문제-1">설치가이드 문제 해결 ①</a> — 가상환경 파이썬을 지정</td></tr>
+<tr><td><code>No module named 'mcp.server.fastmcp'</code></td><td>MCP 패키지 <strong>2.x</strong> 가 설치됨 (2.0에서 경로가 바뀜)</td><td>1.x 로 재설치 → <a href="../install/mcp-server.html#문제-1">설치가이드 문제 해결 ①</a></td></tr>
 <tr><td>도구를 안 부르고 암산함</td><td>도구를 쓰라는 지시가 약함</td><td>&quot;<code>compute_oee</code> 도구를 사용해서&quot; 명시</td></tr>
 <tr><td>Tool 후보가 안 떠오름</td><td>계산을 일이라고 생각 안 함</td><td>엑셀 <strong>수식 칸</strong>을 열어 보세요. 거기 있는 것이 전부 후보입니다</td></tr>
 <tr><td>&quot;개발자가 없는데요&quot;</td><td>직접 만들어야 한다고 생각</td><td>후보 정의까지가 실무자의 몫입니다. 4단계 표를 들고 요청하면 됩니다</td></tr>
