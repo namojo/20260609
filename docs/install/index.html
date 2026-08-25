@@ -132,8 +132,15 @@
 <tr><td>Python</td><td>MCP 서버(계산 도구) 실행</td><td>선택 (3번)</td></tr>
 </tbody></table></div>
 
+<div class="table-wrap"><table>
+<thead><tr><th>선택 — 실습 파일을 편하게 보려면</th><th>왜</th><th>어디서</th></tr></thead>
+<tbody>
+<tr><td><strong>VS Code</strong> (무료)</td><td><code>.md</code> 리포트를 보기 좋게, CSV·JSON을 <strong>한글 깨짐 없이</strong> 열기</td><td>공통 준비 <a href="setup-windows.html#5-3-실습-파일-여는-방법">5-3절</a></td></tr>
+<tr><td>없이도 됩니다</td><td>교안은 <strong>GitHub 웹</strong>에서 가장 잘 읽히고, <code>.md</code> 는 메모장으로도 읽힙니다. 엑셀·워드·PPT·한글 파일은 <strong>Claude Code가 직접 읽습니다</strong></td><td>—</td></tr>
+</tbody></table></div>
+
 <blockquote class="rule">
-  <p><strong>설치하지 않는 것</strong>: Node.js, bun, Docker, WSL2, 안티그래비티, 별도 편집기.<br>
+  <p><strong>설치하지 않는 것</strong>: Node.js, bun, Docker, WSL2, 안티그래비티.<br>
   Claude Code는 자체 실행 파일로 설치되므로 개발 언어 런타임이 필요하지 않습니다. 이미 설치되어 있어도 문제는 없습니다.</p>
 </blockquote>
 
@@ -201,6 +208,10 @@
 
 <h3 id="faq-4">회사 보안 때문에 설치가 막히면요?</h3>
 <p>보안 프로그램을 끄지 마세요. IT 담당자에게 필요한 것만 요청하면 됩니다 — <strong>github.com·claude.ai 접근</strong>, 그리고 Windows라면 <strong>PowerShell CurrentUser 실행 정책 RemoteSigned 허용</strong>. 그래도 어려우면 교육 담당자에게 알려 주세요.</p>
+
+<h3 id="faq-45">교안·실습 파일은 무엇으로 열어야 하나요?</h3>
+<p>대부분 이미 있는 프로그램으로 열립니다. <strong>교안(<code>.md</code>)은 <a href="https://github.com/namojo/harness-edu" target="_blank" rel="noopener">GitHub 웹</a>에서 보는 것이 가장 편하고</strong>, 엑셀·워드·PPT는 평소 쓰는 오피스로 열면 됩니다. 한글(<code>.hwpx</code>) 파일은 직접 열 필요가 없습니다 — AI가 읽습니다.</p>
+<p>AI가 만들어 준 <code>.md</code> 리포트를 자주 보게 되므로 <strong>VS Code</strong>(무료)를 하나 깔아 두면 편합니다. UTF-8 CSV의 한글 깨짐도 없습니다. 자세한 것은 공통 준비 <a href="setup-windows.html#5-3-실습-파일-여는-방법">5-3절</a>에 있습니다.</p>
 
 <h3 id="faq-5">실제 업무 파일로 실습해도 되나요?</h3>
 <p>하지 마세요. 실습 폴더에는 <strong>가상 데이터만</strong> 넣습니다. AI 도구는 실행한 폴더의 파일을 읽을 수 있습니다. 실 데이터 적용은 교육 이후 IT·보안 검토를 거쳐 진행합니다.</p>

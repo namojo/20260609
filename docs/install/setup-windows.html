@@ -411,6 +411,65 @@ claude plugin install document-skills@anthropic-agent-skills --scope user</pre><
 <tr><td>나가기</td><td><code>/exit</code></td></tr>
 </tbody></table></div>
 
+<h3 id="5-3-실습-파일-여는-방법">5-3. 실습 파일 여는 방법</h3>
+
+<p>실습 폴더에는 여러 형식의 파일이 들어 있습니다. <strong>대부분 추가 설치 없이</strong> 볼 수 있지만, <code>.md</code> 파일은 Windows에 기본 뷰어가 없습니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th style="width:110px">파일</th><th>무엇</th><th>어떻게 여나</th></tr></thead>
+<tbody>
+<tr><td><code>.md</code></td><td>교안 · 용어집 · AI가 만든 리포트</td><td><strong>메모장으로도 읽힙니다</strong>(그냥 텍스트). 표·제목이 정돈된 화면으로 보려면 아래 ① 또는 ②</td></tr>
+<tr><td><code>.csv</code></td><td>매체 성과 · 생산 데이터</td><td>엑셀. 단 <strong>한글이 깨지면</strong> 아래 ③ 참고</td></tr>
+<tr><td><code>.xlsx</code> <code>.docx</code> <code>.pptx</code></td><td>보고서 · 제안서 · 슬라이드</td><td>엑셀 · 워드 · 파워포인트. 없으면 웹 오피스나 무료 오피스로</td></tr>
+<tr><td><code>.hwpx</code></td><td>4차시 과업지시서</td><td>한글. 없으면 <strong>한컴오피스 뷰어</strong>(무료). <strong>직접 열지 않아도 됩니다</strong> — AI가 읽습니다</td></tr>
+<tr><td><code>.json</code></td><td>5차시 출력 계약</td><td>메모장 또는 아래 ①</td></tr>
+</tbody></table></div>
+
+<h4 id="5-3-1-설치-없이-보기">① 설치 없이 — GitHub 웹에서 보기 (권장)</h4>
+
+<p>교안과 <code>.md</code> 파일은 <strong>GitHub 웹페이지에서 가장 잘 읽힙니다.</strong> 표와 제목이 정돈된 상태로 보이고, 설치가 필요 없습니다.</p>
+
+<div class="code-card is-lite"><div class="code-bar"><span class="code-label">주소창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>https://github.com/namojo/harness-edu</pre></div>
+
+<p>내 PC에서 만든 파일이 아니라 <strong>원본 교안</strong>을 볼 때 이 방법이 가장 빠릅니다.</p>
+
+<h4 id="5-3-2-vscode">② 내가 만든 파일까지 편하게 — VS Code 설치 (선택)</h4>
+
+<p>AI가 만들어 준 <code>.md</code> 리포트를 보기 좋게 열고, CSV·JSON도 <strong>한글이 깨지지 않게</strong> 보려면 무료 편집기 하나가 편합니다. <strong>필수는 아닙니다.</strong></p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>winget install --id Microsoft.VisualStudioCode -e --source winget</pre></div></div></div>
+
+<p>winget이 없으면 <a href="https://code.visualstudio.com" target="_blank" rel="noopener">code.visualstudio.com</a> 에서 설치 파일을 받아 기본값으로 설치하세요.</p>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body">
+<p><strong>쓰는 법은 세 가지만</strong></p>
+<ul>
+<li>실습 폴더 전체 열기 — PowerShell에서 <code>code C:\harness-edu</code></li>
+<li><code>.md</code> 파일을 <strong>보기 좋게</strong> 보기 — 파일을 열고 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd></li>
+<li>왼쪽 목록에서 파일을 클릭하면 바로 내용이 보입니다</li>
+</ul>
+<p>편집기지만 여기서는 <strong>읽는 용도</strong>로만 씁니다. 코드를 쓸 일은 없습니다.</p>
+</div></section>
+
+<h4 id="5-3-3-csv-한글">③ 엑셀에서 CSV 한글이 깨질 때</h4>
+
+<p>실습 CSV는 UTF-8 형식입니다. 파일을 <strong>더블클릭</strong>해서 열면 엑셀이 다른 형식으로 잘못 읽어 <code>ë£¨ë¯¸ì—ë¥´</code> 처럼 보일 수 있습니다. 아래 순서로 열면 정상입니다.</p>
+
+<div class="table-wrap"><table>
+<tbody>
+<tr><th style="width:60px">1</th><td>엑셀을 먼저 실행 (빈 통합 문서)</td></tr>
+<tr><th>2</th><td><strong>데이터</strong> 탭 → <strong>텍스트/CSV 에서</strong> 가져오기</td></tr>
+<tr><th>3</th><td>파일 선택 후 <strong>파일 원본</strong>을 <code>65001: 유니코드(UTF-8)</code> 로</td></tr>
+<tr><th>4</th><td>미리보기에서 한글이 정상으로 보이면 <strong>로드</strong></td></tr>
+</tbody></table></div>
+
+<p>VS Code로 열면 이 과정이 필요 없습니다.</p>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🤖</span><div class="callout-body">
+<p><strong>파일을 못 열어도 실습은 진행됩니다.</strong> Claude Code가 엑셀·워드·PPT·한글 파일을 <strong>직접 읽습니다</strong>(그래서 <code>document-skills</code> 플러그인을 설치했습니다). 내용이 궁금하면 열지 말고 이렇게 물어보세요.</p>
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>이 폴더의 파일들이 각각 무슨 내용인지 한 줄씩 정리해줘.</pre></div>
+</div></section>
+
 <blockquote class="rule">
   <p><strong>안전 원칙</strong><br>
   ① 실제 업무 파일이 있는 폴더에서 실습하지 않습니다. 항상 <code>harness-edu</code> 폴더에서 실행하세요.<br>
@@ -676,6 +735,7 @@ Remove-Item -Path "$env:USERPROFILE\.local\share\claude" -Recurse -Force</pre></
         <li class="toc-l3"><a href="#3-8-harness-설치">3-8. Harness 플러그인</a></li>
         <li><a href="#4-설치-확인">4. 설치 확인</a></li>
         <li><a href="#5-초기-설정연동">5. 초기 설정·연동</a></li>
+        <li class="toc-l3"><a href="#5-3-실습-파일-여는-방법">5-3. 실습 파일 열기</a></li>
         <li><a href="#6-첫-동작-테스트">6. 첫 동작 테스트</a></li>
         <li><a href="#7-문제-해결">7. 문제 해결</a></li>
         <li><a href="#8-제거되돌리기">8. 제거·되돌리기</a></li>
