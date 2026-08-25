@@ -61,6 +61,37 @@ function Step($m) { Write-Host "  [..]   $m" -ForegroundColor Cyan }
 
 function Installed($cmd) { return [bool](Get-Command $cmd -ErrorAction SilentlyContinue) }
 
+# ── 네트워크 준비 ────────────────────────────────────────────────────────────
+# PowerShell 5.1 은 기본 프로토콜이 TLS 1.0 인 경우가 있어 최신 서버와 핸드셰이크가
+# 실패한다. 실제 설치(irm https://claude.ai/install.ps1)에도 영향을 주므로 먼저 올린다.
+try {
+    [Net.ServicePointManager]::SecurityProtocol =
+        [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+} catch { }
+# 사내 프록시는 대개 현재 사용자 인증을 요구한다.
+try {
+    if ([Net.WebRequest]::DefaultWebProxy) {
+        [Net.WebRequest]::DefaultWebProxy.Credentials = [Net.CredentialCache]::DefaultCredentials
+    }
+} catch { }
+
+function Test-Endpoint($hostName, $port = 443, $timeoutMs = 5000) {
+    # HTTP 요청으로 확인하면 claude.ai 같은 사이트가 봇 보호로 403 을 돌려주기 때문에
+    # "인터넷이 되는데 안 된다"고 오판한다. 그래서 TCP 연결 가능 여부만 본다.
+    $client = $null
+    try {
+        $client = New-Object System.Net.Sockets.TcpClient
+        $iar = $client.BeginConnect($hostName, $port, $null, $null)
+        if (-not $iar.AsyncWaitHandle.WaitOne($timeoutMs, $false)) { return $false }
+        $client.EndConnect($iar)
+        return $true
+    } catch {
+        return $false
+    } finally {
+        if ($client) { $client.Close() }
+    }
+}
+
 function RefreshEnv {
     $machine = [System.Environment]::GetEnvironmentVariable('PATH', 'Machine')
     $user    = [System.Environment]::GetEnvironmentVariable('PATH', 'User')
@@ -88,12 +119,29 @@ Write-Host ""
 
 # ── 사전 점검 ────────────────────────────────────────────────────────────────
 Step "사전 점검 중..."
-try {
-    $null = Invoke-WebRequest -Uri 'https://claude.ai' -UseBasicParsing -TimeoutSec 15 -Method Head -ErrorAction Stop
-    Ok "인터넷 연결 정상"
-} catch {
-    Warn "claude.ai 에 접속할 수 없습니다. 사내 방화벽/VPN 을 확인하세요."
-    Info $_.Exception.Message
+
+# 설치에 실제로 필요한 세 곳만 확인한다. 이 점검은 참고용이며 실패해도 계속 진행한다.
+$targets = [ordered]@{
+    'claude.ai'  = 'Claude Code 설치'
+    'github.com' = '실습 저장소 · 플러그인'
+    'pypi.org'   = 'Python 패키지 (MCP 모듈에서만)'
+}
+$reachable = @()
+$blocked   = @()
+foreach ($t in $targets.Keys) {
+    if (Test-Endpoint $t) { $reachable += $t } else { $blocked += $t }
+}
+
+if ($blocked.Count -eq 0) {
+    Ok ("인터넷 연결 정상 (" + ($reachable -join ' · ') + ")")
+} elseif ($reachable.Count -gt 0) {
+    Warn ("일부 주소에 연결되지 않습니다: " + ($blocked -join ', '))
+    foreach ($b in $blocked) { Info ("  $b — " + $targets[$b]) }
+    Info "사내 방화벽·프록시일 수 있습니다. 설치는 계속 시도합니다."
+} else {
+    Warn "네트워크 연결을 확인하지 못했습니다."
+    Info "이 점검이 실패해도 실제 설치는 되는 경우가 많습니다 — 계속 진행합니다."
+    Info "계속 실패하면 사내 Wi-Fi 대신 휴대폰 테더링으로 바꿔 보세요."
 }
 
 $sysDrive = ($env:SystemDrive).TrimEnd(':')

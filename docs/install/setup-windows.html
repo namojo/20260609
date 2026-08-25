@@ -500,6 +500,12 @@ if ($userPath -notlike "*$claudePath*") {
 <li><strong>해결</strong>: ⑴ 브라우저에서 <code>https://claude.ai</code> 와 <code>https://github.com</code> 이 열리는지 확인 → ⑵ <strong>사내 Wi-Fi 대신 휴대폰 테더링</strong>으로 재시도(교육장에서 가장 빠른 방법) → ⑶ 설치 명령은 <strong>여러 번 재실행해도 안전</strong>합니다(<kbd>↑</kbd> → Enter) → ⑷ 계속 막히면 <strong>백신을 임의로 끄지 말고</strong> IT 담당자에게 문의.</li>
 </ul>
 
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body">
+<p><strong>&quot;claude.ai 에 접속할 수 없습니다&quot; 또는 <code>403</code> 이 나와도 인터넷이 정상인 경우가 많습니다.</strong> claude.ai 는 자동화된 요청을 봇으로 보고 <code>403</code> 을 돌려주기 때문에, 터미널에서 확인용으로 찔러 본 요청은 브라우저가 잘 열리는 환경에서도 거부됩니다.</p>
+<p>판단 기준은 하나입니다 — <strong>실제 설치 명령이 되는지</strong>. 브라우저에서 두 주소가 열린다면 그냥 3-3절부터 순서대로 진행하세요.</p>
+<p><a href="#9-a-자동-점검-스크립트">자동 점검 스크립트</a>는 이 오탐을 없애려고 HTTP 대신 <strong>연결 가능 여부(TCP)</strong>만 확인하고, 확인에 실패해도 <strong>중단하지 않고 계속 진행</strong>합니다.</p>
+</div></section>
+
 <h3 id="문제-7">⑦ 이미 바탕 화면(OneDrive)에 받았습니다 / 폴더를 찾지 못합니다</h3>
 <ul>
 <li><strong>원인</strong>: OneDrive 폴더 백업이 켜져 있으면 바탕 화면의 실제 위치가 <code>C:\Users\이름\OneDrive\바탕 화면</code> 으로 바뀝니다. 그 안에 저장소를 두면 동기화가 <code>.git</code> 파일을 잠가 <strong>&quot;다른 프로그램이 사용 중&quot;</strong> 오류가 나고, 실습 파일이 계속 업로드됩니다.</li>
@@ -590,6 +596,8 @@ Remove-Item -Path "$env:USERPROFILE\.local\share\claude" -Recurse -Force</pre></
 <section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>이렇게 나오면 오류</strong>: <code>디지털 서명되지 않았습니다</code> → ③번 <code>Unblock-File</code> 을 건너뛴 것입니다. <code>이 시스템에서 스크립트를 실행할 수 없으므로</code> → 아래를 한 번 실행하고(<code>Y</code> 승인) 다시 시도하세요.</p>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</pre></div></div></div>
 </div></section>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>&quot;일부 주소에 연결되지 않습니다&quot; 가 나와도 멈추지 않습니다.</strong> 네트워크 점검은 참고용이며, 실패해도 스크립트는 설치를 계속 시도합니다. 실제로 막혀 있다면 그다음 설치 단계에서 실패로 표시되니 그때 대처하면 됩니다.</p></div></section>
 
 <p>실행 로그는 <code>%USERPROFILE%\harness-setup-logs\</code> 에 저장됩니다. 문의할 때 이 파일을 첨부하면 원인 파악이 빠릅니다.</p>
 
