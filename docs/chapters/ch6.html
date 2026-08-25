@@ -231,6 +231,8 @@ def compute_oee(line: str, date: str) -> dict:
     <span>6차시 결과물</span>
   </div>
 
+  <p class="muted">이 사례의 계산 대상 데이터는 저장소 <a href="https://github.com/namojo/harness-edu/blob/main/ad/README.md" target="_blank" rel="noopener">ad/</a> 폴더에 있습니다. VAT 처리·전환 판정이 섞인 실제 값이라, 암산과 도구의 차이를 여기서도 확인할 수 있습니다.</p>
+
   <p class="case-step"><em>①</em> Skill과 Tool 구분 — 광고 업무로 연습</p>
 
   <div class="table-wrap"><table>
@@ -283,7 +285,7 @@ def compute_oee(line: str, date: str) -> dict:
     <tbody>
       <tr><th style="width:190px">지금 방식</th><td>엑셀에 매체별 시트를 만들어 두고 수식으로 계산. 매체가 추가되면 시트를 복사해 수식 참조를 손으로 고침</td></tr>
       <tr><th>걸리는 시간 (1회)</th><td>약 25분 <span class="muted">(VAT 구분·수식 확인 포함)</span></td></tr>
-      <tr><th>틀렸던 적이 있는가</th><td><strong>있음.</strong> 지난 분기 후배가 VAT 처리를 놓쳐 ROAS가 10% 부풀려 보고됨. 광고주 미팅에서 정정</td></tr>
+      <tr><th>틀렸던 적이 있는가</th><td><strong>있음.</strong> 후배가 카카오 VAT 처리를 놓쳐 그 매체 ROAS가 310% 대신 282% 로 보고됨. 광고주 미팅에서 정정</td></tr>
       <tr><th>도구가 되면 달라지는 점</th><td>매체가 늘어도 입력만 추가. <strong>VAT 처리를 사람이 기억할 필요가 없음.</strong> 몇 번을 돌려도 같은 값</td></tr>
       <tr><th>만들어 줄 사람</th><td>사내 데이터팀 <span class="muted">(요청 시 이 표를 그대로 전달)</span></td></tr>
     </tbody>

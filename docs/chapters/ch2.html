@@ -47,7 +47,7 @@
 <div class="prep">
   <div class="prep-item"><b>선행</b><span><a href="ch1.html">1차시 · 나의 업무 지도</a> 완료</span></div>
   <div class="prep-item"><b>확인</b><span><code>/plugin</code> 목록에 <strong>document-skills</strong> 표시</span></div>
-  <div class="prep-item"><b>실습 파일</b><span>실습 폴더의 <code>xlsx/</code> (엑셀 7개 + 지시서)</span></div>
+  <div class="prep-item"><b>실습 파일</b><span><code>xlsx/</code> (공장 데이터) · <code>ad/</code> (사례 데이터)</span></div>
   <div class="prep-item"><b>가져올 것</b><span>1차시 사례의 <strong>업무 카드</strong> (내 업무를 대입했다면 그것)</span></div>
 </div>
 
@@ -289,6 +289,18 @@
 
   <p>1차시에서 그가 &quot;가장 귀찮다&quot;고 적은 것이 <strong>&quot;매체마다 컬럼 이름과 지표 정의가 달라서 매번 손으로 맞추는 일&quot;</strong> 이었습니다. 공장 분임조 문제와 <strong>똑같은 문제</strong>입니다.</p>
 
+  <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📂</span><div class="callout-body">
+  <p><strong>이 사례는 실제로 돌려 볼 수 있습니다.</strong> 실습 폴더의 <code>ad/</code> 에 정하늘 대리가 받은 <strong>5개 매체 성과 파일</strong>과 완성된 용어집이 들어 있습니다. 아래 표의 함정이 데이터에 그대로 심어져 있습니다.</p>
+  <div class="code-card is-out"><div class="code-bar"><span class="code-label">ad/ 폴더</span></div><pre>data/2026-07-W3_네이버GFA.csv     노출수 / 광고비(VAT별도) / 2026-07-13
+data/2026-07-W3_카카오모먼트.csv   노출 / 소진금액(VAT포함) / 26.7.13
+data/2026-07-W3_메타.csv          Impressions / Results(목적에 따라 의미가 다름)
+data/2026-07-W3_구글애즈.csv       Impr. / Cost / 2026/07/13
+data/2026-07-W3_틱톡.csv          Imp / Spend / 20260713 (노출 640 테스트 캠페인)
+매체_표준용어집.md                 ← 아래 ②의 완성본
+prompt.md                        ← 통합 지시서</pre></div>
+  <p>공장 데이터(<code>xlsx/</code>)로 2절·4절을 하셨다면, 같은 흐름을 이 광고 데이터로 한 번 더 해볼 수 있습니다. 방법은 <a href="https://github.com/namojo/harness-edu/blob/main/ad/README.md" target="_blank" rel="noopener">ad/README.md</a> 에 있습니다.</p>
+  </div></section>
+
   <p class="case-step"><em>①</em> 매번 하는 판단 다섯 가지 <span class="muted">— 남에게 설명한 적 없는 것</span></p>
 
   <div class="table-wrap"><table>
@@ -304,7 +316,7 @@
 
   <div class="why">
     <b>이게 왜 &quot;지식&quot;인가</b>
-    <p>다섯 개 모두 <strong>정하늘 대리 머릿속에만 있던 규칙</strong>입니다. 신입이 이 업무를 받으면 2번과 3번에서 반드시 틀립니다. 실제로 지난 분기에 후배가 VAT 처리를 놓쳐 ROAS가 10% 부풀려 보고된 적이 있었습니다.</p>
+    <p>다섯 개 모두 <strong>정하늘 대리 머릿속에만 있던 규칙</strong>입니다. 신입이 이 업무를 받으면 2번과 3번에서 반드시 틀립니다. 실제로 지난 분기에 후배가 카카오의 VAT 처리를 놓쳐, 그 매체 ROAS가 <strong>310% 대신 282%</strong> 로 보고된 적이 있었습니다 — 성과를 실제보다 나쁘게 보고한 셈입니다.</p>
     <p><strong>AI도 똑같이 틀립니다.</strong> 알려주지 않았으니까요.</p>
   </div>
 
@@ -346,7 +358,17 @@
 이 내용을 나의_업무_용어집.md 로 정리해줘.
 "언제 쓰는지 / 무엇을 지키는지 / 예시" 세 부분이 들어가게 해줘.</pre></div>
 
-  <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>결과</strong>: <code>나의_업무_용어집.md</code> 한 장이 만들어졌습니다. A4 한 장이 안 됩니다. <strong>그런데 이 한 장이 매주 30분을 줄입니다.</strong></p></div></section>
+  <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>결과</strong>: 용어집 한 장이 만들어졌습니다. A4 한 장이 안 됩니다. <strong>그런데 이 한 장이 매주 30분을 줄입니다.</strong></p>
+  <p>완성본은 저장소에 들어 있습니다 → <a href="https://github.com/namojo/harness-edu/blob/main/ad/%EB%A7%A4%EC%B2%B4_%ED%91%9C%EC%A4%80%EC%9A%A9%EC%96%B4%EC%A7%91.md" target="_blank" rel="noopener">ad/매체_표준용어집.md</a> (용어 매핑 · 형식 규칙 · 금지 사항 · 재계산 식)</p></div></section>
+
+  <section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+  <p><strong>이 프롬프트만 그대로 실행하면 결과가 부실합니다.</strong> 용어집은 <strong>내 데이터를 보면서</strong> 쓰는 것이기 때문입니다. 실제 컬럼명을 모르면 AI는 일반적인 문구만 만들어 냅니다.</p>
+  <p>그래서 정하늘 대리는 <strong>파일 5개를 먼저 열어 보고</strong> 규칙을 뽑았습니다. 직접 해보려면 <code>ad/</code> 폴더에서 이렇게 시작하세요 — AI가 실제 컬럼을 읽고 초안을 만들어 줍니다.</p>
+  <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 (ad 폴더에서)</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>data 폴더의 매체 파일 5개를 열어서, 컬럼 이름과 값 형식이 매체마다
+어떻게 다른지 비교표로 정리해줘. 같은 뜻인데 다르게 적힌 항목,
+단위·통화 기준이 다른 항목, 뜻이 애매한 컬럼을 각각 표시해줘.</pre></div>
+  <p>그 비교표를 보고 <strong>내가 판단을 내려</strong> 용어집에 적습니다. AI는 차이를 찾아 주고, 규칙을 정하는 것은 사람입니다.</p>
+  </div></section>
 
   <p class="case-step"><em>④</em> 재현성 확인 — 용어집 전후 비교</p>
 
