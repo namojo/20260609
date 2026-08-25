@@ -46,7 +46,7 @@
 <div class="prep">
   <div class="prep-item"><b>선행</b><span><a href="ch1.html">1차시</a> · <a href="ch2.html">2차시</a> 완료</span></div>
   <div class="prep-item"><b>필수 확인</b><span>에이전트 팀 기능이 켜져 있을 것</span></div>
-  <div class="prep-item"><b>실습 파일</b><span>실습 폴더의 <code>harness/</code></span></div>
+  <div class="prep-item"><b>실습 파일</b><span><code>harness/</code> (A/B 비교) · <code>ad/</code> (내 팀 실습 데이터 252행)</span></div>
   <div class="prep-item"><b>가져올 것</b><span>1차시 <strong>업무 카드</strong> + 2차시 <strong>용어집</strong></span></div>
 </div>
 
@@ -329,27 +329,87 @@ DEL-01 ~ DEL-04   산출물 4건</pre></div>
   <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body"><p><code>skills/media-glossary/</code> 가 비어 있습니다. <strong>7차시에서 2차시 용어집을 여기 넣습니다.</strong> 그리고 5차시 계약, 6차시 도구가 차례로 붙습니다.</p></div></section>
 </div>
 
-<h3 id="4-1-내-업무에-대입">4-1. 내 업무에 대입해 보기</h3>
+<h3 id="4-1-직접-해보기">4-1. 직접 해보기 — 준비된 데이터로</h3>
 
-<p>직접 만들어 보려면 아래 네 칸만 채워 같은 프롬프트를 쓰면 됩니다. <strong>실습 폴더를 따로 만드는 것</strong>만 잊지 마세요.</p>
+<p>사례를 읽는 것만으로는 감이 안 옵니다. <strong>정하늘 대리와 같은 데이터로</strong> 직접 팀을 만들어 보세요. 실습 저장소에 <code>ad/</code> 폴더로 준비되어 있습니다.</p>
 
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>mkdir C:\harness-edu\my-harness -Force; cd C:\harness-edu\my-harness; claude</pre></div></div></div>
+<div class="table-wrap"><table>
+<thead><tr><th style="width:150px">준비된 것</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td><code>ad/data/</code></td><td>5개 매체 × 2주 성과 파일 <strong>10개, 252행</strong> (캠페인 18개)</td></tr>
+<tr><td><code>ad/매체_표준용어집.md</code></td><td>2차시 사례의 완성 용어집 — 이 팀이 쓸 <strong>스킬</strong></td></tr>
+<tr><td><code>ad/prompt.md</code></td><td>통합 지시서 (참고용)</td></tr>
+</tbody></table></div>
 
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>mkdir -p ~/harness-edu/my-harness &amp;&amp; cd ~/harness-edu/my-harness &amp;&amp; claude</pre></div></div></div>
+<p class="muted">파일 10개를 열어 컬럼명을 맞추고, VAT를 나누고, 목적별로 전환을 걸러내고, 캠페인 18개를 집계하고, 전주 대비까지 계산하는 일입니다. 손으로 하면 두 시간이 넘습니다 — <strong>팀을 만들 이유가 있는 규모</strong>입니다.</p>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">네 칸만 바꿔서 쓰는 프롬프트</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>하네스 구성해줘.
+<p class="case-step"><em>①</em> 작업 폴더를 만들고 데이터를 넣습니다</p>
 
-도메인: [내 업무가 무슨 분야 일인가]
-입력: [무엇을 받아서]
-산출물: [무엇을 내놓나]
-품질 기준: [무엇이 맞아야 하나 · 무엇을 빠뜨리면 안 되나]
+<p>하네스를 만들 폴더(<code>my-harness</code>)를 만들고, 그 안 <code>input/</code> 에 데이터를 <strong>복사</strong>합니다. 원본은 그대로 둡니다.</p>
 
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell — 한 번에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>mkdir C:\harness-edu\my-harness\input -Force
+Copy-Item C:\harness-edu\ad\data\*.csv C:\harness-edu\my-harness\input\
+Copy-Item C:\harness-edu\ad\매체_표준용어집.md C:\harness-edu\my-harness\
+cd C:\harness-edu\my-harness
+dir</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널 — 한 번에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>mkdir -p ~/harness-edu/my-harness/input
+cp ~/harness-edu/ad/data/*.csv ~/harness-edu/my-harness/input/
+cp ~/harness-edu/ad/매체_표준용어집.md ~/harness-edu/my-harness/
+cd ~/harness-edu/my-harness
+ls</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 마지막 목록에 <code>input</code> 폴더와 <code>매체_표준용어집.md</code> 가 보입니다.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">예상 화면</span></div><pre>input
+매체_표준용어집.md</pre></div>
+<p><code>input</code> 안에 CSV 10개가 들어 있는지 확인하려면 <code>dir input</code> (mac: <code>ls input</code>).</p>
+</div></section>
+
+<p class="case-step"><em>②</em> <strong>이 폴더에서</strong> Claude Code를 실행합니다</p>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">📍</span><div class="callout-body"><p><strong>실행 위치가 중요합니다.</strong> 하네스는 <strong>실행한 폴더</strong>에 만들어집니다. 위 명령의 <code>cd</code> 로 <code>my-harness</code> 에 들어와 있는 상태에서 실행하세요. 프롬프트 끝이 <code>my-harness&gt;</code> 인지 확인하면 됩니다.</p></div></section>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>my-harness 폴더에서</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude</pre></div></div></div>
+
+<p class="case-step"><em>③</em> 하네스를 만듭니다 — 데이터 위치까지 알려 줍니다</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 (그대로)</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>하네스 구성해줘.
+
+도메인: 광고대행사 AE의 디지털 캠페인 주간 성과 보고.
+      화장품 브랜드 1개, 5개 매체(네이버GFA·카카오모먼트·메타·구글애즈·틱톡) 운영.
+입력: input/ 폴더의 매체별 성과 CSV 10개 (2주치, 252행, 캠페인 18개).
+     매체마다 컬럼명·날짜 형식·VAT 기준이 다르고, 메타는 캠페인 목적에 따라
+     Results 컬럼의 의미가 달라짐. 판단 규칙은 매체_표준용어집.md 에 정리돼 있음.
+산출물: 광고주 제출용 주간 요약 1장 + 이슈·다음 행동 목록 (전주 대비 증감 포함)
+품질 기준: 숫자는 원본과 100% 일치, 매체별 용어는 용어집 기준으로 통일,
+         이슈는 하나도 빠지면 안 됨, CPA·ROAS는 반드시 재계산
+
+매체_표준용어집.md 를 이 하네스의 스킬로 넣어줘.
 에이전트는 3~5명으로 하고, 결과를 대조 검증하는 담당을 반드시 포함해줘.</pre></div>
 
-<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
-<p>만들어진 팀에서 <strong>두 가지만 확인</strong>하세요 — ① 같은 일을 하는 담당이 둘로 나뉘어 있지 않은가 ② <strong>검증 담당이 따로 있는가.</strong> 사례의 ④번처럼 대개 이 두 곳에서 손봐야 합니다.</p>
-<p><strong>새 폴더에서 <code>하네스 구성해줘</code> 가 먹히지 않으면</strong> 플러그인이 <strong>User 범위</strong>로 설치되지 않은 것입니다. <code>/plugin</code> → Installed 탭에서 <strong>harness</strong> 가 User 그룹에 있는지 확인하세요. Project·Local 범위로 설치했다면 <strong>설치한 그 폴더에서만</strong> 동작합니다 (<a href="../install/setup-windows.html#3-8-harness-설치">설치가이드 3-8절</a>).</p>
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 되묻는 질문 몇 개에 답하면 팀이 만들어지고, <code>my-harness</code> 안에 <code>CLAUDE.md</code> · <code>.claude/agents/</code> · <code>.claude/skills/</code> 가 생깁니다. 사례 ③번 표와 비교해 보세요.</p></div></section>
+
+<p class="case-step"><em>④</em> 만든 팀을 바로 돌려 봅니다 <span class="muted">(선택 — 시간이 되면)</span></p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>방금 만든 팀으로 input/ 데이터를 처리해서 이번 주(W3) 주간 리포트를 만들어줘.</pre></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
+<p><strong>결과 검증</strong> — 정답이 저장소에 적혀 있습니다. 아래 두 숫자만 맞춰 보세요.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>지표</th><th>맞는 값</th><th>틀렸다면</th></tr></thead>
+<tbody>
+<tr><td>W3 전체 전환</td><td><strong>5,705건</strong></td><td>2만 건대 → 메타 <code>Results</code> 를 그대로 합산 (목적 미확인)</td></tr>
+<tr><td>W3 전체 ROAS</td><td><strong>366.9%</strong></td><td>361% 대 → 카카오 VAT 미환산</td></tr>
+</tbody></table></div>
+<p>검증 담당이 이런 것을 잡아내야 합니다. 못 잡았다면 그 에이전트 정의를 손볼 지점입니다.</p>
 </div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+<p><strong>팀이 안 만들어지고 혼자 답하면</strong> 두 곳을 확인하세요 — ① 에이전트 팀 환경변수(이 페이지 맨 위) ② <code>/plugin</code> → Installed 에서 <strong>harness</strong> 가 <strong>User 범위</strong>인지. Project·Local 로 설치했다면 방금 만든 <code>my-harness</code> 폴더에서는 보이지 않습니다.</p>
+</div></section>
+
+<p class="muted">이 폴더는 <strong>5차시(출력 계약)·7차시(조립)</strong> 에서 계속 씁니다. 지우지 마세요.</p>
 
 <hr>
 
