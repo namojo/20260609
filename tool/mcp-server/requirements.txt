@@ -1,5 +1,5 @@
 # 공식 MCP Python SDK (FastMCP 포함).
-# 설치: <가상환경 파이썬> -m pip install -r requirements.txt
+# 설치: python -m pip install --user -r requirements.txt   (mac 은 python3)
 #
 # 2.x 에서 FastMCP 가 mcp.server.fastmcp -> mcp.server.mcpserver 로 이동했다.
 # server.py 는 `from mcp.server.fastmcp import FastMCP` 를 쓰므로 1.x 로 고정한다.
