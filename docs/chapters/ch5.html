@@ -119,20 +119,23 @@
 
 그다음 표로 정리해줘. 컬럼은 제목 / 출처 / 발표일 / 분류 / 영향도 / 다음 행동.</pre></div>
 
-<p><strong>2회차</strong> — 대화를 비우고 <strong>똑같이</strong> 다시 실행합니다.</p>
+<p><strong>2회차는 돌리지 않아도 됩니다.</strong> 같은 요청을 반복하면 어떻게 되는지는 <a href="ch1.html#먼저-해보기">1차시</a>·<a href="ch2.html#실습-a">2차시</a>에서 이미 보셨습니다. 실제로는 이렇게 흔들립니다.</p>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창 — 비우기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/clear</pre></div>
+<div class="table-wrap"><table>
+<thead><tr><th style="width:120px">항목</th><th>1회차</th><th>2회차</th></tr></thead>
+<tbody>
+<tr><td>분류 이름</td><td><code>자본규제</code></td><td><code>건전성 규제</code></td></tr>
+<tr><td>영향도 값</td><td><code>높음 / 중간 / 낮음</code></td><td><code>상 / 중 / 하</code></td></tr>
+<tr><td>다음 행동</td><td>&quot;내부 지침 3조 개정안 초안 검토&quot;</td><td>&quot;모니터링 필요&quot;</td></tr>
+<tr><td>열 개수</td><td>6개</td><td>5개 <span class="muted">(다음 행동 누락)</span></td></tr>
+</tbody></table></div>
 
 <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
-<p><strong>관찰 포인트 — 두 결과에서 이 세 가지를 비교하세요</strong></p>
-<ol>
-<li><strong>분류 이름</strong> — &quot;자본규제&quot; vs &quot;자본 규제&quot; vs &quot;건전성 규제&quot;</li>
-<li><strong>영향도 값</strong> — &quot;높음/중간/낮음&quot; vs &quot;상/중/하&quot; vs &quot;High/Medium&quot;</li>
-<li><strong>다음 행동 칸</strong> — 구체적 행동인가, &quot;검토 필요&quot; 같은 빈 문장인가</li>
-</ol>
+<p><strong>보아야 할 것 세 가지</strong> — ① 분류 이름이 바뀐다 ② 등급 표기가 바뀐다 ③ <strong>필수 칸이 사라진다</strong>. 세 번째가 가장 위험합니다. 표가 그럴듯해서 빠진 줄 모르고 넘어갑니다.</p>
+<p>직접 확인하고 싶다면 <code>/clear</code> 후 같은 요청을 한 번 더 넣어 보세요. <strong>필수는 아닙니다.</strong></p>
 </div></section>
 
-<p>대개 흔들립니다. <strong>AI가 잘못한 게 아니라, 우리가 형식을 약속하지 않았습니다.</strong> 표 두 개를 나란히 놓고 쓰려면 사람이 손으로 맞춰야 하고, 그러면 자동화가 아닙니다.</p>
+<p><strong>AI가 잘못한 게 아니라, 우리가 형식을 약속하지 않았습니다.</strong> 표 두 개를 나란히 놓고 쓰려면 사람이 손으로 맞춰야 하고, 그러면 자동화가 아닙니다.</p>
 
 <hr>
 

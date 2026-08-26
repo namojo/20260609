@@ -245,14 +245,20 @@
 
 <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>가장 중요한 항목은 세 번째입니다.</strong> AI가 표를 예쁘게 만들면서 숫자를 &quot;정리&quot;해 버리면 그 보고서는 못 씁니다. 그래서 지시서에 <strong>&quot;수치는 절대 변경하지 마세요&quot;</strong> 가 명시되어 있습니다. 여러분의 지시서에도 <strong>바꾸면 안 되는 것</strong>을 반드시 적으세요.</p></div></section>
 
-<h3 id="4-3-재현성-확인">4-3. 재현성 확인 — 한 번 더 돌려 봅니다</h3>
+<h3 id="4-3-재현성-확인">4-3. 재현성 — 두 번 돌리면 같은가</h3>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창 — 비우고 재실행</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/clear</pre></div>
+<p>2절에서 지식 없이 두 번 돌렸을 때 결과가 흔들리는 것을 이미 보셨습니다. <strong>같은 비교를 지시서와 함께 했을 때</strong>가 이렇습니다.</p>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>이 폴더의 prompt.md 를 읽고, 거기 적힌 절차대로 수행해줘.
-결과 파일 이름은 통합_생산보고서_2회차.xlsx 로 해줘.</pre></div>
+<div class="table-wrap"><table>
+<thead><tr><th style="width:130px">확인 항목</th><th>지식 없이 (2절)</th><th>지시서와 함께 (4절)</th></tr></thead>
+<tbody>
+<tr><td>공정 이름</td><td>회차마다 다름</td><td><strong>표준명 + 코드로 고정</strong></td></tr>
+<tr><td>열 구성·순서</td><td>열 개수까지 바뀜</td><td><strong>동일</strong></td></tr>
+<tr><td>은어 처리</td><td>임의 치환, 근거 없음</td><td>용어집 기준 + <code>(원문: ○○)</code> 병기</td></tr>
+<tr><td>모르는 표현</td><td>조용히 추측</td><td><code>[미확인 용어]</code> 로 보고</td></tr>
+</tbody></table></div>
 
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 두 파일의 <strong>열 구성·공정명·코드가 일치</strong>합니다. 문장 표현은 조금 다를 수 있지만 <strong>구조와 기준은 같습니다.</strong> 실습 A와 비교하면 차이가 분명합니다.</p></div></section>
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>직접 확인하고 싶다면</strong> <code>/clear</code> 후 같은 지시를 한 번 더 넣고 결과 파일 이름만 바꿔 보세요(예: <code>통합_생산보고서_2회차.xlsx</code>). <strong>필수는 아닙니다</strong> — 문장 표현은 조금 달라도 <strong>구조와 기준은 같습니다.</strong></p></div></section>
 
 <hr>
 
@@ -334,6 +340,11 @@ prompt.md          ← 통합 지시서</pre></div>
 
   <p class="case-step"><em>③</em> 파일로 만들기 — 실제로 넣은 프롬프트</p>
 
+  <section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">📍</span><div class="callout-body"><p><strong>어디서 실행하나</strong> — 이 사례를 따라 해보려면 <code>ad</code> 폴더입니다. (2절·4절 실습은 <code>xlsx</code> 폴더였습니다)</p>
+  <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd C:\harness-edu\ad; claude</pre></div></div></div>
+  <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/harness-edu/ad &amp;&amp; claude</pre></div></div></div>
+  </div></section>
+
   <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">정하늘 대리가 Claude Code에 넣은 것</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>내 업무 용어집을 만들려고 해.
 
 업무: 매주 월요일, 5개 매체(네이버GFA·카카오모먼트·메타·구글애즈·틱톡)
@@ -364,8 +375,8 @@ prompt.md          ← 통합 지시서</pre></div>
 
   <section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
   <p><strong>이 프롬프트만 그대로 실행하면 결과가 부실합니다.</strong> 용어집은 <strong>내 데이터를 보면서</strong> 쓰는 것이기 때문입니다. 실제 컬럼명을 모르면 AI는 일반적인 문구만 만들어 냅니다.</p>
-  <p>그래서 정하늘 대리는 <strong>파일 5개를 먼저 열어 보고</strong> 규칙을 뽑았습니다. 직접 해보려면 <code>ad/</code> 폴더에서 이렇게 시작하세요 — AI가 실제 컬럼을 읽고 초안을 만들어 줍니다.</p>
-  <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 (ad 폴더에서)</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>data 폴더의 매체 파일 5개를 열어서, 컬럼 이름과 값 형식이 매체마다
+  <p>그래서 정하늘 대리는 <strong>파일 10개를 먼저 열어 보고</strong> 규칙을 뽑았습니다. 직접 해보려면 <code>ad</code> 폴더에서 이렇게 시작하세요 — AI가 실제 컬럼을 읽고 초안을 만들어 줍니다.</p>
+  <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 (ad 폴더에서)</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>data 폴더의 매체 파일 10개를 열어서, 컬럼 이름과 값 형식이 매체마다
 어떻게 다른지 비교표로 정리해줘. 같은 뜻인데 다르게 적힌 항목,
 단위·통화 기준이 다른 항목, 뜻이 애매한 컬럼을 각각 표시해줘.</pre></div>
   <p>그 비교표를 보고 <strong>내가 판단을 내려</strong> 용어집에 적습니다. AI는 차이를 찾아 주고, 규칙을 정하는 것은 사람입니다.</p>
