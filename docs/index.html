@@ -29,6 +29,7 @@
     background:var(--canvas); color:var(--body);
     font-family:var(--sans); font-size:16px; line-height:1.55;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    word-break:keep-all; overflow-wrap:break-word; hyphens:manual;
   }
   h1,h2,h3,h4{font-family:var(--serif); color:var(--ink); font-weight:600; letter-spacing:-0.02em; line-height:1.15}
   a{color:inherit;text-decoration:none}
@@ -62,7 +63,7 @@
   /* hero */
   .hero{padding:76px 0 64px}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-  h1.display{font-size:60px;letter-spacing:-0.035em;line-height:1.18;padding-bottom:2px}
+  h1.display{font-size:clamp(32px,4.6vw,58px);letter-spacing:-0.035em;line-height:1.2;padding-bottom:2px}
   .hero p.lead{margin-top:22px;max-width:32em}
   .hero-actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
   .hero-tags{display:flex;gap:8px;margin-top:26px;flex-wrap:wrap}
@@ -73,7 +74,7 @@
   .code-bar{display:flex;align-items:center;gap:7px;padding:13px 16px;border-bottom:1px solid #2c2a26}
   .dot{width:11px;height:11px;border-radius:50%}
   .code-title{margin-left:8px;color:var(--on-dark-soft);font-family:var(--mono);font-size:12.5px}
-  .code-body{padding:20px 22px;font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--on-dark);overflow-x:auto}
+  .code-body{padding:20px 22px;font-family:var(--mono);font-size:13.5px;line-height:1.7;color:var(--on-dark);overflow-x:auto;white-space:pre-wrap;word-break:normal;overflow-wrap:anywhere}
   .code-body .c-mut{color:var(--on-dark-soft)}
   .code-body .c-cor{color:#e39b81}
   .code-body .c-tel{color:var(--teal)}
@@ -152,7 +153,7 @@
   .step{background:var(--surface-card);border-radius:var(--r-lg);padding:26px}
   .step .n{font-family:var(--serif-latin);font-size:14px;color:var(--primary-active);font-weight:600}
   .step h4{font-size:18px;margin:6px 0 12px}
-  .step pre{background:var(--surface-dark);color:var(--on-dark);border-radius:var(--r-md);padding:14px 16px;font-family:var(--mono);font-size:13px;line-height:1.65;overflow-x:auto;white-space:pre}
+  .step pre{background:var(--surface-dark);color:var(--on-dark);border-radius:var(--r-md);padding:14px 16px;font-family:var(--mono);font-size:13px;line-height:1.65;overflow-x:auto;white-space:pre;word-break:normal}
   .step p{font-size:14px;color:var(--body);margin-top:10px}
 
   /* coral cta */
@@ -176,7 +177,7 @@
     .axes,.grid-3,.mods{grid-template-columns:1fr}
     .steps{grid-template-columns:1fr}
     .foot-grid{grid-template-columns:1fr 1fr}
-    h1.display{font-size:40px;line-height:1.22}
+    h1.display{font-size:clamp(30px,7.4vw,40px);line-height:1.24}
     .sec-head h2{font-size:30px}
     .nav-links{display:none}
     .nav-toggle{display:inline-flex}
@@ -244,8 +245,7 @@
         <span class="dot" style="background:#e06c5a"></span><span class="dot" style="background:#e8a55a"></span><span class="dot" style="background:#5db872"></span>
         <span class="code-title">claude — 2차시 실습</span>
       </div>
-      <div class="code-body">
-<span class="c-mut"># 광고대행사 AE: 매체 5곳 성과를 주간 리포트로</span>
+      <div class="code-body"><span class="c-mut"># 광고대행사 AE: 매체 5곳 성과를 주간 리포트로</span>
 <span class="prompt-line">▸ data 폴더의 매체별 성과 파일을 통합해서</span>
 <span class="prompt-line">  주간 리포트를 만들어줘</span>
 
@@ -254,8 +254,7 @@
   <span class="c-cor">"ROAS"</span>: <span class="c-str">"366.9%"</span> }
 
 <span class="c-amb">이슈</span> 카카오모먼트 163%로 목표(350%) 미달.
-전주 대비 CPA +13.1% — 예산 재배분 검토.
-      </div>
+전주 대비 CPA +13.1% — 예산 재배분 검토.</div>
     </div>
   </div>
 </section>
@@ -420,8 +419,7 @@
           <p class="goal">대상·설계 원칙·차시별 세부 목차·평가 기준·콘텐츠 제작 가이드를 담은 설계도입니다.</p>
           <div class="meta"><span>📐 CURRICULUM.md</span></div>
           <a class="go" href="https://github.com/namojo/harness-edu/blob/main/CURRICULUM.md" target="_blank" rel="noopener">설계 문서 →</a>
-        </div>
-      </div>
+        </div></div>
     </div>
   </div>
 </section>
@@ -527,8 +525,7 @@
           <p class="goal">Python 40여 줄로 생산지표(OEE) 계산 MCP 서버를 만들어, Claude Code와 Codex가 <b>같은 서버를 공유</b>하게 합니다. Skill(설명서)과 Tool(계산기)의 차이를 손으로 익힙니다.</p>
           <div class="meta"><span>🏭 제조(→금융 확장)</span><span><b>Claude Code + Codex</b></span><span>~40분</span></div>
           <a class="go" href="https://github.com/namojo/harness-edu/tree/main/tool" target="_blank" rel="noopener">tool/ 실습 →</a>
-        </div>
-      </div>
+        </div></div>
     </div>
   </div>
 </section>
@@ -553,8 +550,7 @@
         <span class="dot" style="background:#e06c5a"></span><span class="dot" style="background:#e8a55a"></span><span class="dot" style="background:#5db872"></span>
         <span class="code-title">트랙 A — 대화형 → 자동화</span>
       </div>
-      <div class="code-body">
-<span class="c-mut"># 1) 대화형: 권한 없이 진단만</span>
+      <div class="code-body"><span class="c-mut"># 1) 대화형: 권한 없이 진단만</span>
 <span class="prompt-line">▸ quality_check.py 를 검토해줘.</span>
 <span class="prompt-line">  수정 말고 결함만 진단.</span>
 <span class="c-tel">✓ 단위 오류(ppm ×1000)·0 나눗셈 발견</span>
@@ -563,8 +559,7 @@
 <span class="c-amb">approve?</span> edit quality_check.py  <span class="c-tel">[y]</span>
 
 <span class="c-mut"># 3) 반복되면 자동화 (CI 게이트)</span>
-<span class="c-cor">$ codex</span> review --uncommitted
-      </div>
+<span class="c-cor">$ codex</span> review --uncommitted</div>
     </div>
   </div>
 </section>
@@ -598,8 +593,7 @@
           <li><b>6차시 심화</b> — <code>server.py</code> 를 읽고 도구를 여러 개 추가</li>
           <li><b>확장 E2·E3</b> — 계약 중심 팬아웃 · 코드 유지보수 하네스(CI 게이트)</li>
           <li><b>그다음</b> — 팀 표준 하네스를 만들어 <code>.claude/</code> 로 배포</li>
-        </ol>
-      </div>
+        </ol></div>
     </div>
   </div>
 </section>
