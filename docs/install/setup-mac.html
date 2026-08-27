@@ -69,6 +69,8 @@
 
 <p><strong>⑥</strong> 입력창에 <code>하네스 구성해줘</code> → <strong>되묻는 질문이 오면 완료</strong>. 답하지 말고 <kbd>ESC</kbd> → <code>/exit</code> (<a href="#6-첫-동작-테스트">자세히</a>).</p>
 
+<p><strong>⑦</strong> Python (6차시용) — <code>python3 --version</code> 이 <strong>3.10 이상</strong>인지만 확인. 없으면 <code>xcode-select --install</code>.</p>
+
 <hr>
 
 <h2 id="1-이-문서는-무엇인가">1. 이 문서는 무엇인가</h2>
@@ -86,7 +88,7 @@
 
 <blockquote class="rule">
   <p><strong>이 과정에서 설치하지 않는 것</strong>: Node.js, bun, Homebrew(선택), Docker, 별도 편집기.<br>
-  Claude Code는 자체 실행 파일로 설치되므로 개발 언어 런타임이 필요하지 않습니다. (Python은 3번째 설치가이드 <a href="mcp-server.html">MCP 서버</a> 에서만 쓰며, macOS에는 이미 들어 있습니다.)</p>
+  Claude Code는 자체 실행 파일로 설치되므로 개발 언어 런타임이 필요하지 않습니다. (6차시용 <strong>Python</strong>은 아래 <a href="#3-9-python-설치">3-9절</a>에서 확인합니다 — macOS에는 대개 이미 들어 있습니다.)</p>
 </blockquote>
 
 <hr>
@@ -274,16 +276,44 @@ claude plugin install document-skills@anthropic-agent-skills --scope user</pre><
 
 <hr>
 
+<h3 id="3-9-python-설치">3-9. Python 확인 (6차시 준비)</h3>
+
+<p>Claude Code에서 <code>/exit</code> 로 나온 뒤 <strong>터미널</strong>에서 진행합니다.</p>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🐍</span><div class="callout-body">
+<p><strong>Python은 6차시에만 씁니다. 그래도 지금 확인하세요.</strong></p>
+<p>6차시는 계산 도구(MCP)를 붙이고 직접 만드는 실습인데, 그 도구가 Python으로 돌아갑니다. macOS는 대개 이미 들어 있어 <strong>확인만 하면 30초</strong>로 끝납니다.</p>
+</div></section>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python3 --version</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>Python 3.13.1</code> 처럼 <strong>3.10 이상</strong>이 나오면 끝입니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+<p><strong><code>command not found</code> 가 나오면</strong> 개발자 도구를 먼저 설치합니다. 창이 뜨면 <strong>설치</strong>를 누르세요.</p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>xcode-select --install</pre></div></div></div>
+<p>그래도 3.10 미만이면 Homebrew로 설치합니다 — <code>brew install python@3.13</code></p>
+</div></section>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🐍</span><div class="callout-body"><p><strong>macOS는 <code>python3</code>, Windows는 <code>python</code> 입니다.</strong> macOS에서 <code>python</code> 만 입력하면 <code>command not found</code> 가 납니다. 6차시와 MCP 문서의 명령 블록에는 <strong>OS 라벨</strong>이 붙어 있으니 본인 것만 복사하세요.</p></div></section>
+
+<blockquote>
+  <p><strong>여기까지가 준비의 전부입니다.</strong> 6차시에서 쓸 계산 도구를 Claude Code에 <strong>연결</strong>하는 것은 별도 문서(<a href="mcp-server.html">MCP 서버 설치가이드</a>)에서 합니다.</p>
+</blockquote>
+
+<hr>
+
 <h2 id="4-설치-확인">4. 설치 확인 (1분)</h2>
 
 <p>Claude Code에서 <code>/exit</code> 로 나온 뒤 실행합니다.</p>
 
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>git --version; claude --version; echo $CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>git --version; claude --version; python3 --version; echo $CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</pre></div></div></div>
 
 <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
 <p><strong>예상 결과</strong>: 세 줄이 차례로 나옵니다.</p>
 <div class="code-card is-out"><div class="code-bar"><span class="code-label">예상 화면</span></div><pre>git version 2.39.5 (Apple Git-154)
 2.1.211 (Claude Code)
+Python 3.13.1
 1</pre></div>
 </div></section>
 
@@ -292,6 +322,7 @@ claude plugin install document-skills@anthropic-agent-skills --scope user</pre><
 <li>Claude Pro 이상 구독 확인</li>
 <li><code>git --version</code> 이 버전 번호를 출력</li>
 <li><code>claude --version</code> 이 버전 번호를 출력</li>
+<li><code>python3 --version</code> 이 <strong>3.10 이상</strong>을 출력 (6차시용)</li>
 <li><code>echo $CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code> 가 <code>1</code> 출력</li>
 <li><code>~/harness-edu</code> 폴더 존재 — 경로에 <strong>Desktop·iCloud 없음</strong></li>
 <li><code>claude</code> 실행 후 한국어로 대화 성공</li>
@@ -544,6 +575,7 @@ rm -rf ~/.local/share/claude</pre></div></div></div>
         <li class="toc-l3"><a href="#3-5-에이전트-팀-켜기">3-5. 에이전트 팀 켜기</a></li>
         <li class="toc-l3"><a href="#3-6-실습-저장소-받기">3-6. 실습 저장소 받기</a></li>
         <li class="toc-l3"><a href="#3-8-harness-설치">3-8. Harness 플러그인</a></li>
+        <li class="toc-l3"><a href="#3-9-python-설치">3-9. Python 확인</a></li>
         <li><a href="#4-설치-확인">4. 설치 확인</a></li>
         <li><a href="#5-초기-설정연동">5. 초기 설정·연동</a></li>
         <li class="toc-l3"><a href="#5-3-실습-파일-여는-방법">5-3. 실습 파일 열기</a></li>

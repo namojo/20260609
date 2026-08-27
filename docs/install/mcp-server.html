@@ -53,6 +53,8 @@
 
 <h2 id="빠른-설치">빠른 설치 (아는 사람용 · 5분)</h2>
 
+<p class="muted">전제: 공통 준비 완료 + <code>python --version</code>(Mac은 <code>python3</code>)이 <strong>3.10 이상</strong>.</p>
+
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>① Windows · PowerShell 에만</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd C:\harness-edu\tool\mcp-server
 python -m pip install --user -r requirements.txt
 claude mcp add production-metrics --scope user -- python C:\harness-edu\tool\mcp-server\server.py</pre></div></div></div>
@@ -108,16 +110,16 @@ claude mcp add production-metrics --scope user -- python3 ~/harness-edu/tool/mcp
 <div class="table-wrap"><table>
 <thead><tr><th>항목</th><th>필요한 것</th><th>확인·대처</th></tr></thead>
 <tbody>
-<tr><td>선행 설치</td><td>공통 준비 완료 + 실습 저장소</td><td><a href="setup-windows.html">Windows</a> / <a href="setup-mac.html">macOS</a></td></tr>
-<tr><td><strong>Python</strong></td><td>3.10 이상 — <strong>6차시 필수</strong></td><td>3-1절에서 확인 (없으면 설치 안내)</td></tr>
+<tr><td>선행 설치</td><td>공통 준비 <strong>전체</strong> 완료 (Python 포함) + 실습 저장소</td><td><a href="setup-windows.html">Windows</a> / <a href="setup-mac.html">macOS</a></td></tr>
+<tr><td><strong>Python</strong></td><td>3.10 이상</td><td><strong>공통 준비에서 이미 설치</strong> — <a href="setup-windows.html#3-9-python-설치">Win 3-9</a> / <a href="setup-mac.html#3-9-python-설치">Mac 3-9</a>. 3-1절에서 확인만</td></tr>
 <tr><td>Codex (선택)</td><td>같은 도구를 Codex에도 붙일 때만</td><td><a href="codex.html">Codex CLI 설치가이드</a></td></tr>
 <tr><td>관리자 권한</td><td>필요 없음</td><td>패키지를 <code>--user</code> 로 내 계정에만 설치합니다</td></tr>
 </tbody></table></div>
 
 <section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body">
-<p><strong>이 문서는 6차시 필수입니다.</strong> 6차시 실습 세 개 중 <strong>두 개</strong>(계산 도구 붙이기 · 도구 직접 만들기)가 여기서 설치한 Python 환경 위에서 돌아갑니다.</p>
-<p><strong>6차시 당일에 시작하지 마세요.</strong> Python 설치는 재부팅이나 PATH 문제로 시간이 걸리는 일이 잦아, 실습 시간을 통째로 쓰게 됩니다. <strong>공통 준비와 같이 미리</strong> 끝내 두는 것을 권합니다.</p>
-<p class="muted">Python을 쓰는 것은 이 문서와 6차시뿐입니다. 다른 차시(엑셀·문서·하네스 실습)에는 필요하지 않습니다.</p>
+<p><strong>이 문서는 6차시 필수이고, Python이 이미 깔려 있다는 전제로 시작합니다.</strong></p>
+<p><strong>Python 설치는 공통 준비의 일입니다</strong> — <a href="setup-windows.html#3-9-python-설치">Windows 3-9절</a> / <a href="setup-mac.html#3-9-python-설치">macOS 3-9절</a>. 거기서 끝내고 오면 <strong>이 문서는 5분</strong>이면 됩니다. 여기서 다루는 것은 <strong>패키지 하나 설치 + Claude Code에 연결</strong>, 두 가지뿐입니다.</p>
+<p class="muted">Python을 쓰는 것은 6차시뿐입니다. 다른 차시(엑셀·문서·하네스 실습)에는 필요하지 않습니다.</p>
 </div></section>
 
 <blockquote class="rule">
@@ -128,7 +130,9 @@ claude mcp add production-metrics --scope user -- python3 ~/harness-edu/tool/mcp
 
 <h2 id="3-설치-절차">3. 설치 절차</h2>
 
-<h3 id="3-1-python-확인">3-1. Python 확인 (없으면 설치)</h3>
+<h3 id="3-1-python-확인">3-1. Python이 준비됐는지 확인</h3>
+
+<p><strong>Python 설치는 이 문서가 아니라 공통 준비에서 합니다.</strong> 여기서는 준비가 됐는지만 확인합니다.</p>
 
 <p><strong>Windows</strong></p>
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python --version</pre></div></div></div>
@@ -137,6 +141,8 @@ claude mcp add production-metrics --scope user -- python3 ~/harness-edu/tool/mcp
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python3 --version</pre></div></div></div>
 
 <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>Python 3.13.1</code> 처럼 <strong>3.10 이상</strong>이면 다음 절로 넘어갑니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>버전이 안 나오거나 3.10 미만이면</strong> 공통 준비의 Python 절을 먼저 하세요 — <a href="setup-windows.html#3-9-python-설치">Windows 3-9절</a> / <a href="setup-mac.html#3-9-python-설치">macOS 3-9절</a>. <strong>여기서 되돌아가는 것이 정상입니다.</strong> 이 문서는 Python이 있다는 전제로 시작합니다.</p></div></section>
 
 <section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🐍</span><div class="callout-body">
 <p><strong>파이썬을 부르는 이름이 OS마다 다릅니다. 이 문서에서 계속 나오니 여기서 한 번에 정리합니다.</strong></p>
@@ -147,12 +153,6 @@ claude mcp add production-metrics --scope user -- python3 ~/harness-edu/tool/mcp
 <tr><td><strong>macOS</strong></td><td><code>python3</code></td><td><code>python</code> → <code>command not found</code></td></tr>
 </tbody></table></div>
 <p>아래 모든 명령 블록에는 <strong>Windows · macOS 라벨</strong>이 붙어 있습니다. <strong>본인 OS 라벨이 붙은 것만</strong> 복사하세요.</p>
-</div></section>
-
-<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
-<p><strong>Windows에서 Microsoft Store가 열리거나 인식되지 않으면</strong> 아래로 설치합니다. 설치 후 <strong>PowerShell을 닫고 새로 열어</strong> 다시 확인하세요.</p>
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>winget install --id Python.Python.3.13 -e --source winget</pre></div></div></div>
-<p><strong>macOS</strong>는 <code>python3</code> 가 기본 포함되어 있습니다. 없다고 나오면 <code>xcode-select --install</code> 을 먼저 실행하세요.</p>
 </div></section>
 
 <h3 id="3-2-실습-폴더로-이동">3-2. 도구 폴더로 이동</h3>

@@ -78,6 +78,9 @@
 
 <p><strong>7.</strong> 동작 확인 — 입력창에 <code>하네스 구성해줘</code> 를 넣고 <strong>되묻는 질문이 오면 완료</strong>입니다. 답하지 말고 <kbd>ESC</kbd> 로 입력창에 돌아온 뒤 <code>/exit</code> (<a href="#6-첫-동작-테스트">자세히</a>).</p>
 
+<p><strong>8.</strong> Python (6차시용) — <code>python --version</code> 이 <strong>3.10 이상</strong>이 아니면 설치 후 <strong>창을 새로 열기</strong></p>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기 — 없을 때만</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>winget install --id Python.Python.3.13 -e --source winget</pre></div></div></div>
+
 <p><strong>막히면</strong>: <code>'git' 용어가 ... 인식되지 않습니다</code> → <a href="#문제-1">문제 해결 ①</a> · <code>claude</code> 명령을 못 찾음 → <a href="#문제-2">②</a> · 플러그인 추가 실패 → <a href="#문제-5">⑤</a></p>
 
 <hr>
@@ -100,7 +103,7 @@
 
 <blockquote class="rule">
   <p><strong>이 과정에서 설치하지 않는 것</strong>: Node.js, bun, Docker, WSL2, 별도 편집기.<br>
-  Claude Code는 자체 실행 파일로 설치되므로 개발 언어 런타임이 필요하지 않습니다. (Python은 <a href="mcp-server.html">MCP 서버</a> 설치가이드에서 씁니다 — <strong>6차시 필수</strong>이므로 그전까지 끝내 두세요.)</p>
+  Claude Code는 자체 실행 파일로 설치되므로 개발 언어 런타임이 필요하지 않습니다. (6차시용 <strong>Python</strong>은 아래 <a href="#3-9-python-설치">3-9절</a>에서 함께 설치합니다.)</p>
 </blockquote>
 
 <hr>
@@ -349,16 +352,46 @@ claude plugin install document-skills@anthropic-agent-skills --scope user</pre><
 
 <hr>
 
+<h3 id="3-9-python-설치">3-9. Python 설치 (6차시 준비)</h3>
+
+<p>여기서부터는 다시 <strong>PowerShell</strong> 입니다. Claude Code에서 <code>/exit</code> 로 나온 뒤 진행하세요.</p>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🐍</span><div class="callout-body">
+<p><strong>Python은 6차시에만 씁니다. 그래도 지금 설치하세요.</strong></p>
+<p>6차시는 계산 도구(MCP)를 붙이고 직접 만드는 실습인데, 그 도구가 Python으로 돌아갑니다. <strong>6차시 당일에 설치를 시작하면 실습 시간을 통째로 씁니다</strong> — 경로(PATH) 문제로 창을 새로 열어야 하거나, Microsoft Store 화면이 뜨는 일이 흔합니다. <strong>지금 5분이면 끝납니다.</strong></p>
+</div></section>
+
+<p>먼저 이미 있는지 확인합니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>python --version</pre></div></div></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>Python 3.13.1</code> 처럼 <strong>3.10 이상</strong>이 나오면 <strong>이 절은 끝</strong>입니다. 다음으로 넘어가세요.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+<p><strong>이렇게 나오면 설치가 필요합니다</strong> — 버전 대신 <strong>Microsoft Store 창이 열리거나</strong>, <code>Python was not found</code> 또는 <code>앱 실행 별칭</code> 관련 메시지가 나오는 경우입니다. Store 창이 열렸다면 <strong>닫고</strong> 아래로 설치하세요.</p>
+</div></section>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기 — 없을 때만</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>winget install --id Python.Python.3.13 -e --source winget</pre></div></div></div>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🔁</span><div class="callout-body"><p><strong>설치가 끝나면 PowerShell을 닫고 새로 여세요.</strong> 새 창에서 <code>python --version</code> 을 다시 실행해 버전이 나와야 합니다. <strong>이 단계를 건너뛰면 &quot;방금 설치했는데 없다고 나온다&quot;</strong> 가 됩니다 — 창이 열릴 때 읽은 경로 목록이 갱신되지 않아서입니다.</p></div></section>
+
+<blockquote>
+  <p><strong>여기까지가 설치의 전부입니다.</strong> 6차시에서 쓸 계산 도구를 Claude Code에 <strong>연결</strong>하는 것은 별도 문서(<a href="mcp-server.html">MCP 서버 설치가이드</a>)에서 합니다. Python만 준비되어 있으면 그 문서는 5분이면 끝납니다.</p>
+</blockquote>
+
+<hr>
+
 <h2 id="4-설치-확인">4. 설치 확인 (1분)</h2>
 
 <p>Claude Code에서 <code>/exit</code> 로 나온 뒤, PowerShell에서 한 줄씩 실행합니다.</p>
 
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>git --version; claude --version; echo $env:CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</pre></div></div></div>
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>PowerShell에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>git --version; claude --version; python --version; echo $env:CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</pre></div></div></div>
 
 <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
 <p><strong>예상 결과</strong>: 세 줄이 차례로 나옵니다.</p>
 <div class="code-card is-out"><div class="code-bar"><span class="code-label">예상 화면</span></div><pre>git version 2.55.0.windows.1
 2.1.211 (Claude Code)
+Python 3.13.1
 1</pre></div>
 </div></section>
 
@@ -372,6 +405,7 @@ claude plugin install document-skills@anthropic-agent-skills --scope user</pre><
 <li>Claude Pro 이상 구독 확인 (claude.ai 계정 메뉴)</li>
 <li><code>git --version</code> 이 버전 번호를 출력</li>
 <li><code>claude --version</code> 이 버전 번호를 출력</li>
+<li><code>python --version</code> 이 <strong>3.10 이상</strong>을 출력 (6차시용)</li>
 <li><code>echo $env:CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code> 가 <code>1</code> 출력</li>
 <li><code>C:\harness-edu</code> 폴더 존재 (또는 사용자 폴더) — 경로에 <strong>OneDrive·Desktop 없음</strong></li>
 <li><code>claude</code> 실행 후 한국어로 대화 성공</li>
@@ -733,6 +767,7 @@ Remove-Item -Path "$env:USERPROFILE\.local\share\claude" -Recurse -Force</pre></
         <li class="toc-l3"><a href="#3-6-실습-저장소-받기">3-6. 실습 저장소 받기</a></li>
         <li class="toc-l3"><a href="#3-7-로그인">3-7. 실행·로그인</a></li>
         <li class="toc-l3"><a href="#3-8-harness-설치">3-8. Harness 플러그인</a></li>
+        <li class="toc-l3"><a href="#3-9-python-설치">3-9. Python 설치</a></li>
         <li><a href="#4-설치-확인">4. 설치 확인</a></li>
         <li><a href="#5-초기-설정연동">5. 초기 설정·연동</a></li>
         <li class="toc-l3"><a href="#5-3-실습-파일-여는-방법">5-3. 실습 파일 열기</a></li>
