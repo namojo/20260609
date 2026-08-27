@@ -71,6 +71,7 @@
   <li>실무 데이터가 <strong>왜 그냥 안 되는지</strong> 직접 확인한다</li>
   <li>처리 규칙을 <strong>스펙 문서</strong>로 못 박고, 그 스펙으로 팀을 만든다</li>
   <li>결과를 <strong>원본과 대조</strong>해 검증한다 — 하네스의 마지막 조각</li>
+  <li>(선택) <strong>스펙 쓰는 규칙 자체</strong>를 스킬로 만들어 어느 업무에나 쓴다</li>
 </ul>
 
 <hr>
@@ -244,7 +245,78 @@ MATZIP_SPEC.md 를 유일한 요구사항 문서로 삼는다.
 
 <hr>
 
-<h2 id="스스로-점검">6. 스스로 점검</h2>
+<h2 id="실습-d">6. 실습 D (선택) — 스펙 쓰는 규칙을 스킬로</h2>
+
+<p><strong>선택 실습입니다.</strong> 건너뛰어도 다음 차시에 지장이 없습니다. 다만 <strong>스펙을 앞으로 계속 쓸 사람</strong>이라면 여기가 이 차시에서 가장 남는 부분입니다.</p>
+
+<p>3절에서 스펙을 요구할 때, 프롬프트가 <strong>열 줄이 넘었습니다.</strong> &quot;반드시 들어갈 것 여섯 가지&quot;, &quot;적절히 같은 말 금지&quot;, &quot;모르는 건 <code>[확인 필요]</code>&quot; — 이걸 <strong>다음 프로젝트에서도 또 씁니다.</strong></p>
+
+<blockquote class="rule">
+  <p>2차시의 판단 기준을 그대로 적용합니다. <strong>&quot;다음에도 또 나오나?&quot; → 예 → 파일로.</strong><br>
+  이번에 파일로 만들 것은 <strong>업무 지식</strong>이 아니라 <strong>&quot;좋은 스펙이란 무엇인가&quot;라는 기준</strong>입니다.</p>
+</blockquote>
+
+<h3 id="6-1-만들기">6-1. 만들기</h3>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 (map 폴더에서)</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>방금 MATZIP_SPEC.md 를 쓸 때 내가 요구했던 조건들을 스킬로 만들어줘.
+.claude/skills/spec-writer/SKILL.md
+
+description 에 넣을 것 — 언제 쓰는지가 분명하게:
+"데이터 처리·분석·자동화 작업을 시작하기 전에 요구사항 명세서를 쓸 때 사용.
+ 바로 작업에 들어가지 않고 스펙부터 확정해야 하는 모든 작업에 적용."
+
+본문에 넣을 것:
+1. 스펙에 반드시 들어갈 항목 — 입력(파일/형식/인코딩) · 처리 규칙 ·
+   산출물 형식 · 제외 규칙 · 검증 기준 · 범위 밖(하지 않을 일)
+2. 금지 표현 목록 — "적절히" "깔끔하게" "보기 좋게" "알아서" "필요시"
+   이런 말이 들어가면 그만큼 AI가 임의로 결정한다는 것을 명시
+3. 구체성 규칙 — 값은 실제 값으로 쓴다
+   (인코딩은 "CP949", 구분자는 "탭", 기준은 "노출 1,000 미만" 처럼)
+4. 모르는 것 처리 — 추측하지 말고 [확인 필요] 로 남긴다
+5. 스펙 검수 3문항 — 구체적 값이 있는가 / 안 할 일이 적혔는가 /
+   [확인 필요] 가 남아 있는가
+
+파일만 만들고 실행은 아직 하지 마.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>.claude/skills/spec-writer/SKILL.md</code> 가 생깁니다. 2차시에서 만든 용어집 스킬과 <strong>완전히 같은 형태</strong>입니다 — 담긴 것이 매체 용어가 아니라 <strong>&quot;스펙 쓰는 법&quot;</strong> 일 뿐입니다.</p></div></section>
+
+<h3 id="6-2-확인">6-2. 다른 일에 써 보기</h3>
+
+<p>같은 폴더에서 쓰면 &quot;아까 대화 때문&quot;인지 구분이 안 됩니다. <strong>완전히 다른 주제</strong>로 시험합니다. Claude Code를 껐다 켠 뒤 — 스킬은 재시작해야 읽힙니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 ① 종료</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/exit</pre></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>다시 실행</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude</pre></div></div></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">② 스킬을 언급하지 않고, 전혀 다른 주제로</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>사내 회의실 예약 현황을 정리해서 "어느 회의실이 언제 노는지" 알려주는
+작업을 하려고 해. 스펙부터 써줘. 아직 데이터는 없어.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 맛집 데이터와 아무 상관 없는 주제인데도 <strong>같은 틀</strong>로 스펙이 나옵니다 — 입력·처리 규칙·산출물·제외·검증·범위 밖. 데이터가 없으니 <code>[확인 필요]</code> 가 여럿 남습니다. <strong>그게 맞는 동작입니다.</strong></p>
+<p>2차시 스킬은 <strong>한 업무</strong>에서만 쓰였습니다. 이 스킬은 <strong>모든 업무</strong>에서 쓰입니다.</p>
+</div></section>
+
+<h3 id="6-3-두-종류">6-3. 스킬에는 두 종류가 있습니다</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th style="width:150px"></th><th>업무 지식 스킬</th><th>일하는 방식 스킬</th></tr></thead>
+<tbody>
+<tr><td>예</td><td>2차시 <code>media-glossary</code></td><td>5차시 <code>spec-writer</code></td></tr>
+<tr><td>담긴 것</td><td>우리 팀만 아는 <strong>용어·기준</strong></td><td>누구에게나 통하는 <strong>절차·품질 기준</strong></td></tr>
+<tr><td>쓰이는 범위</td><td>그 업무에서만</td><td><strong>주제를 가리지 않고</strong></td></tr>
+<tr><td>누가 만드나</td><td>그 업무 담당자만 가능</td><td>한 명이 만들어 <strong>팀 전체가</strong> 씀</td></tr>
+<tr><td>바뀌는 빈도</td><td>자주 (새 매체·새 지표)</td><td>드물게</td></tr>
+</tbody></table></div>
+
+<blockquote>
+  <p><strong>두 번째 종류를 몇 개 갖고 있느냐</strong>가 실력 차이로 나타납니다. 스펙 쓰기 · 회의록 정리 · 보고서 검수 · 데이터 검증 — 이런 &quot;일하는 방식&quot;을 파일로 갖고 있으면 <strong>새로운 업무를 만나도 시작이 빠릅니다.</strong> 7차시에서 다룰 <a href="https://github.com/revfactory/harness-100" target="_blank" rel="noopener">하네스 100선</a>이 통째로 이 두 번째 종류입니다.</p>
+</blockquote>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>더 정교하게 만들고 싶다면</strong> — 소프트웨어 개발용으로 만들어진 공개 스펙 작성 스킬들이 참고가 됩니다. 데이터 모델·화면 정의·구현 순서까지 항목을 나눠 두는데, <strong>&quot;색은 이름이 아니라 hex 코드로&quot;, &quot;크기는 &lsquo;크게&rsquo;가 아니라 픽셀 값으로&quot;</strong> 같은 규칙이 핵심입니다. 우리가 &quot;인코딩은 CP949로&quot; 라고 쓴 것과 <strong>정확히 같은 원리</strong>입니다.</p></div></section>
+
+<hr>
+
+<h2 id="스스로-점검">7. 스스로 점검</h2>
 
 <ul class="checklist">
 <li>이 데이터가 &quot;그냥은 안 되는&quot; 이유 네 가지를 말할 수 있다</li>
@@ -253,6 +325,8 @@ MATZIP_SPEC.md 를 유일한 요구사항 문서로 삼는다.
 <li>결과를 정답 숫자(15,144건 / 20.3억)와 대조했다</li>
 <li>&quot;파일이 생성되었습니다&quot; 와 <strong>교차 검증</strong>의 차이를 안다</li>
 <li>스펙 한 줄을 고쳐 결과가 바뀌는 것을 확인했다</li>
+<li>(선택) <strong>스펙 쓰는 규칙</strong>을 스킬로 만들어 다른 주제에 써 봤다</li>
+<li>(선택) <strong>업무 지식 스킬</strong>과 <strong>일하는 방식 스킬</strong>의 차이를 설명할 수 있다</li>
 </ul>
 
 <h3 id="흔한-실패">흔한 실패와 대처</h3>
@@ -269,7 +343,7 @@ MATZIP_SPEC.md 를 유일한 요구사항 문서로 삼는다.
 
 <hr>
 
-<h2 id="더-해보기">7. 더 해보기 (선택)</h2>
+<h2 id="더-해보기">8. 더 해보기 (선택)</h2>
 
 <ul>
 <li><strong>지도로 만들기</strong> — 이 데이터로 실제 웹앱까지 만드는 과정이 원본 교안에 있습니다. 주소를 좌표로 바꾸고(지오코딩) 지도에 올리는 단계까지 다룹니다 → <a href="https://github.com/namojo/harness-edu/blob/main/map/README.md" target="_blank" rel="noopener">map/README.md</a></li>
@@ -279,7 +353,7 @@ MATZIP_SPEC.md 를 유일한 요구사항 문서로 삼는다.
 
 <hr>
 
-<h2 id="다음-차시">8. 다음 차시</h2>
+<h2 id="다음-차시">9. 다음 차시</h2>
 
 <p>여기까지 <strong>Agent(누가)</strong> 와 <strong>Skill(무엇을·어떻게)</strong> 을 다뤘습니다. 그런데 정제와 집계를 아무리 잘해도, <strong>AI가 계산이나 사실을 지어내면</strong> 결과를 믿을 수 없습니다. 6차시에서 마지막 축 <strong>Tool</strong> 로 그 문제를 막습니다.</p>
 
@@ -331,9 +405,11 @@ MATZIP_SPEC.md 를 유일한 요구사항 문서로 삼는다.
         <li><a href="#실습-b">4. 실습 B · 팀 만들기</a></li>
         <li><a href="#실습-c">5. 실습 C · 돌리고 검증</a></li>
         <li class="toc-l3"><a href="#5-1-규칙-바꿔-보기">5-1. 규칙 바꿔 보기</a></li>
-        <li><a href="#스스로-점검">6. 스스로 점검</a></li>
-        <li><a href="#더-해보기">7. 더 해보기</a></li>
-        <li><a href="#다음-차시">8. 다음 차시</a></li>
+        <li><a href="#실습-d">6. 실습 D · 스펙 스킬 (선택)</a></li>
+        <li class="toc-l3"><a href="#6-3-두-종류">6-3. 스킬의 두 종류</a></li>
+        <li><a href="#스스로-점검">7. 스스로 점검</a></li>
+        <li><a href="#더-해보기">8. 더 해보기</a></li>
+        <li><a href="#다음-차시">9. 다음 차시</a></li>
       </ul>
     </details>
   </aside>

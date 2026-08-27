@@ -565,6 +565,127 @@ description: 광고 매체 성과 데이터를 다룰 때 사용. 컬럼 매핑,
   </div>
 </div>
 
+<h3 id="7-5-용어-등록">7-5. 새 용어를 표준으로 등록하기 — 스킬은 살아 있는 문서입니다</h3>
+
+<p>만들고 끝이 아닙니다. <strong>업무는 계속 바뀝니다.</strong> 새 매체가 추가되고, 새 지표가 생기고, 기준이 개정됩니다. 그때마다 어떻게 하느냐가 <strong>이 스킬이 6개월 뒤에도 살아 있을지</strong>를 가릅니다.</p>
+
+<div class="vs">
+  <div class="bad">
+    <h4>이렇게 되면 죽습니다</h4>
+    <ul>
+      <li>새 매체가 생겼는데 <strong>그때만</strong> 프롬프트로 설명하고 넘어감</li>
+      <li>스킬 파일은 3개월 전 버전 그대로</li>
+      <li>어느 날 결과가 틀리는데 <strong>왜 틀렸는지</strong> 아무도 모름</li>
+    </ul>
+  </div>
+  <div class="good">
+    <h4>이렇게 하면 삽니다</h4>
+    <ul>
+      <li>새 용어가 나오면 <strong>그 자리에서 파일에 추가</strong></li>
+      <li>바꾼 날짜와 이유를 <strong>파일 안에</strong> 남김</li>
+      <li>기준이 바뀌면 <strong>파일 한 곳만</strong> 고침</li>
+    </ul>
+  </div>
+</div>
+
+<h4 id="7-5-1-등록-절차">등록은 세 단계입니다</h4>
+
+<p>새 매체 <strong>당근마켓 광고</strong>가 추가됐습니다. 파일은 <code>ad/new/2026-07-W3_당근.csv</code> 에 준비돼 있습니다 — 컬럼명이 또 다르고, <strong>우리 표준에 없는 컬럼</strong>도 하나 섞여 있습니다.</p>
+
+<div class="table-wrap"><table>
+<thead><tr><th style="width:150px">이 파일이 다른 점</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td>컬럼명</td><td><code>노출</code> · <code>유입</code> · <code>광고비(VAT포함)</code> · <code>구매</code> · <code>구매금액</code> — <strong>클릭이 &quot;유입&quot;, 전환이 &quot;구매&quot;</strong></td></tr>
+<tr><td>날짜 형식</td><td><code>2026.07.13</code> — 지금까지 없던 <strong>네 번째 형식</strong></td></tr>
+<tr><td>VAT</td><td><strong>포함</strong> (카카오와 같음 → ÷ 1.1)</td></tr>
+<tr><td>표준에 없는 것</td><td><code>노출당과금</code> — 우리 표준 항목 어디에도 대응되지 않습니다</td></tr>
+</tbody></table></div>
+
+<p class="muted"><code>data/</code> 가 아니라 <code>new/</code> 에 따로 둔 이유: 앞 절의 정답 숫자(전환 5,705건·ROAS 366.9%)가 바뀌지 않게 하기 위해서입니다. <strong>등록 절차만</strong> 연습합니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">① 새 파일을 보여주고 등록시키기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>new/2026-07-W3_당근.csv 를 열어서 컬럼을 확인하고,
+media-glossary 스킬의 용어 매핑 표에 당근마켓 행을 추가해줘.
+
+- 우리 표준 항목(노출·클릭·집행액·전환·전환매출·캠페인·일자)에
+  각각 어느 컬럼이 대응하는지 확인해서 넣어줘
+- VAT 포함인지 별도인지, 날짜 형식이 무엇인지도 형식 규칙 표에 반영
+- 확신이 안 서는 컬럼은 넣지 말고 [확인 필요] 로 표시해서 따로 알려줘</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 매핑 표에 행 하나가 늘고, <strong>매체명 목록이 다섯 개에서 여섯 개로</strong>, <strong>날짜 형식이 세 개에서 네 개로</strong> 늘어납니다. <code>노출당과금</code> 은 대응할 표준 항목이 없어 <code>[확인 필요]</code> 로 남습니다 — 그게 <strong>사람이 판단할 몫</strong>입니다.</p></div></section>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">② 남은 것을 사람이 결정해서 확정</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>[확인 필요] 로 표시한 것 중 "노출당과금" 컬럼은 우리 표준에 없는 개념이야.
+집계에 쓰지 말고, 리포트 비고란에만 원본 값을 표시하도록 규칙을 추가해줘.</pre></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">③ 변경 이력 남기기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>스킬 문서 맨 아래에 "변경 이력" 표를 만들고 이번 변경을 기록해줘.
+날짜 · 무엇을 · 왜 세 칸으로. 앞으로 수정할 때마다 여기에 한 줄씩 쌓을 거야.</pre></div>
+
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">스킬 문서 맨 아래에 이렇게 쌓입니다</span></div><pre>## 변경 이력
+
+| 날짜 | 무엇을 | 왜 |
+|---|---|---|
+| 2026-07-20 | 당근마켓 매핑 추가, 매체명 6종으로 확대 | 신규 매체 집행 시작 |
+| 2026-07-20 | 노출당과금은 집계 제외, 비고 표시 | 우리 표준에 없는 개념 |</pre></div>
+
+<blockquote class="rule">
+  <p><strong>&quot;왜&quot; 칸이 가장 중요합니다.</strong> 반년 뒤 누군가 &quot;이 규칙 왜 이래요?&quot; 라고 물을 때, 답이 파일에 있으면 규칙이 유지되고 <strong>없으면 누가 마음대로 지웁니다.</strong></p>
+</blockquote>
+
+<h4 id="7-5-2-등록-기준">무엇을 등록하고 무엇을 등록하지 않나</h4>
+
+<div class="table-wrap"><table>
+<thead><tr><th style="width:180px">이런 것</th><th>등록?</th><th>이유</th></tr></thead>
+<tbody>
+<tr><td>새 매체의 컬럼명</td><td><strong>✅ 즉시</strong></td><td>다음 주에도 또 나옵니다</td></tr>
+<tr><td>&quot;이번엔 VAT 별도로 봐줘&quot; 처럼 <strong>매번 다른 기준</strong></td><td>❌</td><td>표준이 아니라 그때그때 판단. 등록하면 오히려 틀립니다</td></tr>
+<tr><td>내가 두 번 이상 설명한 규칙</td><td><strong>✅</strong></td><td>세 번째부터 이득입니다</td></tr>
+<tr><td>신입이 또 틀린 지점</td><td><strong>✅ 금지 사항에</strong></td><td>사람이 반복해 틀리는 곳은 AI도 틀립니다</td></tr>
+<tr><td>이번 캠페인에만 쓰는 예외</td><td>❌ 프롬프트에</td><td>일회성은 파일을 오염시킵니다</td></tr>
+</tbody></table></div>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>판단 한 줄</strong>: <strong>&quot;다음에도 또 나오나?&quot;</strong> 예 → 파일. 아니오 → 프롬프트. 애매하면 프롬프트에 두고, <strong>두 번째로 같은 말을 하게 되는 순간</strong> 파일로 옮기세요.</p></div></section>
+
+<h4 id="7-5-3-정기-점검">한 달에 한 번, 스킬을 점검합니다</h4>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">월 1회 · Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>media-glossary 스킬을 점검해줘.
+
+1. data 폴더의 최근 파일들에 있는 컬럼 중 스킬 매핑 표에 없는 것을 찾아줘
+2. 스킬에는 있는데 요즘 안 쓰는 매체·지표가 있으면 알려줘
+3. 서로 충돌하거나 중복된 규칙이 있으면 지적해줘
+
+고치지는 말고, 목록만 보여줘. 무엇을 반영할지는 내가 정할게.</pre></div>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>&quot;고치지는 말고 목록만&quot; 이 중요합니다.</strong> 점검과 수정을 한 번에 시키면 AI가 <strong>안 물어보고 규칙을 바꿔 버립니다.</strong> 기준을 바꾸는 결정은 사람이 합니다 — 4차시의 검증자 분리와 같은 원리입니다.</p></div></section>
+
+<div class="case">
+  <div class="case-head">
+    <span class="tag-case">사례</span>
+    <strong>정하늘 대리의 3개월 뒤 용어집</strong>
+    <span>2차시 · 운영</span>
+  </div>
+
+  <p class="case-step"><em>①</em> 무엇이 늘었나</p>
+  <div class="table-wrap"><table>
+  <thead><tr><th style="width:150px"></th><th>처음(7월)</th><th>3개월 뒤(10월)</th></tr></thead>
+  <tbody>
+  <tr><td>매체</td><td>5개</td><td><strong>7개</strong> (당근마켓·네이버 브랜드검색 추가)</td></tr>
+  <tr><td>금지 사항</td><td>5개</td><td><strong>9개</strong> (실수할 때마다 한 줄씩)</td></tr>
+  <tr><td>변경 이력</td><td>—</td><td><strong>11줄</strong></td></tr>
+  </tbody></table></div>
+
+  <p class="case-step"><em>②</em> 가장 값어치 있었던 한 줄</p>
+  <div class="code-card is-out"><div class="code-bar"><span class="code-label">금지 사항에 추가된 항목</span></div><pre>6. 브랜드검색 캠페인의 전환은 "검색 유입 후 구매"라
+   일반 디스플레이와 성격이 다르다. 통합 CPA 계산에 합산하지 말고
+   별도 표로 분리한다. (2026-09-14 추가 — 9월 보고에서 CPA가
+   비정상적으로 낮게 나온 원인이었음)</pre></div>
+  <p>9월 보고에서 한 번 틀렸고, <strong>그 실수가 파일에 남아 다시는 반복되지 않았습니다.</strong></p>
+
+  <div class="why">
+    <b>여기서 볼 것</b>
+    <p>스킬의 값어치는 <strong>처음 만든 내용</strong>이 아니라 <strong>쌓인 수정</strong>에 있습니다. 3개월치 실수가 들어 있는 파일은 신입 교육 자료이자, 팀의 판단 기준 그 자체입니다.</p>
+    <p>정 대리가 이직해도 이 파일은 남습니다. <strong>머릿속에 있었으면 같이 나갔을 것</strong>입니다.</p>
+  </div>
+</div>
+
 <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body"><p>여기서 만든 스킬 하나가 <strong>4차시에서 팀의 공용 지식</strong>이 되고, <strong>5차시에서는 데이터 정제 규칙</strong>이 되며, <strong>7차시에서는 남이 만든 하네스 안에서 똑같은 형태</strong>로 다시 만납니다. 형식은 언제나 이 <code>SKILL.md</code> 하나입니다.</p></div></section>
 
 <hr>
@@ -575,6 +696,8 @@ description: 광고 매체 성과 데이터를 다룰 때 사용. 컬럼 매핑,
 <li>지식 없이 시켰을 때와 있을 때의 차이를 한 문장으로 설명할 수 있다</li>
 <li>용어집을 <strong>스킬</strong>로 만들어, 말하지 않아도 적용되는 것을 확인했다</li>
 <li><code>description</code> 이 스킬의 <strong>유일한 트리거</strong>라는 것을 안다</li>
+<li>새 용어가 생겼을 때 <strong>파일에 등록하는 절차</strong>(추가 → 확정 → 이력)를 안다</li>
+<li>&quot;다음에도 또 나오나?&quot; 로 <strong>파일에 넣을지 프롬프트에 둘지</strong> 판단할 수 있다</li>
 <li><code>통합_생산보고서.xlsx</code> 가 생성되었고 검수 6항목을 확인했다</li>
 <li>같은 지시를 두 번 돌려 <strong>구조가 같은지</strong> 비교했다</li>
 <li>내 업무 규칙 5개를 뽑아 <code>나의_업무_용어집.md</code> 로 만들었다</li>
@@ -662,6 +785,7 @@ description: 광고 매체 성과 데이터를 다룰 때 사용. 컬럼 매핑,
         <li><a href="#실습지">6. 사례 · 용어집</a></li>
         <li><a href="#실습-c">7. 실습 C · 스킬로 만들기</a></li>
         <li class="toc-l3"><a href="#7-4-description">7-4. description 쓰는 법</a></li>
+        <li class="toc-l3"><a href="#7-5-용어-등록">7-5. 새 용어 등록·관리</a></li>
         <li><a href="#스스로-점검">8. 스스로 점검</a></li>
         <li><a href="#더-해보기">9. 더 해보기</a></li>
         <li><a href="#다음-차시">10. 다음 차시</a></li>
