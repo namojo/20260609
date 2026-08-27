@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>6차시. 계산은 도구에게 — 나만의 Tool 붙이기 · harness-edu</title>
-<meta name="description" content="AI가 암산한 숫자와 도구가 계산한 숫자를 비교하고, 파이썬 40줄 계산기를 AI에 붙입니다. 코드는 읽기만 합니다.">
+<title>6차시. 환각을 막는 도구 — MCP · harness-edu</title>
+<meta name="description" content="AI는 숫자도 법 조문도 그럴듯하게 지어냅니다. 계산 MCP와 법령 조회 MCP를 붙여 환각을 막고, 필요한 도구는 직접 만듭니다.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,13 +27,13 @@
 </div></header>
 
 <div class="wrap page-head">
-  <div class="eyebrow">6차시 · 교재 + 사례</div>
-  <h1>계산은 도구에게 — 나만의 Tool 붙이기</h1>
-  <p class="sub">AI는 &quot;그럴듯하게&quot; 계산합니다. 검증할 수 없는 숫자는 보고서에 못 씁니다. 계산을 <strong>코드에 위임</strong>하고, AI에게는 해석만 맡깁니다.</p>
+  <div class="eyebrow">6차시 · 교재 + 실무 사례</div>
+  <h1>환각을 막는 도구 — MCP</h1>
+  <p class="sub">AI는 <strong>모른다고 말하지 않고 그럴듯하게 지어냅니다.</strong> 숫자도, 법 조문도 그렇습니다. 지어내지 못하게 <strong>사실을 가져오는 창구</strong>를 붙입니다.</p>
   <div class="meta">
     <span class="badge">6 / 7</span>
     <span>🧑‍💼 실무 사례</span>
-    <span>🐍 Python (읽기만)</span>
+    <span>🔌 MCP · 계산 + 법령</span>
   </div>
 </div>
 
@@ -44,23 +44,21 @@
 <h2 id="준비할-것">이 차시에서 준비할 것</h2>
 
 <div class="prep">
-  <div class="prep-item"><b>선행</b><span><a href="ch5.html">5차시 · 반복을 시스템으로</a> 완료</span></div>
-  <div class="prep-item"><b>필수 설치</b><span><a href="../install/mcp-server.html">MCP 서버 설치가이드</a> (20~30분)</span></div>
-  <div class="prep-item"><b>실습 파일</b><span><code>tool/mcp-server/</code></span></div>
-  <div class="prep-item"><b>가져올 것</b><span>내 업무에서 <strong>계산하는 일</strong> 목록</span></div>
+  <div class="prep-item"><b>선행</b><span><a href="ch5.html">5차시</a> 완료</span></div>
+  <div class="prep-item"><b>필수 설치</b><span><a href="../install/mcp-server.html">MCP 서버 설치가이드</a></span></div>
+  <div class="prep-item"><b>선택 준비</b><span>법제처 인증키 — 무료, 5분 (3절에서 안내)</span></div>
+  <div class="prep-item"><b>코드</b><span><strong>쓰지 않습니다.</strong> 읽고, 붙이고, AI에게 시킵니다</span></div>
 </div>
-
-<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🐍</span><div class="callout-body"><p><strong>코드를 쓰지 않습니다.</strong> 이미 만들어진 파이썬 파일을 <strong>읽고 연결만</strong> 합니다. 목표는 &quot;함수 하나에 표시 한 줄 붙이면 도구가 된다&quot; 는 감각까지입니다. 설치가 아직이면 <a href="../install/mcp-server.html">설치가이드</a>를 먼저 하세요.</p></div></section>
 
 <hr>
 
 <h2 id="처음-나오는-말">이 차시에서 처음 나오는 말</h2>
 
 <div class="terms"><dl>
-  <dt>도구 (Tool)</dt><dd>AI가 <strong>실제로 실행하는 코드</strong>. 설명서를 읽고 해석하는 것이 아니라 계산 결과를 그대로 받습니다.</dd>
-  <dt>MCP</dt><dd>도구를 AI에 붙이는 <strong>공개 표준 규격</strong>. 하나 만들면 Claude Code·Codex 등 여러 AI가 같이 씁니다.</dd>
+  <dt>환각 (할루시네이션)</dt><dd>AI가 <strong>사실이 아닌 것을 사실처럼</strong> 말하는 것. 모른다고 하지 않고 그럴듯하게 만들어 냅니다.</dd>
+  <dt>도구 (Tool)</dt><dd>AI가 <strong>실제로 실행하는 코드</strong>. 계산하거나, 외부에서 자료를 가져옵니다.</dd>
+  <dt>MCP</dt><dd>도구를 AI에 붙이는 <strong>공개 표준</strong>. 하나 만들면 Claude Code·Codex 등이 같이 씁니다.</dd>
   <dt>결정론</dt><dd>같은 입력이면 <strong>언제나 같은 출력</strong>. 코드의 성질이고, 모델에는 없는 성질입니다.</dd>
-  <dt>OEE</dt><dd>설비종합효율. 가동률 × 성능 × 품질로 계산하는 <strong>정의가 고정된 제조 지표</strong>입니다.</dd>
 </dl></div>
 
 <hr>
@@ -68,132 +66,153 @@
 <h2 id="배우는-것">이 차시에서 배우는 것</h2>
 
 <ul class="goals">
-  <li>같은 질문에 <strong>암산한 답</strong>과 <strong>도구가 계산한 답</strong>을 비교한다</li>
-  <li>Skill(설명서)과 Tool(계산기)을 <strong>구분해서</strong> 쓸 수 있다</li>
-  <li>내 업무에서 <strong>도구로 만들 계산</strong> 세 가지를 찾아낸다</li>
+  <li>환각이 <strong>어떻게 생기고 왜 안 걸리는지</strong> 두 종류로 확인한다 — 계산과 사실</li>
+  <li>도구를 붙여 <strong>지어내지 못하게</strong> 막는다 (계산 도구 · 법령 조회 도구)</li>
+  <li>내 업무에 필요한 도구를 <strong>AI에게 시켜 직접 만든다</strong></li>
 </ul>
 
 <hr>
 
-<h2 id="문제-체험">1. 문제 체험 — 그럴듯한 숫자의 위험</h2>
+<h2 id="문제-체험">1. 문제 — 두 종류의 환각</h2>
 
-<p>&quot;B라인 어제 OEE 알려줘&quot; 라는 질문을 <strong>도구 없이</strong> 던져 봅니다.</p>
+<h3 id="1-1-계산-환각">1-1. 계산 환각 — 그럴듯한 숫자</h3>
 
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd C:\harness-edu\tool\mcp-server; claude</pre></div></div></div>
 
 <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/harness-edu/tool/mcp-server &amp;&amp; claude</pre></div></div></div>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 — 1회차</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>data/production.csv 를 보고 B라인 2026-07-14 의 OEE를 알려줘.
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>data/production.csv 를 보고 B라인 2026-07-14 의 OEE를 알려줘.
 OEE는 가동률 × 성능 × 품질이야. 계산 과정도 보여줘.</pre></div>
 
-<p>대화를 비우고 <strong>똑같이</strong> 한 번 더 물어봅니다.</p>
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>관찰</strong>: 답은 그럴듯합니다. 그런데 <strong>이 숫자가 맞는지 어떻게 확인하죠?</strong> 계산 과정을 사람이 다시 검산해야 한다면 AI를 쓴 이득이 사라집니다. 소수점 아래가 회차마다 미묘하게 다르기도 합니다.</p></div></section>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창 — 비우기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/clear</pre></div>
+<h3 id="1-2-사실-환각">1-2. 사실 환각 — 있지도 않은 조문</h3>
 
-<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
-<p><strong>관찰 포인트</strong> — 두 답의 <strong>소수점 아래</strong>를 비교하세요. 반올림 지점, 중간 계산 방식, 최종 값이 미묘하게 다를 수 있습니다. 그리고 더 중요한 것:</p>
-<p><strong>이 숫자가 맞는지 어떻게 확인하죠?</strong> 계산 과정을 사람이 다시 검산해야 한다면, AI를 쓴 이득이 사라집니다.</p>
+<p>더 위험한 쪽입니다. 숫자는 이상하면 눈에 띄지만, <strong>법 조문·규정·인용은 틀려도 그럴듯합니다.</strong></p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>근로기준법에서 임산부의 야간·휴일 근로 제한을 정한 조문이 몇 조인지 알려주고,
+그 조문 원문을 그대로 인용해줘. 몇 항까지 있는지도 알려줘.</pre></div>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body">
+<p><strong>관찰</strong>: 조문 번호와 그럴듯한 문장이 나옵니다. <strong>맞을 수도 있고 틀릴 수도 있습니다.</strong> 문제는 — 읽는 사람이 <strong>구분할 수 없다</strong>는 것입니다. 조문 번호가 하나 어긋나거나, 개정 전 내용이거나, 아예 없는 항이 섞여 있어도 문장은 매끄럽습니다.</p>
+<p>보고서에 이대로 들어가면 어떻게 될까요. 이것이 <strong>사실 환각</strong>이 계산 환각보다 위험한 이유입니다.</p>
 </div></section>
 
-<div class="vs">
-  <div class="bad">
-    <h4>도구 없이 — AI가 암산</h4>
-    <p><code>가동률 0.75쯤, 성능 0.94쯤...<br>OEE 대략 70% 안팎으로 보입니다</code></p>
-    <ul>
-      <li>그럴듯하지만 <strong>검증 불가능</strong></li>
-      <li>같은 질문에 매번 미묘하게 다름</li>
-      <li>보고서에 쓸 수 없음</li>
-    </ul>
-  </div>
-  <div class="good">
-    <h4>도구 있이 — 코드가 계산</h4>
-    <p><code>{ availability: 0.75, performance: 0.9444,<br>quality: 0.9853, oee_pct: "69.8%",<br>bottleneck: "가동률" }</code></p>
-    <ul>
-      <li>몇 번을 돌려도 <strong>69.8%</strong></li>
-      <li>병목이 가동률이라는 <strong>진단</strong>까지</li>
-      <li>근거가 코드에 남아 있음</li>
-    </ul>
-  </div>
-</div>
+<blockquote class="rule">
+  <p><strong>두 환각의 공통점</strong> — AI가 <strong>모른다고 말하지 않는다</strong>는 것입니다. 해결책도 같습니다. 지어낼 여지를 없애고 <strong>사실을 가져오는 창구</strong>를 붙입니다. 그 창구가 <strong>Tool</strong> 이고, 붙이는 표준이 <strong>MCP</strong> 입니다.</p>
+</blockquote>
 
 <hr>
 
-<h2 id="개념">2. 개념 — Skill은 설명서, Tool은 계산기</h2>
-
-<h3 id="2-1-세-축">2-1. 세 축이 여기서 완성됩니다</h3>
+<h2 id="개념">2. 개념 — Skill은 설명서, Tool은 창구</h2>
 
 <div class="table-wrap"><table>
 <thead><tr><th>축</th><th>무엇인가</th><th>형태</th><th>같은 질문에 같은 답?</th><th>배운 차시</th></tr></thead>
 <tbody>
-<tr><td><strong>Agent</strong></td><td>역할·경계 (누가)</td><td>지시문 파일</td><td>—</td><td>4차시</td></tr>
-<tr><td><strong>Skill</strong></td><td>지식·절차 (무엇을·어떻게)</td><td>AI가 읽는 문서</td><td>✗ 모델이 해석</td><td>2차시</td></tr>
-<tr><td><strong>Tool</strong></td><td>실행 수단 (무엇으로)</td><td><strong>실제 코드</strong></td><td>✓ 항상 같음</td><td><strong>이번 차시</strong></td></tr>
+<tr><td><strong>Agent</strong></td><td>역할·경계 (누가)</td><td>지시문 파일</td><td>—</td><td>4·5차시</td></tr>
+<tr><td><strong>Skill</strong></td><td>지식·절차 (무엇을·어떻게)</td><td>AI가 읽는 문서</td><td>✗ 모델이 해석</td><td>2·5차시</td></tr>
+<tr><td><strong>Tool</strong></td><td>실행·조회 (무엇으로)</td><td><strong>실제 코드 / 외부 시스템</strong></td><td>✓ 항상 같음</td><td><strong>이번 차시</strong></td></tr>
 </tbody></table></div>
 
 <blockquote class="rule">
-  <p><strong>판단 규칙 하나만 기억하세요</strong><br>
-  <strong>정의가 고정돼 있고 늘 같은 답이 나와야 하는 일</strong> (계산 · 조회 · 외부 시스템 호출) → <strong>Tool</strong><br>
-  <strong>맥락에 따라 달라지는 판단</strong> (무엇이 중요한가 · 어떻게 쓸까 · 어떤 톤으로) → <strong>Skill</strong></p>
+  <p><strong>판단 규칙</strong><br>
+  <strong>정의가 고정돼 늘 같은 답이 나와야 하는 일</strong> (계산 · 조회 · 외부 시스템) → <strong>Tool</strong><br>
+  <strong>맥락에 따라 달라지는 판단</strong> (무엇이 중요한가 · 어떤 톤으로) → <strong>Skill</strong></p>
 </blockquote>
 
-<p>2차시에서 만든 용어집에 &quot;OEE는 가동률 × 성능 × 품질&quot; 이라고 <strong>적어 두기만 하면</strong> 모델이 그 설명을 읽고 <strong>직접 암산</strong>합니다. 숫자가 커지면 자주 틀립니다. Tool은 그 계산을 <strong>코드로 실행</strong>합니다.</p>
-
-<h3 id="2-2-왜-mcp">2-2. 왜 표준을 쓰나 — 한 번 만들어 여러 곳에서</h3>
-
-<p>이 도구는 <strong>MCP</strong> 라는 공개 표준으로 만들어져 있습니다. 그래서 서버 하나를 만들어 두면:</p>
-
-<ul>
-<li><strong>Claude Code</strong> 가 호출할 수 있고,</li>
-<li><strong>Codex</strong> 도 호출할 수 있고,</li>
-<li>앞으로 나올 다른 AI도 그대로 씁니다.</li>
-</ul>
-
-<p>&quot;우리 팀 계산기&quot;를 도구마다 다시 만들 필요가 없다는 뜻입니다. 이것이 사내 도구를 <strong>자산</strong>으로 만드는 방법입니다.</p>
-
-<h3 id="2-3-좋은-도구">2-3. 좋은 도구는 값만 주지 않습니다</h3>
-
-<p>이 실습의 <code>compute_oee</code> 는 OEE 숫자만 돌려주지 않고 <strong>병목이 어느 축인지</strong>(<code>bottleneck</code>)까지 계산해 줍니다. 도구가 한 걸음 더 계산해 주면, 모델은 그만큼 더 나은 해석을 얹을 수 있습니다.</p>
+<p>2차시에서 &quot;OEE는 가동률 × 성능 × 품질&quot; 을 용어집(Skill)에 <strong>적어 두기만 하면</strong> 모델이 그 설명을 읽고 <strong>암산</strong>합니다. 법 조문도 마찬가지로 <strong>기억에서 꺼냅니다.</strong> Tool은 계산을 <strong>실행</strong>하고, 원문을 <strong>가져옵니다.</strong></p>
 
 <hr>
 
-<h2 id="붙이기">3. 도구 붙이고 확인하기</h2>
+<h2 id="실습-a">3. 실습 A — 계산 도구 붙이기</h2>
 
-<p><a href="../install/mcp-server.html">설치가이드</a>를 이미 마쳤다면 등록은 끝나 있습니다. 확인부터 합니다.</p>
-
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에 붙여넣기 (Claude Code 종료 상태에서)</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude mcp list</pre></div></div></div>
-
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
-<p><strong>예상 결과</strong>: 목록에 <code>production-metrics</code> 가 보입니다. 안 보이면 <a href="../install/mcp-server.html#3-5-claude-code에-등록">설치가이드 3-6절</a>을 먼저 하세요.</p>
-<p><strong>등록은 됐는데 이 폴더에서만 보인다면</strong> 기본값인 local 스코프로 등록된 것입니다. <code>claude mcp remove production-metrics</code> 후 <code>--scope user</code> 를 붙여 다시 등록하세요 — 7차시에서 <code>my-harness</code> 폴더로 옮기면 도구가 사라집니다.</p>
-</div></section>
-
-<p>Claude Code를 실행하고 입력창에서 연결 상태를 봅니다.</p>
+<p><a href="../install/mcp-server.html">설치가이드</a>를 마쳤다면 등록은 끝나 있습니다. 확인부터 합니다.</p>
 
 <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/mcp</pre></div>
 
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>production-metrics</code> 가 <strong>connected</strong>. 도구 3개(<code>list_records</code> · <code>compute_oee</code> · <code>defect_ppm</code>)를 볼 수 있습니다.</p></div></section>
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>production-metrics</code> 가 <strong>connected</strong>. 도구 3개(<code>list_records</code> · <code>compute_oee</code> · <code>defect_ppm</code>)가 보입니다. 안 보이면 <a href="../install/mcp-server.html#3-5-claude-code에-등록">설치가이드 3-5절</a>부터.</p></div></section>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>production-metrics 도구로 2026-07-14 A·B·C 세 라인의 OEE를 구하고,
+가장 낮은 라인의 병목이 무엇인지, 개선하려면 어디를 봐야 하는지 정리해줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 도구를 <strong>세 번</strong> 호출해 값을 받아 온 뒤 해석만 얹습니다. B라인은 <strong>69.8%</strong>, 병목은 <strong>가동률</strong> — 몇 번을 돌려도 같습니다.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">도구가 돌려주는 것</span></div><pre>{ "availability": 0.75, "performance": 0.9444, "quality": 0.9853,
+  "oee": 0.6979, "oee_pct": "69.8%", "bottleneck": "가동률" }</pre></div>
+<p>1-1절의 암산 답과 비교해 보세요. <strong>정확한 산수는 도구, 해석은 모델</strong> 이라는 분업이 눈에 보입니다.</p>
+</div></section>
 
 <hr>
 
-<h2 id="비교-실습">4. 실습 — 같은 질문, 도구를 쓰게 하기</h2>
+<h2 id="실습-b">4. 실습 B — 법령 조회 도구 붙이기 (korean-law-mcp)</h2>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ①</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>production-metrics 도구로 2026-07-14 B라인 OEE를 구해줘.</pre></div>
+<p>계산은 막았습니다. 이번엔 <strong>사실</strong> 차례입니다. 법제처 국가법령정보센터의 <strong>공식 데이터</strong>를 AI가 직접 조회하게 붙입니다.</p>
 
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 화면에 <strong>도구 호출 표시</strong>가 뜨고(승인을 물으면 승인), <strong>69.8%</strong> 라는 값이 나옵니다. 1절의 암산 값과 비교해 보세요.</p></div></section>
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>법률 담당이 아니어도 해볼 가치가 있습니다.</strong> &quot;AI가 기억으로 답하던 것을 원문 조회로 바꾼다&quot; 는 구조는 사내 규정·제품 사양·계약 조건 등 <strong>모든 &lsquo;틀리면 안 되는 사실&rsquo;</strong> 에 똑같이 적용됩니다.</p></div></section>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ② — 도구 + 해석</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>production-metrics 도구로 2026-07-14 A·B·C 세 라인의 OEE를 구하고,
-가장 낮은 라인의 병목이 무엇인지, 개선하려면 어디를 봐야 하는지 정리해줘.</pre></div>
+<h3 id="4-1-인증키">4-1. 법제처 인증키 받기 (무료 · 5분)</h3>
 
-<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>관찰 포인트</strong>: AI가 도구를 <strong>세 번</strong> 호출해 정확한 값을 받아 온 뒤, 거기에 <strong>해석만</strong> 얹습니다. &quot;정확한 산수는 도구, 해석은 모델&quot; 이라는 분업이 눈으로 보입니다.</p></div></section>
+<p>공공 API라 본인 인증키(OC)가 필요합니다. 브라우저에서 아래 주소로 들어가 <strong>로그인 → OPEN API 신청 → API인증키관리</strong> 에서 키를 복사합니다.</p>
 
-<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>AI가 도구를 안 부르고 직접 암산하려 하면</strong>: &quot;<code>compute_oee</code> 도구를 사용해서&quot; 라고 명시하세요. 도구 설명이 구체적일수록 자동 호출이 잘 됩니다 — <strong>도구 설명문도 지시서</strong>입니다.</p></div></section>
+<div class="code-card is-lite"><div class="code-bar"><span class="code-label">주소창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>https://open.law.go.kr/LSO/openApi/guideList.do</pre></div>
 
-<h3 id="4-2-코드-읽기">4-2. 코드를 열어 보기 (읽기만 합니다)</h3>
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">🔑</span><div class="callout-body">
+<p><strong>인증키 보안</strong> — 발급받은 키는 <strong>본인만</strong> 씁니다.</p>
+<ul>
+<li>메모장·단톡방·문서에 적지 않습니다. 발급 화면에서 복사해 설치 화면에 바로 붙여넣으세요</li>
+<li>다시 볼 일이 있으면 법제처 사이트 &rarr; API인증키관리에서 언제든 확인됩니다</li>
+<li>화면 공유·녹화 중에는 입력하지 않습니다</li>
+</ul>
+</div></section>
 
-<p>이 도구가 어떻게 생겼는지 확인합니다. <strong>고칠 필요 없습니다.</strong></p>
+<h3 id="4-2-설치">4-2. 플러그인으로 설치하기</h3>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>server.py 를 열어서, 코드를 모르는 사람도 이해할 수 있게
-"함수 하나가 어떻게 도구가 되는지" 설명해줘. 세 가지만 짚어줘.</pre></div>
+<p>Claude Code 입력창에서 두 줄이면 됩니다. <strong>3차시까지 해 온 플러그인 설치와 같은 방식</strong>입니다 — 설치 범위는 여기서도 <strong>User</strong> 를 고릅니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ①</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin marketplace add chrisryugj/korean-law-mcp</pre></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ② — 설치 범위는 User</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin install korean-law@korean-law-marketplace</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 설치 중 <strong>법제처 API 키를 입력하라는 프롬프트</strong>가 뜹니다. 4-1에서 복사한 값을 붙여넣으면 민감정보로 안전하게 저장됩니다. 설치 후 <code>Run /reload-plugins to activate.</code> 가 나오면 그 명령을 한 번 실행하세요.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>설치가 막히면</strong> 이 실습은 <strong>건너뛰어도 됩니다.</strong> 4-4절의 관찰 포인트만 읽어도 이 차시의 핵심은 전달됩니다. 사내망에서 <code>github.com</code> 이 막히면 마켓플레이스 추가가 실패합니다.</p></div></section>
+
+<h3 id="4-3-사용">4-3. 같은 질문을 다시 — 이번엔 원문으로</h3>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>근로기준법 제70조 원문을 법제처에서 찾아서 그대로 보여줘.
+그리고 임산부·연소자 야간근로 제한이 몇 항에 있는지 알려줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 도구 호출 표시가 뜨고 <strong>법제처 원문</strong>이 그대로 나옵니다. 1-2절의 답과 비교해 보세요 — <strong>조문 번호나 내용이 달랐다면 그것이 환각이었습니다.</strong></p></div></section>
+
+<h3 id="4-4-인용-검증">4-4. 진짜 쓸모 — 인용 검증</h3>
+
+<p>이 도구의 값어치는 조회보다 <strong>검증</strong>에 있습니다. AI가 쓴 문서에 <strong>존재하지 않는 조문</strong>이 섞여 있을 때 하나씩 대조해 잡아냅니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>아래 문단에 인용된 법 조문이 실제로 존재하는지, 내용이 맞는지
+법제처 원문과 하나씩 대조해서 표로 알려줘. 틀린 것은 무엇이 틀렸는지 적어줘.
+
+"근로기준법 제53조에 따라 연장근로는 주 12시간을 초과할 수 없으며,
+같은 법 제9999조는 위반 시 3년 이하의 징역을 규정한다.
+또한 민법 제750조는 불법행위 손해배상 책임을 정하고 있다."</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>제9999조</code> 는 <strong>존재하지 않는 조문</strong>으로 잡힙니다. 나머지 두 개는 원문과 대조해 맞고 틀림이 표시됩니다.</p></div></section>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
+<p><strong>여기서 배울 것</strong> — 4차시의 <strong>검증자 분리</strong>가 도구로 구현된 모습입니다. 사람이 하던 &quot;하나씩 대조&quot; 를 도구가 합니다. 잘 쓰는 것과 <strong>틀린 것을 잡는 것</strong>은 다른 일이고, 후자는 기억이 아니라 <strong>원본 대조</strong>로만 됩니다.</p>
+</div></section>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">⚖️</span><div class="callout-body"><p><strong>주의</strong> — 이 도구도 조회 결과를 요약·가공합니다. <strong>법적 효력이 필요한 판단에는 반드시 국가법령정보센터 원문을 직접 확인하세요.</strong> 도구는 환각을 줄이지 최종 책임을 대신하지 않습니다.</p></div></section>
+
+<hr>
+
+<h2 id="실습-c">5. 실습 C — 도구 직접 만들기</h2>
+
+<p>마지막입니다. <strong>없는 도구는 만들면 됩니다.</strong> 코드는 AI가 씁니다 — 우리는 <strong>무엇을 만들지</strong> 정합니다.</p>
+
+<h3 id="5-1-구조-보기">5-1. 먼저 구조만 봅니다</h3>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 (tool/mcp-server 폴더에서)</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>server.py 를 열어서, 코드를 모르는 사람도 이해할 수 있게
+"함수 하나가 어떻게 도구가 되는지" 세 가지만 짚어줘.</pre></div>
 
 <div class="code-card is-out"><div class="code-bar"><span class="code-label">핵심은 이게 전부입니다</span></div><pre>@mcp.tool()                                  ← 이 한 줄이 "이건 도구다" 표시
 def compute_oee(line: str, date: str) -> dict:
@@ -202,119 +221,72 @@ def compute_oee(line: str, date: str) -> dict:
     return { "oee_pct": "69.8%", ... }        ← 돌려준 값이 그대로 모델에게 전달</pre></div>
 
 <div class="table-wrap"><table>
-<thead><tr><th>세 가지만 기억</th><th>뜻</th></tr></thead>
+<thead><tr><th style="width:130px">세 가지</th><th>뜻</th></tr></thead>
 <tbody>
-<tr><td>표시 한 줄</td><td><code>@mcp.tool()</code> 을 붙인 <strong>함수 하나가 곧 도구 하나</strong></td></tr>
-<tr><td>설명문</td><td>모델은 이 문장을 읽고 <strong>언제 이 도구를 부를지</strong> 판단합니다. 2차시의 &quot;좋은 설명서&quot; 원리와 같습니다</td></tr>
-<tr><td>입력·출력</td><td>필요한 값(라인·날짜)과 돌려줄 값이 정해져 있습니다 — 5차시의 <strong>계약</strong>과 같은 개념</td></tr>
+<tr><td>표시 한 줄</td><td><code>@mcp.tool()</code> 을 붙인 <strong>함수 하나 = 도구 하나</strong></td></tr>
+<tr><td>설명문</td><td>모델은 이 문장을 읽고 <strong>언제 부를지</strong> 판단합니다 — 2차시의 &quot;좋은 설명서&quot; 원리와 같습니다</td></tr>
+<tr><td>입력·출력</td><td>필요한 값과 돌려줄 값이 정해져 있습니다 — 이것이 <strong>계약</strong>입니다</td></tr>
+</tbody></table></div>
+
+<h3 id="5-2-추가하기">5-2. 도구 하나 추가하기</h3>
+
+<p>지금 도구 3개로는 답할 수 없는 질문이 있습니다 — <strong>&quot;이번 주 B라인 OEE가 오르는 추세인가?&quot;</strong> 날짜별 추이를 돌려주는 도구를 추가합니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>server.py 에 weekly_trend 도구를 추가해줘.
+
+- 입력: line (라인 이름)
+- 하는 일: 그 라인의 날짜별 OEE를 계산해서 시간순으로 돌려준다
+- 출력: 날짜별 OEE 목록 + 첫날 대비 마지막날 증감 + 추세(상승/하락/보합)
+- 값만 주지 말고 어느 축(가동률·성능·품질)이 추세를 이끌었는지도 함께
+
+기존 도구 3개는 건드리지 말고, 설명문(docstring)은 모델이 언제 부를지
+판단할 수 있게 구체적으로 써줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>server.py</code> 에 함수가 하나 늘어납니다. 승인을 물으면 내용을 보고 승인하세요. <strong>코드를 이해하지 못해도 됩니다</strong> — 다음 단계에서 실제로 도는지로 확인합니다.</p></div></section>
+
+<h3 id="5-3-재시작-확인">5-3. 다시 읽히고 호출하기</h3>
+
+<p>서버 파일이 바뀌었으니 <strong>Claude Code를 껐다 켜야</strong> 새 도구가 보입니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/exit</pre></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널에서 다시 실행</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>claude</pre></div></div></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>B라인 OEE가 오르는 추세인지 떨어지는 추세인지 알려줘. 원인 축도 함께.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <strong>도구 이름을 말하지 않았는데</strong> AI가 <code>weekly_trend</code> 를 알아서 호출합니다. 설명문을 읽고 &quot;이 질문에 쓸 도구&quot; 라고 판단한 것입니다 — 설명문이 곧 트리거입니다.</p></div></section>
+
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>도구가 안 보이면</strong>: <code>/mcp</code> 로 연결 상태를 확인하세요. <code>failed</code> 면 새 코드에 오류가 있는 것입니다. &quot;방금 추가한 코드에 오류가 있는지 확인하고 고쳐줘&quot; 라고 그대로 시키면 됩니다.</p></div></section>
+
+<hr>
+
+<h2 id="정리">6. 정리 — 언제 도구로 만드나</h2>
+
+<div class="table-wrap"><table>
+<thead><tr><th style="width:180px">이런 일</th><th>Skill / Tool</th><th>왜</th></tr></thead>
+<tbody>
+<tr><td>정해진 공식으로 계산</td><td><strong>Tool</strong></td><td>늘 같은 답이 나와야 함</td></tr>
+<tr><td>법령·규정 원문 인용</td><td><strong>Tool</strong></td><td>기억이 아니라 원본에서 가져와야 함</td></tr>
+<tr><td>사내 시스템 조회</td><td><strong>Tool</strong></td><td>실제 데이터가 필요함</td></tr>
+<tr><td>보고서 톤 다듬기</td><td>Skill</td><td>맥락에 따라 달라지는 판단</td></tr>
+<tr><td>무엇을 먼저 보고할지</td><td>Skill</td><td>사람의 우선순위가 들어감</td></tr>
 </tbody></table></div>
 
 <blockquote>
-  <p><strong>Tool은 특별한 기술이 아닙니다.</strong> 팀이 평소 엑셀·매크로로 하던 계산을 함수로 옮기고 표시 한 줄을 붙이면, 그 순간 모든 AI가 쓸 수 있는 사내 도구가 됩니다.</p>
+  <p><strong>Tool은 특별한 기술이 아닙니다.</strong> 팀이 엑셀·매크로로 하던 계산, 매번 사이트에서 찾아보던 조회 — 그것을 함수로 옮기고 표시 한 줄을 붙이면 사내 도구가 됩니다. 그리고 <strong>그 코드는 AI가 씁니다.</strong> 실무자가 할 일은 <strong>무엇이 틀리면 안 되는지</strong> 아는 것입니다.</p>
 </blockquote>
 
-<h3 id="4-3-codex">4-3. (선택) 같은 도구를 Codex에도</h3>
-
-<p><a href="../install/codex.html">Codex</a> 를 설치했다면 <strong>코드를 한 줄도 바꾸지 않고</strong> 같은 도구를 붙일 수 있습니다. 방법은 <a href="../install/mcp-server.html#5-2-codex에도-붙이기">설치가이드 5-2절</a>에 있습니다.</p>
-
-<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>관찰 포인트</strong>: 2차시의 스킬(문서)은 도구마다 <strong>복사</strong>해야 했지만, Tool은 <strong>하나의 서버를 양쪽이 각자 등록</strong>해 공유합니다. 계산 로직의 원본이 한 곳뿐이라 고칠 때도 한 번만 고칩니다.</p></div></section>
-
 <hr>
 
-<h2 id="실습지">5. 사례 — 광고 AE의 Tool 후보</h2>
-
-<div class="case">
-  <div class="case-head">
-    <span class="tag-case">사례</span>
-    <strong>정하늘 대리의 Tool 후보</strong>
-    <span>6차시 결과물</span>
-  </div>
-
-  <p class="muted">이 사례의 계산 대상은 <a href="https://github.com/namojo/harness-edu/blob/main/ad/README.md" target="_blank" rel="noopener">ad/</a> 의 252행입니다. VAT 처리·전환 판정이 섞인 데이터를 이 규모로 암산시키면 어디선가 틀립니다 — 그래서 도구가 필요합니다.</p>
-
-  <p class="case-step"><em>①</em> Skill과 Tool 구분 — 광고 업무로 연습</p>
-
-  <div class="table-wrap"><table>
-    <thead><tr><th>하는 일</th><th style="width:90px">구분</th><th>왜</th></tr></thead>
-    <tbody>
-      <tr><td>ROAS = 전환매출 ÷ VAT별도 집행액 계산</td><td><strong>Tool</strong></td><td>정의가 고정. 늘 같은 값이 나와야 함</td></tr>
-      <tr><td>이번 주 리포트를 광고주 톤으로 다듬기</td><td>Skill</td><td>상대와 맥락에 따라 달라지는 판단</td></tr>
-      <tr><td>매체별 예산 소진율과 잔여일 대비 페이스 계산</td><td><strong>Tool</strong></td><td>날짜 계산 + 나눗셈. 사람이 하면 실수함</td></tr>
-      <tr><td>어떤 소재를 먼저 교체할지 결정</td><td>Skill</td><td>브랜드 톤·시즌·광고주 취향이 섞인 판단</td></tr>
-      <tr><td>메타 &quot;결과&quot; 컬럼이 전환인지 판별</td><td>Skill</td><td>캠페인 목적을 읽고 해석해야 함 <span class="muted">(2차시 용어집이 담당)</span></td></tr>
-    </tbody>
-  </table></div>
-
-  <div class="why">
-    <b>2차시 용어집에서 하나가 승격됐습니다</b>
-    <p>2차시에 정하늘 대리는 <strong>&quot;ROAS는 매체 값을 쓰지 말고 재계산한다&quot;</strong> 를 용어집(Skill)에 적었습니다. 그런데 이건 <strong>설명서에 적을 게 아니라 코드가 할 일</strong>이었습니다.</p>
-    <p>실제로 용어집만 있던 3주 동안, AI가 VAT 환산을 <strong>한 번 빠뜨렸습니다.</strong> 설명서를 읽고 암산했기 때문입니다.</p>
-  </div>
-
-  <p class="case-step"><em>②</em> Tool 후보 3개</p>
-
-  <div class="table-wrap"><table>
-    <thead><tr><th style="width:34px">#</th><th>계산 이름</th><th>입력</th><th>출력</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td><strong>성과 지표 재계산</strong></td><td>매체, 집행액(VAT 포함/별도 구분), 전환수, 전환매출</td><td>CPA, ROAS, CTR, CVR <span class="muted">— 전부 VAT 별도 기준</span></td></tr>
-      <tr><td>2</td><td><strong>예산 소진 페이스</strong></td><td>월 예산, 현재까지 집행액, 오늘 날짜, 캠페인 종료일</td><td>소진율(%), 일 평균 집행액, <strong>남은 일수 대비 초과/미달 금액</strong></td></tr>
-      <tr><td>3</td><td><strong>CPA 변동 원인 분해</strong></td><td>이번 주·지난 주의 노출·클릭·전환·집행액</td><td>CPA 증감률 + <strong>원인이 CTR 하락인지 CVR 하락인지 단가 상승인지</strong></td></tr>
-    </tbody>
-  </table></div>
-
-  <p class="case-step"><em>③</em> 한 걸음 더 — 값 말고 진단까지</p>
-
-  <p>3번 도구가 그 예입니다. CPA가 올랐다는 숫자만으로는 아무것도 못 합니다. <strong>왜 올랐는지</strong>가 있어야 다음 행동이 나옵니다.</p>
-
-  <div class="code-card is-out"><div class="code-bar"><span class="code-label">3번 도구가 돌려주는 형태 (설계안)</span></div><pre>{ "cpa_prev": 12400, "cpa_now": 15800, "change_pct": "+27.4%",
-  "driver": "CTR 하락",
-  "detail": "노출 +8% / 클릭 -19% / 전환율은 유지 → 소재 피로도 의심",
-  "suggested_action": "상위 3개 소재 교체 검토" }</pre></div>
-
-  <div class="why">
-    <b>이 한 줄이 리포트를 바꿉니다</b>
-    <p>예전 리포트: &quot;CPA가 27% 상승했습니다. 모니터링하겠습니다.&quot;<br>
-    지금 리포트: &quot;CPA 27% 상승, <strong>원인은 CTR 하락(소재 피로도)</strong>. 상위 3개 소재 교체를 제안합니다.&quot;</p>
-    <p>5차시에서 &quot;다음 행동&quot;을 필수 항목으로 만들었는데, <strong>이 도구가 있어야 그 칸을 제대로 채울 수 있습니다.</strong></p>
-  </div>
-
-  <p class="case-step"><em>④</em> 지금 방식 vs 도구가 됐을 때</p>
-
-  <div class="table-wrap"><table>
-    <tbody>
-      <tr><th style="width:190px">지금 방식</th><td>엑셀에 매체별 시트를 만들어 두고 수식으로 계산. 매체가 추가되면 시트를 복사해 수식 참조를 손으로 고침</td></tr>
-      <tr><th>걸리는 시간 (1회)</th><td>약 25분 <span class="muted">(VAT 구분·수식 확인 포함)</span></td></tr>
-      <tr><th>틀렸던 적이 있는가</th><td><strong>있음.</strong> 후배가 카카오 VAT 처리를 놓쳐 그 매체 ROAS가 163% 대신 148% 로 보고됨. 광고주 미팅에서 정정</td></tr>
-      <tr><th>도구가 되면 달라지는 점</th><td>매체가 늘어도 입력만 추가. <strong>VAT 처리를 사람이 기억할 필요가 없음.</strong> 몇 번을 돌려도 같은 값</td></tr>
-      <tr><th>만들어 줄 사람</th><td>사내 데이터팀 <span class="muted">(요청 시 이 표를 그대로 전달)</span></td></tr>
-    </tbody>
-  </table></div>
-
-  <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body"><p>이 표가 <strong>사내 도구 요청서</strong>입니다. &quot;뭔가 자동화해 주세요&quot; 보다 <strong>입력·출력·현재 방식·틀렸던 사례</strong>가 적힌 요청이 훨씬 빨리 만들어집니다. 실제로 정하늘 대리는 이 표로 데이터팀에 1번 도구를 요청했고, 반나절 만에 받았습니다.</p></div></section>
-</div>
-
-<h3 id="5-1-내-업무에-대입">5-1. 내 업무에 대입해 보기</h3>
-
-<p>가장 빠른 방법은 <strong>엑셀 수식 칸을 열어 보는 것</strong>입니다. 거기 있는 계산이 전부 Tool 후보입니다.</p>
-
-<div class="table-wrap"><table>
-<thead><tr><th style="width:250px">질문</th><th>정하늘 대리의 답</th></tr></thead>
-<tbody>
-<tr><td>매번 <strong>계산기를 두드리는</strong> 일이 있나?</td><td>매체별 ROAS·CPA 재계산</td></tr>
-<tr><td>그 계산을 <strong>틀린 적</strong>이 있나?</td><td>있음 — VAT 처리 누락</td></tr>
-<tr><td>값 말고 <strong>진단</strong>까지 주면 좋겠는 건?</td><td>CPA가 왜 올랐는지 (CTR인지 CVR인지)</td></tr>
-</tbody></table></div>
-
-<hr>
-
-<h2 id="스스로-점검">6. 스스로 점검</h2>
+<h2 id="스스로-점검">7. 스스로 점검</h2>
 
 <ul class="checklist">
-<li>암산 답과 도구 답의 차이를 직접 봤다</li>
+<li>계산 환각과 사실 환각을 각각 직접 봤다</li>
+<li>왜 사실 환각이 더 위험한지 설명할 수 있다</li>
 <li><code>/mcp</code> 에서 도구가 connected 인 것을 확인했다</li>
-<li>Skill과 Tool을 &quot;늘 같은 답이 나와야 하는가&quot; 로 구분할 수 있다</li>
-<li>도구가 <strong>값 + 진단</strong>을 함께 주면 좋은 이유를 안다</li>
-<li>내 업무의 Tool 후보 3개를 입력·출력까지 적었다</li>
+<li>(선택) 법령 도구로 <strong>존재하지 않는 조문</strong>을 잡아냈다</li>
+<li>도구를 하나 <strong>추가</strong>하고 이름을 말하지 않아도 호출되는 것을 봤다</li>
+<li>내 업무에서 Tool로 만들 것을 하나 이상 떠올렸다</li>
 </ul>
 
 <h3 id="흔한-실패">흔한 실패와 대처</h3>
@@ -322,30 +294,19 @@ def compute_oee(line: str, date: str) -> dict:
 <div class="table-wrap"><table>
 <thead><tr><th>증상</th><th>왜 생기나</th><th>대처</th></tr></thead>
 <tbody>
-<tr><td><code>/mcp</code> 에 안 보임</td><td>재시작 안 함 <strong>또는</strong> local 스코프로 등록</td><td><code>/exit</code> 후 다시 <code>claude</code>. 그래도 없으면 <code>--scope user</code> 로 재등록</td></tr>
-<tr><td><code>spawn python ENOENT</code></td><td>파이썬 경로를 못 찾음</td><td><a href="../install/mcp-server.html#문제-2">설치가이드 문제 해결 ②</a> — 전체 경로로 재등록</td></tr>
-<tr><td><code>ModuleNotFoundError: mcp</code></td><td>패키지를 설치한 파이썬과 실행한 파이썬이 다름</td><td><a href="../install/mcp-server.html#문제-1">설치가이드 문제 해결 ①</a> — 가상환경 파이썬을 지정</td></tr>
-<tr><td><code>No module named 'mcp.server.fastmcp'</code></td><td>MCP 패키지 <strong>2.x</strong> 가 설치됨 (2.0에서 경로가 바뀜)</td><td>1.x 로 재설치 → <a href="../install/mcp-server.html#문제-1">설치가이드 문제 해결 ①</a></td></tr>
-<tr><td>도구를 안 부르고 암산함</td><td>도구를 쓰라는 지시가 약함</td><td>&quot;<code>compute_oee</code> 도구를 사용해서&quot; 명시</td></tr>
-<tr><td>Tool 후보가 안 떠오름</td><td>계산을 일이라고 생각 안 함</td><td>엑셀 <strong>수식 칸</strong>을 열어 보세요. 거기 있는 것이 전부 후보입니다</td></tr>
-<tr><td>&quot;개발자가 없는데요&quot;</td><td>직접 만들어야 한다고 생각</td><td>후보 정의까지가 실무자의 몫입니다. 4단계 표를 들고 요청하면 됩니다</td></tr>
+<tr><td><code>/mcp</code> 에 안 보임</td><td>재시작 안 함 또는 local 스코프</td><td><code>/exit</code> 후 재실행. 그래도 없으면 <code>--scope user</code> 로 재등록</td></tr>
+<tr><td><code>No module named 'mcp.server.fastmcp'</code></td><td>MCP 패키지 2.x 설치됨</td><td><a href="../install/mcp-server.html#문제-1">설치가이드 문제 해결 ①</a></td></tr>
+<tr><td>법령 플러그인 설치 실패</td><td>사내망이 github.com 차단</td><td>건너뛰어도 됩니다. 4-4절 관찰 포인트만 읽으세요</td></tr>
+<tr><td>인증키 입력 프롬프트가 안 뜸</td><td>플러그인 버전 차이</td><td><a href="https://namojo.github.io/law-edu/install/korean-law-mcp.html" target="_blank" rel="noopener">law-edu 설치가이드</a>의 다른 연결 방법 참고</td></tr>
+<tr><td>새로 만든 도구가 안 보임</td><td>Claude Code 재시작 안 함</td><td>5-3절대로 <code>/exit</code> 후 다시 실행</td></tr>
+<tr><td>&quot;개발자가 없는데요&quot;</td><td>직접 만들어야 한다고 생각</td><td>코드는 AI가 씁니다. 정의(입력·출력·규칙)만 정하면 됩니다</td></tr>
 </tbody></table></div>
-
-<hr>
-
-<h2 id="더-해보기">7. 더 해보기 (선택)</h2>
-
-<ul>
-<li><strong>도구 추가해 보기</strong> — 날짜별 추이를 돌려주는 도구를 하나 더 붙여 달라고 요청해 보세요. 함수 하나를 추가하는 일입니다.</li>
-<li><strong>이미 있는 도구 찾기</strong> — 세상에는 공개된 MCP 서버가 많습니다. <strong>&quot;만들기 전에 이미 있는지 찾는다&quot;</strong> 도 중요한 감각입니다.</li>
-<li><strong>원본 교안</strong> — <a href="https://github.com/namojo/harness-edu/blob/main/tool/README.md" target="_blank" rel="noopener">tool/README.md</a> 에 심화 과제(원격 서버, 다른 도메인 확장)가 있습니다.</li>
-</ul>
 
 <hr>
 
 <h2 id="다음-차시">8. 다음 차시</h2>
 
-<p>조각이 다 모였습니다 — 용어집(2차시) · 팀(4차시) · 계약(5차시) · 도구(6차시). 마지막 차시에서 이것을 <strong>한 벌로 조립</strong>하고, 남이 돌려도 되는지 <strong>교차 검증</strong>한 뒤, 30일 운영 계획을 세웁니다.</p>
+<p>조각이 다 모였습니다 — 규칙(2차시) · 팀(4차시) · 스펙(5차시) · 도구(6차시). 마지막 차시에서 이것을 <strong>내 업무 하나</strong>에 맞춰 한 벌로 조립하고, 남이 돌려도 되는지 검증합니다.</p>
 
 <div class="lesson-nav">
   <a class="next-card" href="ch7.html"><span class="k">7차시</span><strong>내 업무에 이식하기</strong><span>조립 → 검증 → 운영. 하네스 한 벌을 완성합니다.</span></a>
@@ -355,8 +316,8 @@ def compute_oee(line: str, date: str) -> dict:
     </article>
 
 <nav class="pager" aria-label="페이지 이동">
-  <a class="pager-prev" href="ch5.html"><span class="dir">← 이전</span><strong>5차시 · 반복을 시스템으로</strong></a>
-  <a class="pager-next" href="ch7.html"><span class="dir">다음 →</span><strong>7차시 · 내 업무에 이식하기</strong></a>
+  <a class="pager-prev" href="ch5.html"><span class="dir">← 이전</span><strong>5차시 · 지저분한 데이터에 하네스</strong></a>
+  <a class="pager-next" href="ch7.html"><span class="dir">다음 →</span><strong>7차시 · 일상 업무 하네스 만들기</strong></a>
 </nav>
   </main>
 
@@ -370,9 +331,9 @@ def compute_oee(line: str, date: str) -> dict:
         <a class="map-link" href="ch2.html"><b>2</b>지식을 파일로</a>
         <a class="map-link" href="ch3.html"><b>3</b>일의 단계 판단</a>
         <a class="map-link" href="ch4.html"><b>4</b>전문가 팀 만들기</a>
-        <a class="map-link" href="ch5.html"><b>5</b>반복을 시스템으로</a>
-        <a class="map-link on" href="ch6.html"><b>6</b>계산은 도구에게</a>
-        <a class="map-link" href="ch7.html"><b>7</b>내 업무에 이식하기</a>
+        <a class="map-link" href="ch5.html"><b>5</b>지저분한 데이터에 하네스</a>
+        <a class="map-link on" href="ch6.html"><b>6</b>환각을 막는 도구</a>
+        <a class="map-link" href="ch7.html"><b>7</b>일상 업무 하네스 만들기</a>
       </div>
       <h4 class="mt">참고</h4>
       <div class="map-group">
@@ -388,14 +349,15 @@ def compute_oee(line: str, date: str) -> dict:
         <li><a href="#준비할-것">준비할 것</a></li>
         <li><a href="#처음-나오는-말">처음 나오는 말</a></li>
         <li><a href="#배우는-것">배우는 것</a></li>
-        <li><a href="#문제-체험">1. 문제 체험</a></li>
+        <li><a href="#문제-체험">1. 두 종류의 환각</a></li>
+        <li class="toc-l3"><a href="#1-2-사실-환각">1-2. 사실 환각</a></li>
         <li><a href="#개념">2. Skill과 Tool</a></li>
-        <li><a href="#붙이기">3. 도구 붙이기</a></li>
-        <li><a href="#비교-실습">4. 실습 · 도구 호출</a></li>
-        <li class="toc-l3"><a href="#4-2-코드-읽기">4-2. 코드 읽어 보기</a></li>
-        <li><a href="#실습지">5. 사례 · Tool 후보</a></li>
-        <li><a href="#스스로-점검">6. 스스로 점검</a></li>
-        <li><a href="#더-해보기">7. 더 해보기</a></li>
+        <li><a href="#실습-a">3. 실습 A · 계산 도구</a></li>
+        <li><a href="#실습-b">4. 실습 B · 법령 도구</a></li>
+        <li class="toc-l3"><a href="#4-4-인용-검증">4-4. 인용 검증</a></li>
+        <li><a href="#실습-c">5. 실습 C · 도구 만들기</a></li>
+        <li><a href="#정리">6. 언제 도구로 만드나</a></li>
+        <li><a href="#스스로-점검">7. 스스로 점검</a></li>
         <li><a href="#다음-차시">8. 다음 차시</a></li>
       </ul>
     </details>

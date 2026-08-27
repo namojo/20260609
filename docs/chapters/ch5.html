@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>5차시. 반복을 시스템으로 — 출력 계약 · harness-edu</title>
-<meta name="description" content="매주 돌릴 때마다 형식이 흔들리는 문제를 출력 계약으로 없앱니다. 코드 없이 반복 업무를 시스템화하는 방법.">
+<title>5차시. 지저분한 데이터에 하네스 붙이기 · harness-edu</title>
+<meta name="description" content="15,144건 공공데이터로 하네스를 처음부터 끝까지. 스펙으로 처리 규칙을 못 박고, 팀으로 실행하고, 원본과 대조해 검증합니다.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,13 +27,13 @@
 </div></header>
 
 <div class="wrap page-head">
-  <div class="eyebrow">5차시 · 교재 + 사례</div>
-  <h1>반복을 시스템으로 — 출력 계약</h1>
-  <p class="sub">매주 돌릴 때마다 표 형식이 조금씩 흔들립니다. 사람이 매번 맞춰 주면 자동화의 의미가 없습니다. <strong>나올 항목을 미리 못 박아</strong> 그 흔들림을 없앱니다.</p>
+  <div class="eyebrow">5차시 · 교재 + 실무 사례</div>
+  <h1>지저분한 데이터에 하네스 붙이기</h1>
+  <p class="sub">실무 데이터는 깨끗하지 않습니다. 인코딩이 다르고, 한 칸에 두 정보가 섞여 있고, 같은 가게 이름이 제각각입니다. <strong>15,144건짜리 공공 데이터</strong>로 하네스를 처음부터 끝까지 돌려 봅니다.</p>
   <div class="meta">
     <span class="badge">5 / 7</span>
     <span>🧑‍💼 실무 사례</span>
-    <span>🏦 금융 · 규제 모니터링</span>
+    <span>🍽️ 공공데이터 · 15,144건</span>
   </div>
 </div>
 
@@ -45,22 +45,22 @@
 
 <div class="prep">
   <div class="prep-item"><b>선행</b><span><a href="ch4.html">4차시 · 전문가 팀 만들기</a> 완료</span></div>
-  <div class="prep-item"><b>실습 파일</b><span><code>codex-engineering/track-b-ops/</code></span></div>
-  <div class="prep-item"><b>선택</b><span><a href="../install/codex.html">Codex CLI</a> — 없으면 Claude Code로 진행</span></div>
-  <div class="prep-item"><b>가져올 것</b><span>4차시에서 만든 <code>my-harness</code> 폴더</span></div>
+  <div class="prep-item"><b>필수 확인</b><span>에이전트 팀 기능이 켜져 있을 것</span></div>
+  <div class="prep-item"><b>실습 파일</b><span><code>map/식당리스트_실습용.csv</code> (15,144건)</span></div>
+  <div class="prep-item"><b>도메인</b><span>광고가 아닌 <strong>공공 데이터</strong> — 도메인이 달라도 방법은 같습니다</span></div>
 </div>
 
-<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>코드를 쓰지 않습니다.</strong> 이 차시에서 만드는 &quot;계약&quot;은 <strong>항목 목록</strong>일 뿐입니다. 엑셀 표의 열 이름을 정하는 것과 같은 일이라고 생각하세요.</p></div></section>
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p>이 차시는 정하늘 대리의 광고 업무가 아니라 <strong>완전히 다른 도메인</strong>을 다룹니다. 일부러 그렇게 했습니다 — <strong>하네스 만드는 방법은 도메인을 가리지 않는다</strong>는 것을 확인하는 것이 목적입니다. 7차시에서 다시 자기 업무로 돌아옵니다.</p></div></section>
 
 <hr>
 
 <h2 id="처음-나오는-말">이 차시에서 처음 나오는 말</h2>
 
 <div class="terms"><dl>
-  <dt>출력 계약</dt><dd>결과물에 <strong>어떤 항목이, 어떤 값으로 나와야 하는지</strong> 미리 정해 둔 약속. 지키지 못하면 AI가 다시 시도합니다.</dd>
-  <dt>스키마</dt><dd>그 계약을 적어 둔 <strong>파일</strong>. 항목 이름·허용 값·필수 여부가 들어갑니다.</dd>
-  <dt>대화형 / 자동 실행</dt><dd>사람이 보면서 승인하며 진행하는 방식 vs 사람 없이 한 번에 끝까지 도는 방식.</dd>
-  <dt>샌드박스</dt><dd>AI가 <strong>어디까지 건드릴 수 있는지</strong> 정한 울타리. 읽기만 / 이 폴더만 쓰기 / 전체.</dd>
+  <dt>인코딩</dt><dd>글자를 컴퓨터에 저장하는 방식. <strong>방식이 다르면 한글이 깨집니다.</strong> 이 데이터는 요즘 표준(UTF-8)이 아닌 옛 방식(CP949)입니다.</dd>
+  <dt>정제 (클렌징)</dt><dd>지저분한 원본을 <strong>계산할 수 있는 형태로 다듬는 일</strong>. 실무 데이터 작업의 8할입니다.</dd>
+  <dt>스펙 (명세)</dt><dd>&quot;무엇을 만들 것인가&quot;를 <strong>해석의 여지 없이</strong> 적은 문서. 모호함 하나가 곧 AI의 임의 결정 하나입니다.</dd>
+  <dt>교차 검증</dt><dd>결과물 하나만 보는 게 아니라 <strong>원본과 결과를 나란히 놓고 대조</strong>하는 것. &quot;파일이 있네요&quot;는 검증이 아닙니다.</dd>
 </dl></div>
 
 <hr>
@@ -68,316 +68,191 @@
 <h2 id="배우는-것">이 차시에서 배우는 것</h2>
 
 <ul class="goals">
-  <li>반복 실행에서 <strong>형식이 흔들리는 문제</strong>를 직접 겪는다</li>
-  <li>항목·허용 값을 미리 정하는 <strong>출력 계약</strong>으로 그 흔들림을 없앤다</li>
-  <li>자동 실행 전에 <strong>권한을 어디까지 줄지</strong> 정하는 기준을 갖는다</li>
+  <li>실무 데이터가 <strong>왜 그냥 안 되는지</strong> 직접 확인한다</li>
+  <li>처리 규칙을 <strong>스펙 문서</strong>로 못 박고, 그 스펙으로 팀을 만든다</li>
+  <li>결과를 <strong>원본과 대조</strong>해 검증한다 — 하네스의 마지막 조각</li>
 </ul>
 
 <hr>
 
-<h2 id="문제">1. 문제 — 매주 조금씩 달라집니다</h2>
+<h2 id="문제">1. 문제 — 실무 데이터는 깨끗하지 않다</h2>
 
-<p>금융회사 준법·리스크팀의 월요일 루틴입니다.</p>
-
-<ol>
-<li>금융위·금감원·주요 매체에서 지난 주 규제·공시 뉴스를 훑는다</li>
-<li>우리 조직에 영향 있는 것만 골라 분류한다</li>
-<li>정해진 표 양식으로 리포트를 만들어 팀에 공유한다</li>
-</ol>
-
-<p>여기서 매주 생기는 문제 세 가지입니다.</p>
+<p>소재는 <strong>서울시청 인근 업무추진비 집행 내역</strong>입니다. &quot;공무원이 법인카드로 반복 방문한 식당 = 검증된 맛집&quot;이라는 가설로 분석할 수 있는 데이터입니다.</p>
 
 <div class="table-wrap"><table>
-<thead><tr><th>문제</th><th>구체적으로</th></tr></thead>
 <tbody>
-<tr><td>범위가 다르다</td><td>담당자마다 훑는 곳이 다름</td></tr>
-<tr><td>형식이 흔들린다</td><td>분류가 &quot;자본규제&quot;였다 &quot;자본 규제&quot;였다, 영향도가 &quot;높음&quot;이었다 &quot;상&quot;이었다</td></tr>
-<tr><td>바쁘면 건너뛴다</td><td>주간 리포트가 격주가 되고, 어느새 안 함</td></tr>
+<tr><th style="width:150px">집행 기록</th><td><strong>15,144건</strong> (2026년)</td></tr>
+<tr><th>총 집행액</th><td>약 <strong>20.3억 원</strong> (건당 평균 13.4만 원)</td></tr>
+<tr><th>컬럼</th><td>해당년도 · 해당월 · 집행일시 · 집행장소 · 집행금액 · 정리식당명 · 주소</td></tr>
+</tbody></table></div>
+
+<h3 id="1-1-그냥-시켜-보기">1-1. 먼저 그냥 시켜 봅니다</h3>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd C:\harness-edu\map; claude</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/harness-edu/map &amp;&amp; claude</pre></div></div></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>식당리스트_실습용.csv 를 열어서 어떤 데이터인지 알려주고,
+방문 횟수 상위 10개 식당을 표로 뽑아줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
+<p><strong>예상 결과</strong>: 한 번에 안 됩니다. AI가 이런 것들을 만나 <strong>스스로 고쳐 가며</strong> 진행합니다.</p>
+<div class="code-card is-out"><div class="code-bar"><span class="code-label">이런 과정이 보입니다</span></div><pre>UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc7 ...
+→ 인코딩을 cp949 로 바꿔 재시도
+→ 컬럼이 하나로 붙어 나옴 → 구분자가 쉼표가 아니라 탭이었음
+→ 다시 파싱 → 겨우 상위 10개 추출</pre></div>
+<p>결국 답은 나옵니다. <strong>문제는 이 과정이 매번 다르다는 것</strong>입니다. 다음에 돌리면 AI가 또 처음부터 헤매고, 다른 판단을 내립니다.</p>
+</div></section>
+
+<h3 id="1-2-네-가지-함정">1-2. 이 데이터에 숨은 함정 네 가지</h3>
+
+<div class="table-wrap"><table>
+<thead><tr><th style="width:150px">함정</th><th>내용</th><th>그냥 두면</th></tr></thead>
+<tbody>
+<tr><td><strong>인코딩·구분자</strong></td><td>UTF-8이 아닌 <strong>CP949</strong>, 쉼표가 아닌 <strong>탭</strong></td><td>한글이 깨지거나 컬럼이 안 나뉨</td></tr>
+<tr><td><strong>혼합 필드</strong></td><td><code>집행장소</code> 한 칸에 상호와 주소가 같이 — <code>명동칼국수(서울시 중구 세종대로 21길 48)</code></td><td>식당명 집계가 어긋남</td></tr>
+<tr><td><strong>명칭 불일치</strong></td><td>법인명(<code>주식회사 보원에프앤비</code>) vs 간판명, 지점 표기 편차(<code>창고43시청점</code> / <code>창고43 무교점</code>)</td><td>같은 가게가 여러 개로 세어짐</td></tr>
+<tr><td><strong>좌표 없음</strong></td><td>주소만 있고 위경도가 없음</td><td>지도에 못 올림 (이번 차시 범위 밖)</td></tr>
 </tbody></table></div>
 
 <blockquote>
-  <p><strong>범위 · 형식 · 실행</strong> 을 파일로 고정하면 이 셋이 모두 사라집니다. 이 차시는 그중 <strong>형식</strong>을 다룹니다.</p>
+  <p>이 네 가지는 <strong>이 데이터에만 있는 특수 사정이 아닙니다.</strong> 사내 시스템에서 내려받은 엑셀, 팀마다 다르게 쓴 양식, 오래된 CSV — 실무 데이터는 대개 이렇습니다. 2차시의 &quot;분임조 은어&quot;와 같은 문제가 형태만 바꿔 나타난 것입니다.</p>
 </blockquote>
 
 <hr>
 
-<h2 id="체험">2. 체험 — 흔들림을 직접 만들어 봅니다</h2>
+<h2 id="개념">2. 개념 — 스펙이 계약이다</h2>
 
-<p>실습 폴더에서 시작합니다.</p>
-
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd C:\harness-edu\codex-engineering\track-b-ops; claude</pre></div></div></div>
-
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/harness-edu/codex-engineering/track-b-ops &amp;&amp; claude</pre></div></div></div>
-
-<p><strong>1회차</strong> — 조사시키고 표로 정리하게 합니다.</p>
-
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>너는 은행 준법·리스크팀 애널리스트야.
-최근 1주간 한국 금융 규제·공시 동향을 조사해줘.
-자본규제 · 소비자보호 · AML/제재 · 공시 4개 영역을 훑고,
-각 항목에 출처 기관명과 발표일을 붙여줘.
-확인 안 된 내용은 지어내지 말고 [확인 필요] 로 표시해줘.
-
-그다음 표로 정리해줘. 컬럼은 제목 / 출처 / 발표일 / 분류 / 영향도 / 다음 행동.</pre></div>
-
-<p><strong>2회차는 돌리지 않아도 됩니다.</strong> 같은 요청을 반복하면 어떻게 되는지는 <a href="ch1.html#먼저-해보기">1차시</a>·<a href="ch2.html#실습-a">2차시</a>에서 이미 보셨습니다. 실제로는 이렇게 흔들립니다.</p>
-
-<div class="table-wrap"><table>
-<thead><tr><th style="width:120px">항목</th><th>1회차</th><th>2회차</th></tr></thead>
-<tbody>
-<tr><td>분류 이름</td><td><code>자본규제</code></td><td><code>건전성 규제</code></td></tr>
-<tr><td>영향도 값</td><td><code>높음 / 중간 / 낮음</code></td><td><code>상 / 중 / 하</code></td></tr>
-<tr><td>다음 행동</td><td>&quot;내부 지침 3조 개정안 초안 검토&quot;</td><td>&quot;모니터링 필요&quot;</td></tr>
-<tr><td>열 개수</td><td>6개</td><td>5개 <span class="muted">(다음 행동 누락)</span></td></tr>
-</tbody></table></div>
-
-<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
-<p><strong>보아야 할 것 세 가지</strong> — ① 분류 이름이 바뀐다 ② 등급 표기가 바뀐다 ③ <strong>필수 칸이 사라진다</strong>. 세 번째가 가장 위험합니다. 표가 그럴듯해서 빠진 줄 모르고 넘어갑니다.</p>
-<p>직접 확인하고 싶다면 <code>/clear</code> 후 같은 요청을 한 번 더 넣어 보세요. <strong>필수는 아닙니다.</strong></p>
-</div></section>
-
-<p><strong>AI가 잘못한 게 아니라, 우리가 형식을 약속하지 않았습니다.</strong> 표 두 개를 나란히 놓고 쓰려면 사람이 손으로 맞춰야 하고, 그러면 자동화가 아닙니다.</p>
-
-<hr>
-
-<h2 id="개념">3. 개념 — 계약이 반복을 가능하게 합니다</h2>
-
-<h3 id="3-1-계약이란">3-1. 출력 계약이란</h3>
-
-<p>&quot;결과에 이런 항목이 이런 값으로 나와야 한다&quot; 를 <strong>미리 못 박은 것</strong>입니다. 자유 서술과의 차이는 이렇습니다.</p>
+<p>4차시에서 팀을 만들 때 <strong>도메인·입력·산출물·품질 기준</strong> 네 줄을 적었습니다. 데이터 작업에서는 그 정도로 부족합니다. <strong>처리 규칙</strong>까지 못 박아야 합니다.</p>
 
 <div class="vs">
   <div class="bad">
-    <h4>자유 서술로 부탁</h4>
-    <p>&quot;표로 정리해줘. 컬럼은 제목/출처/분류/영향도…&quot;</p>
+    <h4>모호한 지시</h4>
+    <p>&quot;식당별로 집계해줘&quot;</p>
     <ul>
-      <li>매번 다르게 해석됩니다</li>
-      <li>값의 종류가 제한되지 않습니다</li>
-      <li>빈칸이 생겨도 그냥 넘어갑니다</li>
+      <li>같은 가게를 하나로 볼 기준이 없음</li>
+      <li>법인명과 간판명 중 무엇을 쓸지 AI가 정함</li>
+      <li>돌릴 때마다 기준이 바뀜</li>
     </ul>
   </div>
   <div class="good">
-    <h4>계약으로 고정</h4>
-    <p>항목·허용 값·필수 여부를 파일로 정의</p>
+    <h4>스펙으로 못 박기</h4>
+    <p>&quot;<code>정리식당명</code> 기준으로 집계. 지점 표기가 달라도 <strong>같은 상호로 시작하면 별도 집계</strong>. 법인명은 <strong>사용하지 않음</strong>&quot;</p>
     <ul>
-      <li>분류는 <strong>정해진 다섯 값 중에서만</strong></li>
-      <li>영향도는 높음/중간/낮음 <strong>세 가지만</strong></li>
-      <li>다음 행동은 <strong>필수</strong> — 비면 다시 시도</li>
-      <li>없는 항목을 <strong>지어내지 못함</strong></li>
+      <li>판단 기준이 문서에 남음</li>
+      <li>결과가 재현됨</li>
+      <li>기준이 바뀌면 <strong>문서만</strong> 고침</li>
     </ul>
   </div>
 </div>
 
-<p>이 실습 폴더에는 그 계약 파일이 이미 들어 있습니다. 열어서 확인합니다.</p>
+<blockquote class="rule">
+  <p><strong>스펙은 사람이 읽는 기획서가 아니라 AI가 실행하는 계약서입니다.</strong><br>
+  <strong>모호함 하나 = AI의 임의 결정 하나.</strong> &quot;깔끔하게&quot;, &quot;적절히&quot;, &quot;보기 좋게&quot; 같은 말이 들어가면 그만큼 결과가 흔들립니다.</p>
+</blockquote>
 
-<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>schema/regwatch.schema.json 을 읽고, 이 계약이 무엇을 강제하는지
-전문 용어 없이 쉬운 말로 설명해줘. 표로 정리해줘.</pre></div>
+<hr>
 
-<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body">
-<p><strong>예상 결과</strong>: 다음과 같은 강제 규칙이 정리됩니다.</p>
-<div class="code-card is-out"><div class="code-bar"><span class="code-label">계약이 강제하는 것</span></div><pre>분류(category)  자본규제 / 소비자보호 / AML제재 / 공시 / 기타 — 다섯 값만
-영향도(impact)  높음 / 중간 / 낮음
-다음 행동       필수. "검토 필요" 같은 빈 동사 대신 실행 가능한 행동
-그 외 항목      스키마에 없는 필드는 만들 수 없음</pre></div>
+<h2 id="실습-a">3. 실습 A — 스펙 쓰기</h2>
+
+<p>AI에게 <strong>스펙부터 쓰게</strong> 합니다. 바로 작업시키지 않는 것이 핵심입니다.</p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 (map 폴더에서)</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>식당리스트_실습용.csv 를 분석해 "시청 주변 맛집 랭킹 리포트" 를 만들려고 해.
+바로 만들지 말고, 먼저 처리 규칙을 정한 스펙 문서를 MATZIP_SPEC.md 로 써줘.
+
+스펙에 반드시 들어갈 것:
+1. 파일 읽는 법 — 인코딩과 구분자를 실제로 확인해서 명시할 것
+2. 집행장소 컬럼에서 상호와 주소를 분리하는 규칙
+3. 같은 식당으로 볼 기준 (법인명·지점 표기 처리 방침)
+4. 집계 항목 정의 — 방문 횟수, 총 집행액, 평균 단가, 최근 방문일
+5. 제외 규칙 — 식당이 아닌 항목(매점 등)을 어떻게 다룰지
+6. 검증 기준 — 결과가 맞는지 확인할 숫자 (총 건수, 총액 등)
+
+각 규칙은 "적절히", "깔끔하게" 같은 말 없이 실행 가능한 문장으로 써줘.
+정하지 못한 것은 [확인 필요] 로 남겨줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>MATZIP_SPEC.md</code> 가 생깁니다. AI가 파일을 실제로 열어 보고 <strong>인코딩이 CP949, 구분자가 탭</strong>이라는 것을 스펙에 적어 넣습니다.</p></div></section>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
+<p><strong>좋은 스펙인지 보는 법</strong> — 열어서 세 가지만 확인하세요.</p>
+<ol>
+<li><strong>숫자와 값이 적혀 있는가</strong> — &quot;CP949&quot;, &quot;탭 구분&quot;처럼 구체적으로. &quot;적절한 인코딩&quot; 이면 실패</li>
+<li><strong>하지 않을 일이 적혀 있는가</strong> — 지도 시각화·리뷰 수집은 이번 범위가 아님</li>
+<li><strong><code>[확인 필요]</code> 가 남아 있는가</strong> — AI가 모르는 것을 정직하게 남겼다는 뜻입니다. 하나도 없으면 오히려 의심하세요</li>
+</ol>
 </div></section>
 
-<h3 id="3-2-왜-중요">3-2. 계약이 생기면 따라오는 것</h3>
+<hr>
 
-<div class="table-wrap"><table>
-<thead><tr><th>얻는 것</th><th>왜</th></tr></thead>
-<tbody>
-<tr><td><strong>비교 가능</strong></td><td>지난주와 이번주를 나란히 놓을 수 있습니다</td></tr>
-<tr><td><strong>누적 가능</strong></td><td>같은 구조라 계속 쌓아 통계를 낼 수 있습니다</td></tr>
-<tr><td><strong>자동 검증</strong></td><td>필수 항목이 비면 <strong>기계가</strong> 잡아냅니다</td></tr>
-<tr><td><strong>다른 곳에 흘려보내기</strong></td><td>스프레드시트·메일·대시보드에 그대로 넣을 수 있습니다</td></tr>
-</tbody></table></div>
+<h2 id="실습-b">4. 실습 B — 스펙으로 팀 만들기</h2>
 
-<blockquote class="rule">
-  <p><strong>하네스 4원리 중 세 번째 — 계약이 병렬성을 만든다</strong><br>
-  형식을 먼저 정하면 ① 여러 담당이 동시에 일해도 합칠 수 있고 ② 매주 같은 형식으로 반복할 수 있습니다. 3차시 Level 2에서 &quot;담당자들이 서로 대화하지 않는데도 통합이 되는&quot; 이유가 이것입니다.</p>
-</blockquote>
+<p>이제 그 스펙을 실행할 팀을 구성합니다. 4차시와 같은 방식이되, <strong>스펙이 이미 있으므로 설명이 훨씬 짧아집니다.</strong></p>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>하네스 구성해줘.
+
+MATZIP_SPEC.md 를 유일한 요구사항 문서로 삼는다.
+데이터 정제 → 집계·분석 → 검증 순서의 팀으로 만들어줘.
+
+- 정제 담당: CSV 파싱, 상호·주소 분리, 명칭 통합
+- 분석 담당: 식당별 집계와 랭킹, 구별·월별 분포
+- 검증 담당: 원본과 결과를 대조. 총 건수·총액이 일치하는지 확인하고
+  불일치를 발견하면 담당자를 지목해 수정 요청
+
+스펙의 처리 규칙은 스킬 파일로 만들어 정제 담당이 참조하게 해줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 담당자 3명과 <code>.claude/skills/</code> 아래 정제 규칙 스킬이 만들어집니다. 4차시에서 본 것과 같은 구조인데, <strong>이번에는 스펙이 먼저 있어서 팀이 훨씬 정확하게 나옵니다.</strong></p></div></section>
 
 <hr>
 
-<h2 id="권한">4. 권한과 안전 — 자동으로 돌리기 전에</h2>
+<h2 id="실습-c">5. 실습 C — 돌리고 검증하기</h2>
 
-<h3 id="4-1-대화형-vs-자동">4-1. 대화형과 자동 실행은 다릅니다</h3>
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>만든 팀으로 MATZIP_SPEC.md 에 따라 작업을 진행해줘.
+결과는 맛집랭킹.md 로 저장하고, 검증 담당의 대조 결과도 함께 보고해줘.</pre></div>
 
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">✅</span><div class="callout-body">
+<p><strong>정답 — 이 숫자와 맞는지 대조하세요.</strong> 직접 계산해 확인한 값입니다.</p>
 <div class="table-wrap"><table>
-<thead><tr><th></th><th>대화형 (지금까지 한 것)</th><th>자동 실행</th></tr></thead>
+<thead><tr><th>확인 항목</th><th>맞는 값</th></tr></thead>
 <tbody>
-<tr><td>사람</td><td>보면서 승인</td><td><strong>없음</strong></td></tr>
-<tr><td>위험 통제</td><td>승인 단계에서 막음</td><td><strong>샌드박스로만</strong> 막음</td></tr>
-<tr><td>언제</td><td>처음 해보는 일, 판단이 필요한 일</td><td>세 번 이상 반복된, 검증된 일</td></tr>
+<tr><td>총 집행 건수</td><td><strong>15,144건</strong></td></tr>
+<tr><td>총 집행액</td><td><strong>2,028,266,478원</strong> (약 20.3억)</td></tr>
+<tr><td>건당 평균</td><td>약 <strong>133,932원</strong></td></tr>
+<tr><td>고유 식당 수</td><td>약 <strong>2,945곳</strong> <span class="muted">(명칭 통합 기준에 따라 조금 달라질 수 있음)</span></td></tr>
+<tr><td>최다 방문</td><td><strong>창고43시청점 146회</strong> · 서울시청매점 142회 · 구이구이 125회</td></tr>
+<tr><td>구별 분포</td><td>중구 <strong>11,848건</strong> · 종로구 1,154건 · 강남구 256건</td></tr>
 </tbody></table></div>
+<p><strong>총 건수와 총액이 다르면</strong> 파싱 단계에서 행이 누락된 것입니다. 검증 담당이 이것을 잡아냈어야 합니다.</p>
+</div></section>
 
-<h3 id="4-2-샌드박스">4-2. 울타리는 셋 중에서 고릅니다</h3>
-
-<div class="table-wrap"><table>
-<thead><tr><th>단계</th><th>허용 범위</th><th>언제 쓰나</th></tr></thead>
-<tbody>
-<tr><td><strong>읽기 전용</strong></td><td>파일을 읽기만. 아무것도 못 바꿈</td><td><strong>조사·분석·리뷰는 전부 여기</strong></td></tr>
-<tr><td>작업 폴더 쓰기</td><td>지정한 폴더 안에서만 생성·수정</td><td>결과 파일을 만들어야 할 때</td></tr>
-<tr><td>전체 허용</td><td>제한 없음</td><td><strong>이 과정에서는 쓰지 않습니다</strong></td></tr>
-</tbody></table></div>
-
-<blockquote class="rule">
-  <p><strong>자동화의 조건</strong><br>
-  ① <strong>세 번 이상 반복된 일</strong>만 자동화합니다. 자동화는 대화형의 대체가 아니라 <strong>충분히 반복된 일에 대한 졸업</strong>입니다.<br>
-  ② 처음에는 <strong>읽기 전용</strong>으로 시작합니다.<br>
-  ③ 결과를 <strong>사람이 받아 보는 자리</strong>를 반드시 남깁니다 (메일·채널·시트).</p>
-</blockquote>
-
-<h3 id="4-3-codex-자동실행">4-3. (선택) 실제 자동 실행 형태</h3>
-
-<p><a href="../install/codex.html">Codex CLI</a> 를 설치했다면, 계약을 걸어 자동 실행하는 실제 명령은 이런 모양입니다. <strong>지금 실행할 필요는 없고, 형태만 보세요.</strong></p>
-
-<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>터미널 — 계약을 건 자동 실행 (참고)</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>codex exec --search --sandbox read-only \
-  --output-schema schema/regwatch.schema.json \
-  --output-last-message regwatch.json \
-  "최근 1주 한국 금융 규제·공시를 조사해 schema에 맞춰 JSON으로 반환하라.
-   분류와 영향도는 스키마에 정의된 값 중에서만 고르라."</pre></div></div></div>
-
-<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body"><p><strong>핵심은 한 줄</strong>: <code>--output-schema</code> 가 계약을 겁니다. 결과가 계약을 벗어나면 <strong>자동으로 다시 시도</strong>합니다. 사람이 형식을 맞출 필요가 없어지는 지점이 여기입니다.</p></div></section>
-
-<p>이 명령을 회사 스케줄러나 자동화 도구에 걸면 <strong>&quot;매주 월요일 오전 8시 자동 발행&quot;</strong> 이 됩니다. 여기까지 오면 만든 것은 &quot;이번 주 리포트&quot;가 아니라 <strong>리포트를 만드는 시스템</strong>입니다.</p>
-
-<hr>
-
-<h2 id="실습지">5. 사례 — 광고 AE의 출력 계약</h2>
-
-<div class="case">
-  <div class="case-head">
-    <span class="tag-case">사례</span>
-    <strong>정하늘 대리의 출력 계약</strong>
-    <span>5차시 결과물 · 주간 리포트 형식 고정</span>
-  </div>
-
-  <p>4차시에서 팀은 만들었습니다. 그런데 3주 연속 돌려 보니 <strong>매주 표가 조금씩 달랐습니다.</strong></p>
-
-  <p class="muted">이 사례의 입력 데이터(252행)는 4차시에서 <code>my-harness/input/</code> 에 복사해 둔 것입니다. 계약을 만든 뒤 같은 데이터로 두 번 돌려 형식이 고정되는지 확인할 수 있습니다.</p>
-
-  <div class="table-wrap"><table>
-    <thead><tr><th style="width:120px">주차</th><th>흔들린 부분</th></tr></thead>
-    <tbody>
-      <tr><td>1주차</td><td>매체명이 &quot;메타&quot;</td></tr>
-      <tr><td>2주차</td><td>매체명이 &quot;Meta(페이스북/인스타)&quot; — 광고주가 &quot;지난주랑 매체가 바뀌었나요?&quot; 라고 물음</td></tr>
-      <tr><td>3주차</td><td>&quot;다음 행동&quot; 칸이 통째로 사라짐. 이슈 등급이 &quot;상/중/하&quot; 로 바뀜</td></tr>
-    </tbody>
-  </table></div>
-
-  <p class="case-step"><em>①</em> 산출물 항목 정의 <span class="muted">— 엑셀 열 이름을 정하듯이</span></p>
-
-  <div class="table-wrap"><table>
-    <thead><tr><th style="width:34px">#</th><th>항목</th><th>설명</th><th style="width:60px">필수</th><th>허용 값</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>기간</td><td>집계 주차</td><td>✔</td><td><code>YYYY-MM-DD ~ YYYY-MM-DD</code></td></tr>
-      <tr><td>2</td><td>매체</td><td>집행 매체</td><td>✔</td><td><strong>네이버GFA / 카카오모먼트 / 메타 / 구글애즈 / 틱톡</strong> <span class="muted">— 다섯 가지만</span></td></tr>
-      <tr><td>3</td><td>노출 · 클릭 · CTR</td><td>기본 지표</td><td>✔</td><td>정수 / 정수 / 소수점 둘째 자리 %</td></tr>
-      <tr><td>4</td><td>집행액</td><td><strong>VAT 별도</strong> 기준</td><td>✔</td><td>원 단위 정수</td></tr>
-      <tr><td>5</td><td>전환 · 전환매출</td><td>구매 기준</td><td>✔</td><td>정수</td></tr>
-      <tr><td>6</td><td>CPA · ROAS</td><td>재계산 값</td><td>✔</td><td>원 / % <span class="muted">(매체 리포트 값 복사 금지)</span></td></tr>
-      <tr><td>7</td><td>목표 달성률</td><td>월 ROAS 350% 대비</td><td>✔</td><td>%</td></tr>
-      <tr><td>8</td><td>전주 대비</td><td>주요 지표 증감</td><td>✔</td><td><code>+12.3%</code> / <code>-8.1%p</code></td></tr>
-      <tr><td>9</td><td>이슈 등급</td><td>대응 시급도</td><td>✔</td><td><strong>높음 / 중간 / 낮음</strong></td></tr>
-      <tr><td>10</td><td>다음 행동</td><td>이번 주 실행안</td><td><strong>✔</strong></td><td>실행 가능한 문장 <span class="muted">— &quot;모니터링 필요&quot; 같은 빈 문장 금지</span></td></tr>
-      <tr><td>11</td><td>확인 필요</td><td>데이터가 불확실한 항목</td><td>—</td><td><code>[확인 필요]</code> 표시</td></tr>
-    </tbody>
-  </table></div>
-
-  <div class="why">
-    <b>허용 값을 정할 수 있는 항목이 계약의 힘</b>
-    <p>11개 중 <strong>2번(매체)과 9번(이슈 등급)</strong> 이 핵심입니다. 이 둘만 고정해도 지난주와 이번주를 나란히 놓고 볼 수 있습니다.</p>
-    <p>그리고 <strong>10번을 필수로 만든 것</strong>이 실무적으로 가장 큰 변화였습니다. 예전 리포트에는 &quot;지속 모니터링 예정&quot; 같은 문장이 절반이었는데, 필수로 걸어 두니 <strong>구체적 행동</strong>이 나오기 시작했습니다.</p>
-  </div>
-
-  <p class="case-step"><em>②</em> 계약 파일 만들기 — 실제로 넣은 프롬프트</p>
-
-  <section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">📍</span><div class="callout-body"><p><strong>어디서 실행하나</strong> — 4차시에서 만든 하네스 폴더입니다. 계약 파일이 그 하네스 안에 들어가야 합니다.</p>
-  <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd C:\harness-edu\my-harness; claude</pre></div></div></div>
-  <div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/harness-edu/my-harness &amp;&amp; claude</pre></div></div></div>
-  </div></section>
-
-  <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">my-harness 폴더에서 넣은 것</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>내 업무 산출물의 출력 계약을 만들어줘.
-
-업무: 루미에르 주간 캠페인 성과 리포트 (5개 매체)
-
-항목:
-- 기간 : 집계 주차 / 필수 / YYYY-MM-DD ~ YYYY-MM-DD
-- 매체 : 집행 매체 / 필수 / 허용 값: 네이버GFA, 카카오모먼트, 메타, 구글애즈, 틱톡
-- 노출, 클릭, CTR : 기본 지표 / 필수
-- 집행액 : VAT 별도 기준 / 필수 / 원 단위 정수
-- 전환, 전환매출 : 구매 기준 / 필수
-- CPA, ROAS : 재계산 값 / 필수 (매체 리포트 값 복사 금지)
-- 목표 달성률 : 월 ROAS 350% 대비 / 필수
-- 전주 대비 : 주요 지표 증감 / 필수
-- 이슈 등급 : 필수 / 허용 값: 높음, 중간, 낮음
-- 다음 행동 : 필수 / 실행 가능한 문장 ("모니터링 필요" 같은 빈 문장 금지)
-- 확인 필요 : 선택 / 데이터가 불확실한 항목 표시
-
-규칙:
-- 목록에 없는 항목은 만들지 말 것
-- 값을 모르면 지어내지 말고 "[확인 필요]" 로 표시할 것
-
-사람이 읽는 output-contract.md 와
-기계가 검사하는 output-contract.schema.json 을 각각 만들어줘.</pre></div>
-
-  <p class="case-step"><em>③</em> 계약 전후 비교 <span class="muted">— 같은 데이터로 2회 실행</span></p>
-
-  <div class="table-wrap"><table>
-    <thead><tr><th>확인 항목</th><th>계약 전</th><th>계약 후</th></tr></thead>
-    <tbody>
-      <tr><td>항목 이름·순서</td><td>회차마다 다름 (열 개수도 9~12개로 변동)</td><td><strong>11개 고정</strong></td></tr>
-      <tr><td>매체 표기</td><td>메타 / Meta / 페이스북</td><td><strong>메타</strong> 로 고정</td></tr>
-      <tr><td>이슈 등급</td><td>높음·중간·낮음 / 상·중·하 혼용</td><td><strong>높음·중간·낮음</strong></td></tr>
-      <tr><td>다음 행동</td><td>1회차 있음, 2회차 누락</td><td><strong>항상 있음</strong> (없으면 재시도)</td></tr>
-      <tr><td>불확실 데이터</td><td>슬쩍 추정값으로 채움</td><td><code>[확인 필요]</code> 표시</td></tr>
-    </tbody>
-  </table></div>
-
-  <p class="case-step"><em>④</em> 정례화 계획</p>
-
-  <div class="table-wrap"><table>
-    <tbody>
-      <tr><th style="width:190px">주기</th><td>매주 월요일 오전 <strong>9시</strong> (광고주 발송은 10시 30분)</td></tr>
-      <tr><th>실행하는 사람</th><td>정하늘 대리. 부재 시 같은 팀 후배 <span class="muted">(하네스 폴더만 열면 되므로 인수인계 불필요)</span></td></tr>
-      <tr><th>결과를 쌓는 곳</th><td>팀 공유 드라이브 <code>/루미에르/주간리포트/2026/</code></td></tr>
-      <tr><th><strong>사람이 확인하는 시점</strong></th><td><strong>월요일 9시 30분 — 발송 전 30분.</strong> 이슈 등급 &lsquo;높음&rsquo; 항목과 <code>[확인 필요]</code> 표시를 눈으로 확인</td></tr>
-      <tr><th>실패하면 누구에게</th><td>정하늘 대리 → 30분 내 미해결 시 팀장. <strong>매체 데이터 미도착</strong>이 가장 흔한 실패 원인</td></tr>
-      <tr><th>권한 범위</th><td>매체 데이터 폴더는 <strong>읽기 전용</strong>, 리포트 폴더만 쓰기 허용</td></tr>
-    </tbody>
-  </table></div>
-
-  <div class="why">
-    <b>&quot;사람이 확인하는 시점&quot;을 30분으로 잡은 이유</b>
-    <p>예전에는 리포트 작성에 2시간 반, 검토에 10분이었습니다. 지금은 <strong>작성 10분, 검토 30분</strong>입니다. 총 시간은 3시간 → 40분으로 줄었지만, <strong>검토 시간은 오히려 늘렸습니다.</strong></p>
-    <p>이것이 자동화의 올바른 방향입니다 — 사람을 빼는 게 아니라 <strong>사람이 판단에만 시간을 쓰게</strong> 하는 것.</p>
-  </div>
-
-  <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body"><p>6번 항목(CPA·ROAS 재계산)이 다음 차시의 재료입니다. <strong>계산을 설명서로 시키면 틀립니다.</strong> 6차시에서 이 계산을 도구로 옮깁니다.</p></div></section>
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
+<p><strong>검증 담당이 제대로 일했는지 보는 법</strong></p>
+<div class="vs">
+  <div class="bad"><h4>이건 검증이 아닙니다</h4><p>&quot;맛집랭킹.md 파일이 정상적으로 생성되었습니다.&quot;</p></div>
+  <div class="good"><h4>이게 검증입니다</h4><p>&quot;원본 15,144행 중 15,144행이 집계에 반영됨. 총액 2,028,266,478원 일치. 단, <code>서울시청매점</code> 은 식당이 아니어서 스펙의 제외 규칙 적용 여부를 확인 필요.&quot;</p></div>
 </div>
+<p>파일 존재 확인은 누구나 합니다. <strong>원본과 결과를 나란히 놓고 숫자를 맞춰 보는 것</strong>이 검증입니다.</p>
+</div></section>
 
-<h3 id="5-1-내-업무에-대입">5-1. 내 업무에 대입해 보기</h3>
+<h3 id="5-1-규칙-바꿔-보기">5-1. 규칙 하나를 바꿔 보기</h3>
 
-<p>두 가지만 떠올리면 계약의 절반은 완성입니다.</p>
+<p>하네스의 진짜 값어치는 여기서 드러납니다. <strong>스펙 한 줄만 고치고</strong> 다시 돌려 보세요.</p>
 
-<div class="table-wrap"><table>
-<thead><tr><th style="width:250px">질문</th><th>정하늘 대리의 답</th></tr></thead>
-<tbody>
-<tr><td>내 산출물에서 <strong>정해진 몇 가지 중 하나</strong>인 항목은?</td><td>매체(5개) · 이슈 등급(3단계)</td></tr>
-<tr><td><strong>비면 안 되는</strong> 항목은?</td><td>다음 행동 — 비어 있으면 리포트의 의미가 없음</td></tr>
-</tbody></table></div>
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>MATZIP_SPEC.md 의 제외 규칙에 "매점·편의점·구내식당은 집계에서 제외" 를 추가하고,
+그 스펙으로 다시 돌려줘. 바뀐 결과와 이전 결과의 차이를 알려줘.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: <code>서울시청매점</code>(142회)이 랭킹에서 빠지고 순위가 바뀝니다. <strong>지시문을 다시 쓰지 않았습니다 — 스펙 한 줄만 고쳤습니다.</strong> 이것이 규칙을 파일로 두는 이유입니다.</p></div></section>
 
 <hr>
 
 <h2 id="스스로-점검">6. 스스로 점검</h2>
 
 <ul class="checklist">
-<li>계약 없이 돌렸을 때의 흔들림을 직접 봤다 (분류·영향도·행동 칸)</li>
-<li>내 업무 산출물의 항목을 표로 정의했다</li>
-<li>허용 값을 정할 수 있는 항목을 최소 하나 찾았다</li>
-<li><code>output-contract.md</code> 와 스키마 파일을 만들었다</li>
-<li>읽기 전용과 폴더 쓰기의 차이를 설명할 수 있다</li>
-<li>자동화해도 되는 조건(&quot;세 번 이상&quot;)을 안다</li>
+<li>이 데이터가 &quot;그냥은 안 되는&quot; 이유 네 가지를 말할 수 있다</li>
+<li>스펙을 먼저 쓰게 하는 이유를 &quot;모호함 = 임의 결정&quot; 으로 설명할 수 있다</li>
+<li><code>MATZIP_SPEC.md</code> 에 인코딩·구분자가 <strong>구체적 값</strong>으로 적혀 있다</li>
+<li>결과를 정답 숫자(15,144건 / 20.3억)와 대조했다</li>
+<li>&quot;파일이 생성되었습니다&quot; 와 <strong>교차 검증</strong>의 차이를 안다</li>
+<li>스펙 한 줄을 고쳐 결과가 바뀌는 것을 확인했다</li>
 </ul>
 
 <h3 id="흔한-실패">흔한 실패와 대처</h3>
@@ -385,10 +260,11 @@
 <div class="table-wrap"><table>
 <thead><tr><th>증상</th><th>왜 생기나</th><th>대처</th></tr></thead>
 <tbody>
-<tr><td>항목이 20개가 넘음</td><td>있으면 좋은 것까지 다 넣음</td><td><strong>없으면 안 되는 것</strong>만 남기세요. 6~10개면 충분합니다</td></tr>
-<tr><td>허용 값을 못 정하겠음</td><td>자유 서술 항목만 있음</td><td>&quot;상태&quot;나 &quot;등급&quot; 같은 항목을 하나 추가해 보세요</td></tr>
-<tr><td>계약을 걸어도 흔들림</td><td>지시에서 계약 파일을 참조하지 않음</td><td>&quot;<code>output-contract.md</code> 의 형식을 지켜서&quot; 를 <strong>매번</strong> 명시</td></tr>
-<tr><td>&quot;그냥 매번 고치면 되는데요&quot;</td><td>1회성 관점</td><td>52주 × 5분 = 연 4시간. 그리고 담당자가 바뀌면 처음부터입니다</td></tr>
+<tr><td>한글이 <code>��</code> 로 깨짐</td><td>UTF-8로 읽음</td><td>정상입니다 — AI가 CP949로 바꿔 재시도하는지 보세요. 스펙에 인코딩이 적혔는지 확인</td></tr>
+<tr><td>스펙이 두루뭉술함</td><td>&quot;적절히&quot; 같은 말이 들어감</td><td>&quot;이 문장을 그대로 실행할 수 있나?&quot; 를 기준으로 다시 쓰게 하세요</td></tr>
+<tr><td>총 건수가 15,144가 아님</td><td>헤더·빈 행 처리 차이</td><td>검증 담당에게 &quot;원본 행 수와 집계 행 수를 대조하라&quot; 고 요청</td></tr>
+<tr><td>검증이 &quot;파일 있음&quot; 수준</td><td>검증 담당 정의가 약함</td><td>&quot;원본과 결과의 숫자를 대조하라&quot; 를 에이전트 정의에 명시</td></tr>
+<tr><td>팀이 안 만들어짐</td><td>에이전트 팀 기능 · 플러그인 범위</td><td><a href="../install/setup-windows.html#3-5-에이전트-팀-켜기">설치가이드 3-5절</a> / <code>/plugin</code> User 범위 확인</td></tr>
 </tbody></table></div>
 
 <hr>
@@ -396,27 +272,27 @@
 <h2 id="더-해보기">7. 더 해보기 (선택)</h2>
 
 <ul>
-<li><strong>계약 위반 실험</strong> — 일부러 계약에 없는 항목을 요구해 보세요. AI가 거절하거나 다시 시도하는지 확인합니다.</li>
-<li><strong>지난 결과와 비교</strong> — 같은 계약으로 만든 결과 두 개를 주고 &quot;전주 대비 변화&quot; 를 정리하게 해보세요. 계약이 있어야 가능한 작업입니다.</li>
-<li><strong>원본 교안</strong> — <a href="https://github.com/namojo/harness-edu/blob/main/codex-engineering/track-b-ops/README.md" target="_blank" rel="noopener">track-b-ops/README.md</a> · <a href="https://github.com/namojo/harness-edu/blob/main/codex-engineering/README.md" target="_blank" rel="noopener">Harness Engineering 5원칙</a></li>
+<li><strong>지도로 만들기</strong> — 이 데이터로 실제 웹앱까지 만드는 과정이 원본 교안에 있습니다. 주소를 좌표로 바꾸고(지오코딩) 지도에 올리는 단계까지 다룹니다 → <a href="https://github.com/namojo/harness-edu/blob/main/map/README.md" target="_blank" rel="noopener">map/README.md</a></li>
+<li><strong>명칭 통합 강화</strong> — <code>창고43시청점</code> 과 <code>창고43 무교점</code> 을 한 브랜드로 묶는 규칙을 스펙에 추가해 보세요. 랭킹이 어떻게 바뀌는지 봅니다.</li>
+<li><strong>내 업무 데이터로</strong> — 지저분한 파일이 있다면 같은 순서로 해보세요. <strong>스펙 먼저, 팀 그다음, 검증 마지막.</strong></li>
 </ul>
 
 <hr>
 
 <h2 id="다음-차시">8. 다음 차시</h2>
 
-<p>형식은 고정됐습니다. 그런데 <strong>표 안의 숫자</strong>는 믿을 수 있을까요? 6차시에서는 AI가 암산한 숫자와 도구가 계산한 숫자를 비교하고, <strong>계산을 도구에 위임</strong>합니다.</p>
+<p>여기까지 <strong>Agent(누가)</strong> 와 <strong>Skill(무엇을·어떻게)</strong> 을 다뤘습니다. 그런데 정제와 집계를 아무리 잘해도, <strong>AI가 계산이나 사실을 지어내면</strong> 결과를 믿을 수 없습니다. 6차시에서 마지막 축 <strong>Tool</strong> 로 그 문제를 막습니다.</p>
 
 <div class="lesson-nav">
-  <a class="next-card" href="ch6.html"><span class="k">6차시</span><strong>계산은 도구에게</strong><span>파이썬 40줄 계산기를 AI에 붙입니다. 코드는 읽기만 합니다.</span></a>
-  <a class="next-card" href="../install/mcp-server.html"><span class="k">미리 준비</span><strong>MCP 서버 설치가이드</strong><span>6차시 전에 해두면 좋습니다 (20~30분).</span></a>
+  <a class="next-card" href="ch6.html"><span class="k">6차시</span><strong>환각을 막는 도구</strong><span>계산과 법령을 AI가 지어내지 못하게 도구를 붙입니다.</span></a>
+  <a class="next-card" href="../install/mcp-server.html"><span class="k">미리 준비</span><strong>MCP 서버 설치가이드</strong><span>6차시 전에 해두면 좋습니다.</span></a>
 </div>
 
     </article>
 
 <nav class="pager" aria-label="페이지 이동">
   <a class="pager-prev" href="ch4.html"><span class="dir">← 이전</span><strong>4차시 · 전문가 팀 만들기</strong></a>
-  <a class="pager-next" href="ch6.html"><span class="dir">다음 →</span><strong>6차시 · 계산은 도구에게</strong></a>
+  <a class="pager-next" href="ch6.html"><span class="dir">다음 →</span><strong>6차시 · 환각을 막는 도구</strong></a>
 </nav>
   </main>
 
@@ -430,14 +306,14 @@
         <a class="map-link" href="ch2.html"><b>2</b>지식을 파일로</a>
         <a class="map-link" href="ch3.html"><b>3</b>일의 단계 판단</a>
         <a class="map-link" href="ch4.html"><b>4</b>전문가 팀 만들기</a>
-        <a class="map-link on" href="ch5.html"><b>5</b>반복을 시스템으로</a>
-        <a class="map-link" href="ch6.html"><b>6</b>계산은 도구에게</a>
-        <a class="map-link" href="ch7.html"><b>7</b>내 업무에 이식하기</a>
+        <a class="map-link on" href="ch5.html"><b>5</b>지저분한 데이터에 하네스</a>
+        <a class="map-link" href="ch6.html"><b>6</b>환각을 막는 도구</a>
+        <a class="map-link" href="ch7.html"><b>7</b>일상 업무 하네스 만들기</a>
       </div>
       <h4 class="mt">참고</h4>
       <div class="map-group">
         <a class="map-link opt" href="../install/index.html"><b>?</b>설치가이드</a>
-        <a class="map-link opt" href="https://github.com/namojo/harness-edu/blob/main/codex-engineering/track-b-ops/README.md"><b>↗</b>트랙 B 원본 교안</a>
+        <a class="map-link opt" href="https://github.com/namojo/harness-edu/blob/main/map/README.md"><b>↗</b>map 원본 교안</a>
       </div>
       <a class="map-home" href="../index.html">↩ 과정 홈</a>
     </details>
@@ -448,12 +324,13 @@
         <li><a href="#준비할-것">준비할 것</a></li>
         <li><a href="#처음-나오는-말">처음 나오는 말</a></li>
         <li><a href="#배우는-것">배우는 것</a></li>
-        <li><a href="#문제">1. 문제</a></li>
-        <li><a href="#체험">2. 흔들림 체험</a></li>
-        <li><a href="#개념">3. 출력 계약</a></li>
-        <li><a href="#권한">4. 권한과 안전</a></li>
-        <li class="toc-l3"><a href="#4-2-샌드박스">4-2. 울타리 3단계</a></li>
-        <li><a href="#실습지">5. 사례 · 출력 계약</a></li>
+        <li><a href="#문제">1. 문제 · 지저분한 데이터</a></li>
+        <li class="toc-l3"><a href="#1-2-네-가지-함정">1-2. 함정 네 가지</a></li>
+        <li><a href="#개념">2. 스펙이 계약이다</a></li>
+        <li><a href="#실습-a">3. 실습 A · 스펙 쓰기</a></li>
+        <li><a href="#실습-b">4. 실습 B · 팀 만들기</a></li>
+        <li><a href="#실습-c">5. 실습 C · 돌리고 검증</a></li>
+        <li class="toc-l3"><a href="#5-1-규칙-바꿔-보기">5-1. 규칙 바꿔 보기</a></li>
         <li><a href="#스스로-점검">6. 스스로 점검</a></li>
         <li><a href="#더-해보기">7. 더 해보기</a></li>
         <li><a href="#다음-차시">8. 다음 차시</a></li>

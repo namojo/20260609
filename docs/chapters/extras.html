@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>확장 트랙 — 더 깊은 실습 4가지 · harness-edu</title>
+<title>확장 트랙 — 더 깊은 실습 3가지 · harness-edu</title>
 <meta name="description" content="본 과정 이후의 심화 실습. 파이프라인 하네스, 스펙 기반 설계, 계약 중심 팬아웃, 코드 유지보수 하네스.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23faf9f5'/%3E%3Cg fill='%23141413'%3E%3Crect x='11' y='1' width='2' height='22'/%3E%3Crect x='1' y='11' width='22' height='2'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(45 12 12)'/%3E%3Crect x='3.8' y='3.8' width='2' height='16.4' transform='rotate(-45 12 12)'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +28,7 @@
 
 <div class="wrap page-head">
   <div class="eyebrow">확장 트랙 · 선택</div>
-  <h1>더 깊은 실습 4가지</h1>
+  <h1>더 깊은 실습 3가지</h1>
   <p class="sub">7차시를 마친 뒤, 관심 있는 주제만 골라서 하면 됩니다. <strong>필수가 아닙니다.</strong> 각 트랙은 저장소의 모듈 교안을 그대로 따라갑니다.</p>
   <div class="meta">
     <span class="badge-opt badge">선택 과정</span>
@@ -46,12 +46,11 @@
 <thead><tr><th>이런 분이라면</th><th>추천</th></tr></thead>
 <tbody>
 <tr><td>정기 보고서를 만드는 실무자</td><td><a href="#e1">E1. 파이프라인 하네스</a></td></tr>
-<tr><td>여러 부서 데이터를 합치는 일을 하는 분</td><td><a href="#e3">E3. 계약 중심 팬아웃</a></td></tr>
-<tr><td>새 도구·서비스를 기획하는 분</td><td><a href="#e2">E2. 스펙부터 설계</a></td></tr>
-<tr><td>코드를 다루는 분</td><td><a href="#e2">E2</a> · <a href="#e3">E3</a> · <a href="#e4">E4</a></td></tr>
+<tr><td>여러 부서 데이터를 합치는 일을 하는 분</td><td><a href="#e2">E2. 계약 중심 팬아웃</a></td></tr>
+<tr><td>코드를 다루는 분</td><td><a href="#e2">E2</a> · <a href="#e3">E3</a></td></tr>
 </tbody></table></div>
 
-<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>E1은 비전공자도 그대로 할 수 있습니다.</strong> E2~E4는 코드가 나오지만, <strong>구조를 보는 것</strong>만으로도 배울 것이 있습니다. 읽고 넘어가도 괜찮습니다.</p></div></section>
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">💡</span><div class="callout-body"><p><strong>E1은 비전공자도 그대로 할 수 있습니다.</strong> E2·E3은 코드가 나오지만, <strong>구조를 보는 것</strong>만으로도 배울 것이 있습니다. 읽고 넘어가도 괜찮습니다.</p></div></section>
 
 <hr>
 
@@ -74,26 +73,7 @@
 
 <hr>
 
-<h2 id="e2">E2. 스펙부터 설계 — 명세를 쓰고 팀을 짓는다</h2>
-
-<div class="table-wrap"><table>
-<tbody>
-<tr><th style="width:110px">난이도</th><td>개발 지식 권장</td></tr>
-<tr><th>모듈</th><td><code>map/</code></td></tr>
-<tr><th>배우는 것</th><td><strong>무엇을(What)</strong> 을 명세로 먼저 쓰고, <strong>누가·어떻게</strong> 를 하네스로 구성</td></tr>
-</tbody></table></div>
-
-<p>&quot;맛집 지도 앱 만들어줘&quot; 한 줄로 시키면 AI가 수백 가지 결정을 임의로 내립니다. 그 문제를 <strong>역할 분리</strong>로 푸는 훈련입니다. 프로젝트 명세서를 먼저 쓰고, 그 명세를 실행할 에이전트 팀을 직접 설계합니다.</p>
-
-<p><strong>관찰 포인트</strong> — 4차시에서는 하네스를 &quot;만들어 달라&quot; 고 했다면, 여기서는 <strong>내가 설계</strong>합니다. 스펙(계약서)이 있으면 에이전트가 해석할 여지가 얼마나 줄어드는지 보세요.</p>
-
-<div class="lesson-nav">
-  <a class="next-card" href="https://github.com/namojo/harness-edu/blob/main/map/README.md" target="_blank" rel="noopener"><span class="k">교안</span><strong>map/README.md</strong><span>Spec → Harness 개발 파이프라인</span></a>
-</div>
-
-<hr>
-
-<h2 id="e3">E3. 계약 중심 팬아웃 — 이기종 데이터를 하나로</h2>
+<h2 id="e2">E2. 계약 중심 팬아웃 — 이기종 데이터를 하나로</h2>
 
 <div class="table-wrap"><table>
 <tbody>
@@ -112,7 +92,7 @@
 
 <hr>
 
-<h2 id="e4">E4. 코드 유지보수 하네스 — 진단·패치·리뷰·자동화</h2>
+<h2 id="e3">E3. 코드 유지보수 하네스 — 진단·패치·리뷰·자동화</h2>
 
 <div class="table-wrap"><table>
 <tbody>
@@ -132,15 +112,15 @@
 
 <h2 id="정리">확장 트랙을 관통하는 것</h2>
 
-<p>네 트랙 모두 <strong>본 과정에서 배운 원리의 변주</strong>입니다. 도메인만 바뀝니다.</p>
+<p>세 트랙 모두 <strong>본 과정에서 배운 원리의 변주</strong>입니다. 도메인만 바뀝니다.</p>
 
 <div class="table-wrap"><table>
 <thead><tr><th>원리</th><th>본 과정에서</th><th>확장 트랙에서</th></tr></thead>
 <tbody>
-<tr><td>역할 분리</td><td>4차시 에이전트 팀</td><td>E2 — 스펙(What)과 팀(Who/How)을 분리</td></tr>
+<tr><td>역할 분리</td><td>4차시 에이전트 팀</td><td>E3 — 진단·패치·리뷰를 각각 다른 담당에게</td></tr>
 <tr><td>지식의 외부화</td><td>2차시 용어집</td><td>E1 — 템플릿·디자인 표준을 파일로</td></tr>
-<tr><td>계약이 병렬성을 만든다</td><td>5차시 출력 계약</td><td>E3 — 스키마를 먼저 정해 동시 개발</td></tr>
-<tr><td>검증자 분리</td><td>4차시 검증 담당</td><td>E4 — 교차 리뷰와 자동 검사 게이트</td></tr>
+<tr><td>계약이 병렬성을 만든다</td><td>5차시 스펙</td><td>E2 — 스키마를 먼저 정해 동시 개발</td></tr>
+<tr><td>검증자 분리</td><td>4차시 검증 담당</td><td>E3 — 교차 리뷰와 자동 검사 게이트</td></tr>
 </tbody></table></div>
 
 <blockquote>
@@ -150,7 +130,7 @@
     </article>
 
 <nav class="pager" aria-label="페이지 이동">
-  <a class="pager-prev" href="ch7.html"><span class="dir">← 이전</span><strong>7차시 · 내 업무에 이식하기</strong></a>
+  <a class="pager-prev" href="ch7.html"><span class="dir">← 이전</span><strong>7차시 · 일상 업무 하네스 만들기</strong></a>
   <a class="pager-next" href="../index.html"><span class="dir">다음 →</span><strong>과정 홈</strong></a>
 </nav>
   </main>
@@ -165,9 +145,9 @@
         <a class="map-link" href="ch2.html"><b>2</b>지식을 파일로</a>
         <a class="map-link" href="ch3.html"><b>3</b>일의 단계 판단</a>
         <a class="map-link" href="ch4.html"><b>4</b>전문가 팀 만들기</a>
-        <a class="map-link" href="ch5.html"><b>5</b>반복을 시스템으로</a>
-        <a class="map-link" href="ch6.html"><b>6</b>계산은 도구에게</a>
-        <a class="map-link" href="ch7.html"><b>7</b>내 업무에 이식하기</a>
+        <a class="map-link" href="ch5.html"><b>5</b>지저분한 데이터에 하네스</a>
+        <a class="map-link" href="ch6.html"><b>6</b>환각을 막는 도구</a>
+        <a class="map-link" href="ch7.html"><b>7</b>일상 업무 하네스 만들기</a>
       </div>
       <h4 class="mt">참고</h4>
       <div class="map-group">
@@ -182,9 +162,8 @@
       <ul class="toc-list">
         <li><a href="#고르는-법">어떤 걸 고를까</a></li>
         <li><a href="#e1">E1. 파이프라인 하네스</a></li>
-        <li><a href="#e2">E2. 스펙부터 설계</a></li>
-        <li><a href="#e3">E3. 계약 중심 팬아웃</a></li>
-        <li><a href="#e4">E4. 코드 유지보수</a></li>
+        <li><a href="#e2">E2. 계약 중심 팬아웃</a></li>
+        <li><a href="#e3">E3. 코드 유지보수</a></li>
         <li><a href="#정리">관통하는 원리</a></li>
       </ul>
     </details>
