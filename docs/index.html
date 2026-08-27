@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>harness-edu · 하네스로 일하는 법</title>
-<meta name="description" content="일회성 프롬프트에서 반복 가능한 시스템으로. 제조·금융 실무자와 개발자를 위한 하네스(Harness) 실습형 커리큘럼 — Claude Code와 Codex로 배우는 Agent·Skill·Tool." />
+<meta name="description" content="일회성 프롬프트에서 반복 가능한 시스템으로. 코드를 쓰지 않는 실무자를 위한 하네스(Harness) 7차시 실습 커리큘럼 — Claude Code로 배우는 Agent·Skill·Tool." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -62,7 +62,7 @@
   /* hero */
   .hero{padding:76px 0 64px}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-  h1.display{font-size:60px;letter-spacing:-0.035em;line-height:1.05}
+  h1.display{font-size:60px;letter-spacing:-0.035em;line-height:1.18;padding-bottom:2px}
   .hero p.lead{margin-top:22px;max-width:32em}
   .hero-actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
   .hero-tags{display:flex;gap:8px;margin-top:26px;flex-wrap:wrap}
@@ -176,7 +176,7 @@
     .axes,.grid-3,.mods{grid-template-columns:1fr}
     .steps{grid-template-columns:1fr}
     .foot-grid{grid-template-columns:1fr 1fr}
-    h1.display{font-size:40px}
+    h1.display{font-size:40px;line-height:1.22}
     .sec-head h2{font-size:30px}
     .nav-links{display:none}
     .nav-toggle{display:inline-flex}
@@ -225,35 +225,36 @@
     <div>
       <p class="eyebrow">Harness Engineering · 실습형 커리큘럼</p>
       <h1 class="display">일회성 프롬프트에서<br>반복 가능한 <em style="font-family:var(--serif-latin);font-style:italic;font-weight:500">시스템</em>으로</h1>
-      <p class="lead">AI에게 "한 번 시키는 법"은 누구나 압니다. 이 과정은 그다음을 가르칩니다 —
-        <b>누가 돌려도 같은 품질</b>이 나오는 하네스(harness)를 설계하는 법. 제조·금융 실무자와
-        개발자가 <b>Claude Code</b>와 <b>Codex</b>로 함께 배웁니다.</p>
+      <p class="lead">AI에게 &quot;한 번 시키는 법&quot;은 누구나 압니다. 이 과정은 그다음을 가르칩니다 —
+        <b>누가 돌려도 같은 품질</b>이 나오는 하네스(harness)를 만드는 법.
+        <b>코드를 쓰지 않는 실무자</b>가 <b>Claude Code</b>로 7차시 만에
+        <b>내 업무 하네스 한 벌</b>을 완성합니다.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#curriculum">커리큘럼 보기</a>
         <a class="btn btn-secondary" href="chapters/ch1.html">1차시 시작하기 →</a>
       </div>
       <div class="hero-tags">
         <span class="tag">코딩 지식 없이 시작</span>
-        <span class="tag">제조 · 금융 실전 시나리오</span>
+        <span class="tag">7차시 · 완성 사례 제공</span>
         <span class="tag">Agent · Skill · Tool</span>
       </div>
     </div>
     <div class="code-win reveal">
       <div class="code-bar">
         <span class="dot" style="background:#e06c5a"></span><span class="dot" style="background:#e8a55a"></span><span class="dot" style="background:#5db872"></span>
-        <span class="code-title">codex — 대화형 세션</span>
+        <span class="code-title">claude — 2차시 실습</span>
       </div>
       <div class="code-body">
-<span class="c-mut"># 품질관리팀: 도구를 붙여 정확한 계산을 위임</span>
-<span class="prompt-line">▸ production-metrics 도구로 07-14</span>
-<span class="prompt-line">  B라인 OEE와 병목을 알려줘</span>
+<span class="c-mut"># 광고대행사 AE: 매체 5곳 성과를 주간 리포트로</span>
+<span class="prompt-line">▸ data 폴더의 매체별 성과 파일을 통합해서</span>
+<span class="prompt-line">  주간 리포트를 만들어줘</span>
 
-<span class="c-mut">→ compute_oee("B","2026-07-14")</span> <span class="c-tel">✓ tool call</span>
-{ <span class="c-cor">"oee_pct"</span>: <span class="c-str">"69.8%"</span>,
-  <span class="c-cor">"bottleneck"</span>: <span class="c-str">"가동률"</span> }
+<span class="c-mut">→ Skill: media-glossary</span> <span class="c-tel">✓ 자동 적용</span>
+{ <span class="c-cor">"전환"</span>: <span class="c-str">"5,705건"</span>, <span class="c-cor">"CPA"</span>: <span class="c-str">"24,136원"</span>,
+  <span class="c-cor">"ROAS"</span>: <span class="c-str">"366.9%"</span> }
 
-<span class="c-amb">진단</span> 가동률 75%가 병목입니다. 정지시간
-120분이 원인 — 성능·품질은 정상입니다.
+<span class="c-amb">이슈</span> 카카오모먼트 163%로 목표(350%) 미달.
+전주 대비 CPA +13.1% — 예산 재배분 검토.
       </div>
     </div>
   </div>
@@ -265,7 +266,7 @@
     <div class="sec-head">
       <p class="eyebrow">먼저 알고 시작할 것</p>
       <h2>모든 실습을 관통하는 4가지 원리</h2>
-      <p class="lead muted">도구가 Claude Code든 Codex든, 업종이 제조든 금융이든 — 좋은 하네스는 늘 이 네 가지의 변주입니다.</p>
+      <p class="lead muted">도구가 Claude Code든 Codex든, 업종이 광고든 제조든 공공이든 — 좋은 하네스는 늘 이 네 가지의 변주입니다.</p>
     </div>
     <div class="grid-4" style="margin-top:44px">
       <div class="card reveal"><p class="num">01</p><h3>역할 분리</h3><p>"무엇을(스펙)·누가(에이전트)·어떻게(스킬)"를 한 프롬프트에 뭉치지 않고 파일로 나눕니다. 나눠야 재사용·비교·유지보수가 됩니다.</p></div>
@@ -574,29 +575,29 @@
     <div class="sec-head">
       <p class="eyebrow">누구를 위한가</p>
       <h2>두 갈래의 학습 경로</h2>
-      <p class="lead muted">코딩 지식은 필요 없습니다 — 확장 단계에서만 Python을 조금 씁니다. 자신에 맞는 길로 시작하세요.</p>
+      <p class="lead muted">본 과정 <strong>7차시는 모두 같습니다</strong> — 코딩 지식은 필요 없습니다. 갈라지는 것은 <strong>수료 이후</strong>입니다.</p>
     </div>
     <div class="paths">
       <div class="path reveal">
         <h3><span class="badge b-nondev">비개발자</span> 실무자 경로</h3>
-        <p class="muted" style="margin-top:6px">기획·관리·리서치·현업 담당</p>
+        <p class="muted" style="margin-top:6px">기획·마케팅·관리·리서치 담당</p>
         <ol>
-          <li><b>공정 보고서 표준화</b> — 지식을 파일로 빼는 감각</li>
-          <li><b>세 가지 일하는 방식</b> — 일의 단계 판단</li>
-          <li><b>단일 vs 에이전트 팀</b> — 하네스의 효과 체감</li>
-          <li><b>트랙 B 업무 자동화</b> — 코드 없이 반복 업무 시스템화</li>
-          <li><b>MCP Tool 만들기</b> — 계산을 도구에 위임(안내대로 따라만)</li>
+          <li><b>1~7차시 전부</b> — 광고대행사 AE 정하늘 대리 사례를 따라갑니다</li>
+          <li><b>6차시 Python</b> — 코드는 읽기만. 도구를 붙이고 AI에게 시켜 만듭니다</li>
+          <li><b>7차시 선택 확장</b> — 이미지 스킬로 발표자료까지 (Codex 구독 시)</li>
+          <li><b>확장 E1</b> — 정책 데이터 → 표준 슬라이드 (코드 없이 가능)</li>
+          <li><b>그다음</b> — <a href="https://github.com/revfactory/harness-100" target="_blank" rel="noopener">하네스 100선</a>에서 내 업무와 비슷한 것을 골라 이식</li>
         </ol>
       </div>
       <div class="path reveal">
         <h3><span class="badge b-dev">개발자</span> 엔지니어 경로</h3>
         <p class="muted" style="margin-top:6px">개발·데이터·플랫폼 담당</p>
         <ol>
-          <li><b>단일 vs 에이전트 팀</b> — 하네스 구조 이해</li>
-          <li><b>스펙 → 하네스 설계</b> · <b>설비 대시보드</b> — 직접 설계</li>
-          <li><b>트랙 A 코드 유지보수</b> — 진단·패치·리뷰·CI</li>
-          <li><b>MCP Tool 만들기</b> — 나만의 Tool 구현·등록</li>
-          <li><b>자동화 졸업</b> — codex exec·스키마·CI로 굳히기</li>
+          <li><b>1~7차시 전부</b> — 같은 과정. 원리는 도메인을 가리지 않습니다</li>
+          <li><b>5차시 심화</b> — 스펙 작성 스킬을 직접 만들어 팀에 배포</li>
+          <li><b>6차시 심화</b> — <code>server.py</code> 를 읽고 도구를 여러 개 추가</li>
+          <li><b>확장 E2·E3</b> — 계약 중심 팬아웃 · 코드 유지보수 하네스(CI 게이트)</li>
+          <li><b>그다음</b> — 팀 표준 하네스를 만들어 <code>.claude/</code> 로 배포</li>
         </ol>
       </div>
     </div>
@@ -608,7 +609,7 @@
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">시작하기</p>
-      <h2>4단계로 환경 준비</h2>
+      <h2>5단계로 환경 준비</h2>
       <p class="lead muted">최초 1회만 설치하면 됩니다. 터미널이 처음이어도 괜찮습니다 — <a href="install/index.html" style="color:var(--primary-active)">설치가이드</a>가 명령마다 "이렇게 나오면 정상 / 이렇게 나오면 오류"를 함께 안내합니다.</p>
     </div>
     <div class="steps">
