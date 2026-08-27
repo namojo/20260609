@@ -100,7 +100,7 @@
 
 <blockquote class="rule">
   <p><strong>이 과정에서 설치하지 않는 것</strong>: Node.js, bun, Docker, WSL2, 별도 편집기.<br>
-  Claude Code는 자체 실행 파일로 설치되므로 개발 언어 런타임이 필요하지 않습니다. (Python은 3번째 설치가이드 <a href="mcp-server.html">MCP 서버</a> 에서만 씁니다.)</p>
+  Claude Code는 자체 실행 파일로 설치되므로 개발 언어 런타임이 필요하지 않습니다. (Python은 <a href="mcp-server.html">MCP 서버</a> 설치가이드에서 씁니다 — <strong>6차시 필수</strong>이므로 그전까지 끝내 두세요.)</p>
 </blockquote>
 
 <hr>
@@ -300,7 +300,7 @@ C:\harness-edu</pre></div>
 <tr><td>Project scope<br><span class="muted">프로젝트 범위</span></td><td>이 폴더(저장소)에서만. 설정이 <code>.claude/settings.json</code> 에 기록되어 <strong>팀원과 공유</strong>됨</td><td>❌ 다른 폴더로 옮기면 안 됩니다</td></tr>
 <tr><td>Local scope<br><span class="muted">로컬 범위</span></td><td>이 폴더에서만, 나만</td><td>❌ 같은 이유로 부적합</td></tr>
 </tbody></table></div>
-<p><strong>왜 User scope인가</strong>: 이 과정은 폴더를 계속 옮겨 다닙니다 — <code>C:\harness-edu\xlsx</code>(2차시), <code>codex</code>(3차시), <code>harness</code>(4차시), <code>my-harness</code>(4·5·7차시), <code>tool\mcp-server</code>(6차시). Project·Local로 설치하면 <strong>설치한 그 폴더에서만</strong> 동작해서, 4차시에 새 폴더를 만든 순간 <code>하네스 구성해줘</code> 가 먹히지 않습니다.</p>
+<p><strong>왜 User scope인가</strong>: 이 과정은 폴더를 계속 옮겨 다닙니다 — <code>C:\harness-edu\xlsx</code>(1차시), <code>ad</code>(2차시), <code>codex</code>(3차시), <code>harness</code>·<code>my-harness</code>(4차시), <code>map</code>(5차시), <code>tool\mcp-server</code>(6차시), <code>my-work\...</code>(7차시). Project·Local로 설치하면 <strong>설치한 그 폴더에서만</strong> 동작해서, 4차시에 새 폴더를 만든 순간 <code>하네스 구성해줘</code> 가 먹히지 않습니다.</p>
 </div></section>
 
 <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ①</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin marketplace add revfactory/harness</pre></div>

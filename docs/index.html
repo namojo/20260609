@@ -612,11 +612,12 @@
       <p class="lead muted">최초 1회만 설치하면 됩니다. 터미널이 처음이어도 괜찮습니다 — <a href="install/index.html" style="color:var(--primary-active)">설치가이드</a>가 명령마다 "이렇게 나오면 정상 / 이렇게 나오면 오류"를 함께 안내합니다.</p>
     </div>
     <div class="steps">
-      <div class="step reveal"><p class="n">STEP 1</p><h4>Git 설치</h4><pre>git --version</pre><p>실습 저장소와 플러그인을 받는 데 필요합니다. (Python은 6차시에서만)</p></div>
+      <div class="step reveal"><p class="n">STEP 1</p><h4>Git 설치</h4><pre>git --version</pre><p>실습 저장소와 플러그인을 받는 데 필요합니다.</p></div>
       <div class="step reveal"><p class="n">STEP 2</p><h4>Claude Code 설치</h4><pre>irm https://claude.ai/install.ps1 | iex</pre><p>설치 후 터미널을 새로 엽니다.</p></div>
       <div class="step reveal"><p class="n">STEP 3</p><h4>Harness · Skills 플러그인</h4><pre>/plugin marketplace add revfactory/harness
 /plugin install harness@harness-marketplace</pre><p>Anthropic Skills도 함께 설치합니다.</p></div>
-      <div class="step reveal"><p class="n">STEP 4</p><h4>에이전트 팀 켜기</h4><pre>setx CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS 1</pre><p>하네스의 필수 조건입니다. (Codex는 선택)</p></div>
+      <div class="step reveal"><p class="n">STEP 4</p><h4>에이전트 팀 켜기</h4><pre>setx CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS 1</pre><p>하네스의 필수 조건입니다.</p></div>
+      <div class="step reveal"><p class="n">STEP 5</p><h4>Python · MCP 서버 <span style="font-weight:400">(6차시 전까지)</span></h4><pre>python -m pip install --user -r requirements.txt</pre><p>6차시 실습이 Python 위에서 돕니다. 당일에 설치하려다 막히는 일이 가장 많으니 <b>미리</b> 해두세요. (Codex는 선택)</p></div>
     </div>
     <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
       <a class="btn btn-primary" href="install/index.html">설치가이드 열기 →</a>

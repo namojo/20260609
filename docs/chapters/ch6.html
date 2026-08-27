@@ -167,7 +167,19 @@ OEE는 가동률 × 성능 × 품질이야. 계산 과정도 보여줘.</pre></d
 
 <h3 id="4-2-설치">4-2. 플러그인으로 설치하기</h3>
 
-<p>Claude Code 입력창에서 두 줄이면 됩니다. <strong>3차시까지 해 온 플러그인 설치와 같은 방식</strong>입니다 — 설치 범위는 여기서도 <strong>User</strong> 를 고릅니다.</p>
+<p>Claude Code 입력창에서 두 줄이면 됩니다. <strong>설치가이드에서 해 본 플러그인 설치와 같은 방식</strong>입니다.</p>
+
+<section class="callout callout-stop"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body">
+<p><strong>설치 범위(scope)를 묻는 화면이 또 나옵니다 — 이번에도 <span style="white-space:nowrap">User</span> 입니다.</strong> 과정 통틀어 세 번째이자 마지막입니다.</p>
+<div class="table-wrap"><table>
+<thead><tr><th style="width:130px">선택지</th><th>뜻</th><th>이 과정에서</th></tr></thead>
+<tbody>
+<tr><td><strong>User scope</strong><br><span class="muted">사용자 범위</span></td><td>내 계정의 <strong>모든 폴더</strong>에서 쓸 수 있게 설치</td><td><strong>✅ 이것을 선택</strong></td></tr>
+<tr><td>Project scope<br><span class="muted">프로젝트 범위</span></td><td>이 폴더에서만. 설정이 폴더에 기록돼 팀원과 공유됨</td><td>❌ 다른 폴더로 옮기면 안 됩니다</td></tr>
+<tr><td>Local scope<br><span class="muted">로컬 범위</span></td><td>이 폴더에서만, 나만</td><td>❌ 같은 이유로 부적합</td></tr>
+</tbody></table></div>
+<p><strong>지금까지 범위를 물은 세 곳</strong> — ① Harness·Skills 플러그인(설치가이드 3-8절) ② MCP 서버 <code>--scope user</code>(설치가이드 3-5절) ③ 지금 이 법령 플러그인. <strong>전부 User</strong> 입니다. 이유는 하나 — 이 과정은 <strong>폴더를 계속 옮겨 다니기 때문</strong>입니다.</p>
+</div></section>
 
 <div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기 ①</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>/plugin marketplace add chrisryugj/korean-law-mcp</pre></div>
 
@@ -175,7 +187,7 @@ OEE는 가동률 × 성능 × 품질이야. 계산 과정도 보여줘.</pre></d
 
 <section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 설치 중 <strong>법제처 API 키를 입력하라는 프롬프트</strong>가 뜹니다. 4-1에서 복사한 값을 붙여넣으면 민감정보로 안전하게 저장됩니다. 설치 후 <code>Run /reload-plugins to activate.</code> 가 나오면 그 명령을 한 번 실행하세요.</p></div></section>
 
-<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>설치가 막히면</strong> 이 실습은 <strong>건너뛰어도 됩니다.</strong> 4-4절의 관찰 포인트만 읽어도 이 차시의 핵심은 전달됩니다. 사내망에서 <code>github.com</code> 이 막히면 마켓플레이스 추가가 실패합니다.</p></div></section>
+<section class="callout callout-warn"><span class="callout-icon" aria-hidden="true">⚠️</span><div class="callout-body"><p><strong>인증키 발급이 늦어지면</strong> 4-3·4-4절을 <strong>읽고 넘어가도 됩니다.</strong> 관찰 포인트만 이해하면 이 차시의 핵심은 전달됩니다. 나중에 키를 받고 나서 돌아와 해보세요.</p></div></section>
 
 <h3 id="4-3-사용">4-3. 같은 질문을 다시 — 이번엔 원문으로</h3>
 
@@ -296,7 +308,7 @@ def compute_oee(line: str, date: str) -> dict:
 <tbody>
 <tr><td><code>/mcp</code> 에 안 보임</td><td>재시작 안 함 또는 local 스코프</td><td><code>/exit</code> 후 재실행. 그래도 없으면 <code>--scope user</code> 로 재등록</td></tr>
 <tr><td><code>No module named 'mcp.server.fastmcp'</code></td><td>MCP 패키지 2.x 설치됨</td><td><a href="../install/mcp-server.html#문제-1">설치가이드 문제 해결 ①</a></td></tr>
-<tr><td>법령 플러그인 설치 실패</td><td>사내망이 github.com 차단</td><td>건너뛰어도 됩니다. 4-4절 관찰 포인트만 읽으세요</td></tr>
+<tr><td>법령 조회가 인증 오류</td><td>인증키(OC)가 잘못 입력됨</td><td>법제처 → API인증키관리에서 키를 다시 확인하고 플러그인을 재설치</td></tr>
 <tr><td>인증키 입력 프롬프트가 안 뜸</td><td>플러그인 버전 차이</td><td><a href="https://namojo.github.io/law-edu/install/korean-law-mcp.html" target="_blank" rel="noopener">law-edu 설치가이드</a>의 다른 연결 방법 참고</td></tr>
 <tr><td>새로 만든 도구가 안 보임</td><td>Claude Code 재시작 안 함</td><td>5-3절대로 <code>/exit</code> 후 다시 실행</td></tr>
 <tr><td>&quot;개발자가 없는데요&quot;</td><td>직접 만들어야 한다고 생각</td><td>코드는 AI가 씁니다. 정의(입력·출력·규칙)만 정하면 됩니다</td></tr>
