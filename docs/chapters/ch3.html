@@ -45,7 +45,7 @@
 
 <div class="prep">
   <div class="prep-item"><b>선행</b><span><a href="ch2.html">2차시 · 지식을 파일로</a> 완료</span></div>
-  <div class="prep-item"><b>실습 파일</b><span>실습 폴더의 <code>codex/</code></span></div>
+  <div class="prep-item"><b>실습 파일</b><span>실습 폴더의 <code>codex/</code> · <code>ad/</code></span></div>
   <div class="prep-item"><b>선택</b><span><a href="../install/codex.html">Codex CLI</a> — 없으면 Claude Code로 진행</span></div>
   <div class="prep-item"><b>가져올 것</b><span>1차시에서 고른 <strong>내 업무 1개</strong></span></div>
 </div>
@@ -270,7 +270,30 @@
   <section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">📌</span><div class="callout-body"><p>③의 &quot;더 필요한 것&quot; 네 가지가 <strong>4~6차시에서 하나씩 만들어집니다.</strong> 4차시 팀 → 5차시 스펙 → 6차시 도구 순서입니다.</p></div></section>
 </div>
 
-<h3 id="6-1-내-업무에-대입">6-1. 내 업무에 대입해 보기</h3>
+<h3 id="6-1-경쟁사-리서치-해보기">6-1. 직접 해보기 — 정하늘 대리의 경쟁사 리서치</h3>
+
+<p>③의 &quot;Level 1으로 충분&quot;은 말로만 하는 판정이 아닙니다. 1차시 업무 지도의 <strong>5번 업무</strong>(신규 제안 시 경쟁 브랜드 캠페인 리서치)를 실제로 <code>ad/</code> 폴더에서 돌려 보고, 그 판정이 맞는지 직접 확인합니다.</p>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>Windows · PowerShell</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd C:\harness-edu\ad; claude</pre></div></div></div>
+
+<div class="code-card is-term"><div class="terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>macOS · 터미널</span><button type="button" class="copy-btn" data-copy>복사</button></div><div class="terminal-body"><pre>cd ~/harness-edu/ad &amp;&amp; claude</pre></div></div></div>
+
+<div class="code-card is-prompt"><div class="code-bar"><span class="code-label">Claude Code 입력창에 붙여넣기</span><button type="button" class="copy-btn" data-copy>복사</button></div><pre>너는 한빛애드의 AE 정하늘 대리야.
+이 폴더의 경쟁사_리서치_브리핑.md 를 읽고, 거기 적힌 조사 범위대로
+웹에서 최신 사례를 찾아서 report/경쟁사-리서치.md 로 작성해줘.
+
+사례는 반드시 3건, 각각 출처와 날짜를 붙이고,
+마지막에 "우리 제안에 반영할 인사이트" 3가지로 마무리해줘.
+지어낸 사례는 절대 넣지 마.</pre></div>
+
+<section class="callout callout-expect"><span class="callout-icon" aria-hidden="true">👀</span><div class="callout-body"><p><strong>예상 결과</strong>: 웹 검색을 거쳐 <code>report/경쟁사-리서치.md</code> 에 사례 3건과 인사이트가 정리됩니다. 이번 실습은 <strong>정답 수치가 없습니다</strong> — 트렌드 리서치는 검색 시점마다 결과가 다르기 때문입니다. 대신 <code>ad/경쟁사_리서치_브리핑.md</code> 의 체크리스트로 품질을 점검하세요.</p></div></section>
+
+<section class="callout callout-tip"><span class="callout-icon" aria-hidden="true">🔎</span><div class="callout-body">
+<p><strong>&quot;왜 시스템화하지 않는가&quot;를 직접 느껴 보기</strong></p>
+<p><code>/clear</code> 후 조사 범위를 &quot;AI 개인화&quot; 대신 &quot;라이브커머스 결합 캠페인&quot;으로 바꿔 같은 프롬프트를 다시 넣어 보세요. <strong>매번 조사 범위 자체가 달라진다는 것</strong>이 보일 겁니다. 2차시의 매체 용어집처럼 &quot;한 번 만들면 계속 쓰는 규칙&quot;이 이 업무에는 거의 없습니다 — 표준화할 대상이 애초에 없는 것입니다. 이것이 정하늘 대리가 이 업무를 <strong>Level 1에 남겨 두기로 결정</strong>한 이유입니다.</p>
+</div></section>
+
+<h3 id="6-2-내-업무에-대입">6-2. 내 업무에 대입해 보기</h3>
 
 <p>세 축으로 점수만 매겨 보세요.</p>
 
@@ -313,7 +336,7 @@
 <ul>
 <li><strong>템플릿 교체 실험</strong> — 스킬의 템플릿을 &quot;임원용 1쪽 요약&quot; 으로 바꾸고 재실행하세요. <strong>담당자 정의는 그대로인데 산출물 형식만</strong> 바뀝니다 — 누가(Agent)와 어떻게(Skill)의 분리가 눈에 보입니다.</li>
 <li><strong>전문가 증원</strong> — 정책 담당을 하나 추가하고 보고서에 4번째 섹션이 생기는지 확인해 보세요.</li>
-<li><strong>원본 교안</strong> — <a href="https://github.com/namojo/harness-edu/blob/main/codex/README.md" target="_blank" rel="noopener">codex/README.md</a></li>
+<li><strong>원본 교안</strong> — <a href="https://github.com/namojo/harness-edu/blob/main/codex/README.md" target="_blank" rel="noopener">codex/README.md</a> · <a href="https://github.com/namojo/harness-edu/blob/main/ad/%EA%B2%BD%EC%9F%81%EC%82%AC_%EB%A6%AC%EC%84%9C%EC%B9%98_%EB%B8%8C%EB%A6%AC%ED%95%91.md" target="_blank" rel="noopener">ad/경쟁사_리서치_브리핑.md</a></li>
 </ul>
 
 <hr>
@@ -369,6 +392,7 @@
         <li><a href="#level-3">4. Level 3 · 시스템</a></li>
         <li><a href="#codex-비교">5. (선택) 도구 비교</a></li>
         <li><a href="#실습지">6. 사례 · 단계 판정</a></li>
+        <li><a href="#6-1-경쟁사-리서치-해보기">6-1. 직접 해보기</a></li>
         <li><a href="#스스로-점검">7. 스스로 점검</a></li>
         <li><a href="#더-해보기">8. 더 해보기</a></li>
         <li><a href="#다음-차시">9. 다음 차시</a></li>
